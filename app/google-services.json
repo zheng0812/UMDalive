@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "652848683312",
-    "project_id": "umdalive-376d1"
+    "project_number": "58270375330",
+    "project_id": "umdalive-7a389"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:652848683312:android:733ae0a9e0a0fbfe",
+        "mobilesdk_app_id": "1:58270375330:android:c92a657c2f72a815",
         "android_client_info": {
-          "package_name": "com.example.kevin.drawerexample"
+          "package_name": "com.example.cs4531.umdalive"
         }
       },
       "oauth_client": [
         {
-          "client_id": "652848683312-p8eb0orn5s2eter5cb2s06r9epe70jns.apps.googleusercontent.com",
+          "client_id": "58270375330-8r6jqdkbb4raqvoenoq2d5b8ri7bt839.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kevin.drawerexample",
-            "certificate_hash": "03dde80468c65533ea6e6207a09efa74dd4e4db5"
+            "package_name": "com.example.cs4531.umdalive",
+            "certificate_hash": "985065afd5b4bc31ae081a6795c5046993f4d8ad"
           }
         },
         {
-          "client_id": "652848683312-9rb6tiida564bkh59t9gjug4ai3bjfp2.apps.googleusercontent.com",
+          "client_id": "58270375330-1e6svc67dkk2jloi3fi6dt5hopak9mdq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUwjDEDhSko_zuoyUWYm4jqAYbJHO5LT0"
+          "current_key": "AIzaSyCCL_VUkm_-RqR-9tFigunts5CwNSCyaVw"
         }
       ],
       "services": {

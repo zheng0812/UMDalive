@@ -84,3 +84,8 @@ Andy Miller: Presenter; Created a thorough unit test for all functionality.
 License
 -------
 GNU General Public License v3.0
+
+**Google Auth** 
+https://developers.google.com/android/guides/client-auth
+
+setup of auth, followed stackoverflow here: https://stackoverflow.com/questions/34367870/where-do-i-get-a-google-services-json
