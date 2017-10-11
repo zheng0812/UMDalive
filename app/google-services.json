@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "58270375330",
+    "project_id": "umdalive-7a389"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58270375330:android:c92a657c2f72a815",
+        "android_client_info": {
+          "package_name": "com.example.cs4531.umdalive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58270375330-8r6jqdkbb4raqvoenoq2d5b8ri7bt839.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cs4531.umdalive",
+            "certificate_hash": "985065afd5b4bc31ae081a6795c5046993f4d8ad"
+          }
+        },
+        {
+          "client_id": "58270375330-1e6svc67dkk2jloi3fi6dt5hopak9mdq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCL_VUkm_-RqR-9tFigunts5CwNSCyaVw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

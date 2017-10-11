@@ -41,8 +41,6 @@ app.put('/clubs', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
     if (!req.body)
         return res.sendStatus(400);
-
-    //console.log(req.body);
     // Takes data from request and makes a new object
     var clubData = {
         clubName: req.body.clubName,
@@ -50,8 +48,6 @@ app.put('/clubs', function (req, res) {
         keywords: req.body.keywords,
         description: req.body.description,
     };
-
-	//console.log(clubData);
 
     mongodb.insertClub(clubData);
 
@@ -223,3 +219,5 @@ app.listen(app.get("port"), function () {
     console.log('CS4531 UMDAlive app listening on port: ', app.get("port"));
 
 });
+
+

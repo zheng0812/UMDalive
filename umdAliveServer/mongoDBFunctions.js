@@ -19,10 +19,7 @@ console.log("MongoDB is active.")
 * @param clubData - JSON data of the club
 */
 module.exports.insertClub = function(clubData) {
-
-    //console.log(clubData);
-	
-	var temp = clubData.clubName;
+    var temp = clubData.clubName;
 
     var title = temp.split('/').join('_');
 

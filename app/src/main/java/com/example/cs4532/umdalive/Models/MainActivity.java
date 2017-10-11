@@ -39,7 +39,7 @@ public class MainActivity {
             Log.d("userData", userData);
             //will obtain json string from textView and take value out from string
             return new UserInformationModel(user.getString("name"), user.getString("major"),
-                    user.getString("email"), user.getString("graduationDate"), user.getString("userType"), list);
+                    user.getString("email"), user.getString("graduationDate"), list);
         } catch (JSONException e1) {
             e1.printStackTrace();
             return null;
