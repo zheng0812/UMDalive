@@ -20,7 +20,7 @@ console.log("MongoDB is active.")
 */
 module.exports.insertClub = function(clubData) {
 
-    console.log(clubData.clubName);
+    //console.log(clubData);
 	
 	var temp = clubData.clubName;
 
