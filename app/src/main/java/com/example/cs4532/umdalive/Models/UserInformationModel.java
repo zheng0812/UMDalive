@@ -23,31 +23,35 @@ public class UserInformationModel extends AppCompatActivity {
     static private String email;
     static private String major;
     static private String gradDate;
+    static private String userType;
     private ArrayList<String> localClubNames;
     private ArrayList<ClubInformationModel> localClubsSubscribed;
     private ArrayList<String> localPostsSubscribed;
 
     public UserInformationModel() {
         name = "";
+        //userType is set to guest type
         localClubsSubscribed = new ArrayList<ClubInformationModel>();
         localClubNames = new ArrayList<String>();
         localPostsSubscribed = new ArrayList<String>();
     }
 
-    public UserInformationModel(String name, String major, String email, String gradDate, ArrayList<ClubInformationModel> tempClubsSubscribed) {
+    public UserInformationModel(String name, String major, String email, String gradDate, String userType, ArrayList<ClubInformationModel> tempClubsSubscribed) {
         this.name = name;
         this.email = email;
         this.major = major;
         this.gradDate = gradDate;
+        this.userType = userType;
         localPostsSubscribed = new ArrayList<String>();
         localClubsSubscribed = tempClubsSubscribed;
     }
 
-    public UserInformationModel(String name, String major, String email, String gradDate) {
+    public UserInformationModel(String name, String major, String email, String gradDate,String userType) {
         this.name = name;
         this.email = email;
         this.major = major;
         this.gradDate = gradDate;
+        this.userType = userType;
     }
 
     /*
@@ -143,6 +147,19 @@ public class UserInformationModel extends AppCompatActivity {
     public void setGradDate(String gradDate) {
         this.gradDate = gradDate;
     }
+
+    /**
+     *
+     * getter for userType
+     * @return userType
+     */
+    public String getUserType(){return userType;}
+
+    /**
+     * setter for userType
+     * @param userType to be set
+     */
+    public void setUserType(String userType){this.userType = userType;}
 
     /**
      * Function to create a JSON object of a UserInformation
