@@ -19,6 +19,7 @@ public class ClubInformationModel {
     private String userName;
     private String keyWords;
     private String description;
+    private String clubOwner;
 
     /**
      * constructor
@@ -32,6 +33,8 @@ public class ClubInformationModel {
     public ClubInformationModel(String clubName, String userName, String keyWords, String description) {
         this.clubName = clubName;
         this.userName = userName;
+        this.clubOwner = userName; //when a club is created, the clubOwner is automatically set
+        //as the user creating the club
         this.keyWords = keyWords;
         this.description = description;
     }
@@ -72,6 +75,23 @@ public class ClubInformationModel {
      */
     public String getUserName() {
         return userName;
+    }
+
+    /**
+     * setter for clubOwner
+     * <p>
+     *
+     * @param clubOwner String of userName
+     */
+    public void setClubOwner(String clubOwner){this.clubOwner = clubOwner;}
+
+    /**
+     * getter for clubNOwner
+     *
+     * @return clubOwner
+     */
+    public String getClubOwner() {
+        return clubOwner;
     }
 
     /**
@@ -122,6 +142,7 @@ public class ClubInformationModel {
             jsonString = new JSONObject();
             jsonString.put("clubName", clubName);
             jsonString.put("username", userName);
+            jsonString.put("clubOwner", clubOwner);
             jsonString.put("keywords", keyWords);
             jsonString.put("description", description);
             //jsonString.put("post", post);
