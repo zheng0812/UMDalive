@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "891021748257",
-    "project_id": "umdalive-db531"
+    "project_number": "583303716846",
+    "project_id": "umdalive-df82c"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:891021748257:android:3bd027dc9df26940",
+        "mobilesdk_app_id": "1:583303716846:android:3bd027dc9df26940",
         "android_client_info": {
           "package_name": "com.example.cs4532.umdalive"
         }
       },
       "oauth_client": [
         {
-          "client_id": "891021748257-clrdr2r9t22vgd6na1ddmg7s7rajj6ve.apps.googleusercontent.com",
+          "client_id": "583303716846-2l6kmjhechcjg8ivnarb462f9onhbod8.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "891021748257-fo8mnjlp1a035g3b06gmt43p0aroo0da.apps.googleusercontent.com",
+          "client_id": "583303716846-pfiamr25i6bdltm659f4jmdccjlda9lp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cs4532.umdalive",
-            "certificate_hash": "3bfb470cef4392253bf2055efa09ba1be7e60c9d"
+            "certificate_hash": "f2bb1ff2051fbb50087f06403139fbc8f4b4ad6e"
           }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCJbTdGKl-REBhjaaFWYr5GpMDDD2PvJrQ"
+          "current_key": "AIzaSyDHy0pFgsWJniGOZ4zuOEQXsv-eBP7vlA8"
         }
       ],
       "services": {
@@ -45,28 +45,28 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:891021748257:android:c92a657c2f72a815",
+        "mobilesdk_app_id": "1:583303716846:android:c92a657c2f72a815",
         "android_client_info": {
           "package_name": "com.example.cs4531.umdalive"
         }
       },
       "oauth_client": [
         {
-          "client_id": "891021748257-tm12g1oobb3g2iqqh3id9fjmgdjn2tmf.apps.googleusercontent.com",
+          "client_id": "583303716846-hholkeg4fjjstvaf1c882b1ahs1lcj8d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cs4531.umdalive",
-            "certificate_hash": "3bfb470cef4392253bf2055efa09ba1be7e60c9d"
+            "certificate_hash": "f2bb1ff2051fbb50087f06403139fbc8f4b4ad6e"
           }
         },
         {
-          "client_id": "891021748257-clrdr2r9t22vgd6na1ddmg7s7rajj6ve.apps.googleusercontent.com",
+          "client_id": "583303716846-2l6kmjhechcjg8ivnarb462f9onhbod8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCJbTdGKl-REBhjaaFWYr5GpMDDD2PvJrQ"
+          "current_key": "AIzaSyDHy0pFgsWJniGOZ4zuOEQXsv-eBP7vlA8"
         }
       ],
       "services": {
