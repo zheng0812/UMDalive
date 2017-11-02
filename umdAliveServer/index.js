@@ -23,6 +23,7 @@ var dummyUser1 = {
     email: "umdAlive1@gmail.com",
     graduationDate: "2018",
     major: "computer science",
+    userType: "club member",
     clubs: []
 
 };
@@ -96,6 +97,7 @@ app.put('/userData', function (req, res) {
         email: req.query.emailAddress,
         graduation_date: req.query.graduationDate,
         major: req.query.major,
+        userType: req.query.userType,
         users_clubs: [],
     };
 
