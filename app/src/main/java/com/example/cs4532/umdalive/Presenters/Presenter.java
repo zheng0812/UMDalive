@@ -136,8 +136,8 @@ public class Presenter {
         return MainActivity.refreshPosts(jsonString);
     }
 
-    public void putPost(String club, String title, String time, String date, String location, String addInfo, String image) {
-        restPut("putNewPost", PostInformationModel.jsonStringify(club, title, time, date, location, addInfo, image));
+    public void putPost(String club, String title, String time, String date, String location, String addInfo, String image, String clubOwner) {
+        restPut("putNewPost", PostInformationModel.jsonStringify(club, title, time, date, location, addInfo, image, clubOwner));
     }
 
     public void putUser(String major, String gradDate, String Name, String email) {

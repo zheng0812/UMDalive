@@ -30,6 +30,7 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
     private EditText addInfo;
     private TextView inputError;
     private String clubName;
+    private String clubOwner;
     private ImageView displayImage;
     private String errorMessage;
     private String imageString;
@@ -59,8 +60,9 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
         //;
         Log.d("Club posting: " + clubName, "New post: " + title.getText().toString());
         if (!isError) {
+            //not sure what's happening with clubOwner here
             presenter.putPost(clubName, title.getText().toString(), time.getText().toString(), date.getText().toString()
-                    , location.getText().toString(), addInfo.getText().toString(), imageString);
+                    , location.getText().toString(), addInfo.getText().toString(), imageString, clubOwner);
             Intent intent = new Intent(this, MainView.class);
             startActivity(intent);
         } else inputError.setText(errorMessage);
@@ -76,6 +78,11 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
         errorMessage = "";
         if (title.getText().toString().matches("") || presenter.isPostInfoValid(title.getText().toString())) {
             errorMessage = "You must enter a valid title.";
+            isError = true;
+        }
+        //not sure what's happening with clubOwner here
+        if (clubOwner.matches("") || presenter.isPostInfoValid(clubOwner)) {
+            errorMessage = "You must enter a valid user name.";
             isError = true;
         }
         if (time.getText().toString().matches("") || presenter.isPostInfoValid(time.getText().toString())) {
