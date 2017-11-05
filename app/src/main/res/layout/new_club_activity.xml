@@ -42,7 +42,7 @@
         android:inputType="text"
         android:ems="10"
         android:id="@+id/admin_email"
-        android:hint="ex: doe453@d.umn.edu;"
+        android:hint="ex: doe453@d.umn.edu"
         android:layout_below="@+id/admin_of_club"
         android:layout_alignLeft="@+id/admin_of_club"
         android:layout_alignStart="@+id/admin_of_club"
