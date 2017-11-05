@@ -46,7 +46,7 @@ public class CreateClubView extends AppCompatActivity {
     }
 
     /**
-     * o
+     *
      *
      * @param view passing view
      */
@@ -55,6 +55,7 @@ public class CreateClubView extends AppCompatActivity {
         invalidInput = (TextView) findViewById(R.id.invalid_input);
         newName = (EditText) findViewById(R.id.name_title_enter);
         admin = (EditText) findViewById(R.id.admin_of_club);
+        //admin email?
         description = (EditText) findViewById(R.id.description_of_club);
 
         if (!checkStrings()) {
