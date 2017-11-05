@@ -16,7 +16,7 @@ import org.json.JSONObject;
 @SuppressWarnings("unused")
 public class ClubInformationModel {
     private String clubName;
-    private String userName;
+    private String userName; //***
     private String keyWords;
     private String description;
     private String clubOwner;
@@ -32,7 +32,7 @@ public class ClubInformationModel {
 
     public ClubInformationModel(String clubName, String userName, String keyWords, String description) {
         this.clubName = clubName;
-        this.userName = userName;
+        this.userName = userName; //***
         this.clubOwner = userName; //when a club is created, the clubOwner is automatically set
         //as the user creating the club
         this.keyWords = keyWords;
@@ -141,7 +141,7 @@ public class ClubInformationModel {
         try {
             jsonString = new JSONObject();
             jsonString.put("clubName", clubName);
-            jsonString.put("username", userName);
+            jsonString.put("username", userName); //****
             jsonString.put("clubOwner", clubOwner);
             jsonString.put("keywords", keyWords);
             jsonString.put("description", description);

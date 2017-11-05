@@ -57,6 +57,7 @@ public class AllClubsView extends Activity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 Toast.makeText(getApplicationContext(), "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+                //add something here so that if the user is a clubOwner, the view will be clubOwnerView
                 intent.putExtra(CLUB_NAME, itemValue);
                 startActivity(intent);
             }
