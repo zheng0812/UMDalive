@@ -1,5 +1,6 @@
 package com.example.cs4532.umdalive.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -67,5 +68,10 @@ public class EditableView extends AppCompatActivity{
             ownerEmailSetText.setText(ownerEmail);
             administratorSetText.setText(administrator);
 
+        }
+
+        private void clickToSave(){
+            Intent intent = new Intent (this, DisplayClubOwnerView.class); //goes to owner view, only owner should be editing
+            //update all the information and send to the display_club_owner_view layout?
         }
 }
