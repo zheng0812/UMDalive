@@ -28,7 +28,7 @@ public class MainActivity {
                     JSONObject clubObject = jArray.getJSONObject(i);
                     //create new club object from server data
                     ClubInformationModel tempClub = new ClubInformationModel(clubObject.get("clubName").toString(),
-                            clubObject.get("username").toString(), clubObject.get("keywords").toString(),
+                            clubObject.get("username").toString(), clubObject.get("keywords").toString(), clubObject.get("ownerEmail").toString(),
                             clubObject.get("description").toString());
 
                     Log.d("club name: ", clubObject.get("clubName").toString());
