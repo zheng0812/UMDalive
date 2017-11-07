@@ -22,10 +22,12 @@ public class EditableView extends AppCompatActivity{
         private String clubName;
         private String description;
         private String keywords;
+        private String ownerEmail;
         private String administrator;
         private EditText clubNameSetText;
         private EditText descriptionSetText;
         private EditText keywordSetText;
+        private EditText ownerEmailSetText;
         private EditText administratorSetText;
 
         protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class EditableView extends AppCompatActivity{
                 description = clubObject.get("description").toString();
                 keywords = clubObject.get("keywords").toString();
                 administrator = clubObject.get("username").toString();
+                ownerEmail = clubObject.get("ownerEmail").toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -54,12 +57,15 @@ public class EditableView extends AppCompatActivity{
             //clubNameSetText = (TextView) findViewById(R.id.display_club_name);
             //descriptionSetText = (TextView) findViewById(R.id.display_club_description);
             //keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
+            //ownerEmailSetText?
             //administratorSetText = (TextView) findViewById(R.id.display_clubs_administrator);
 
             clubNameSetText.setText(clubName);
             clubNameSetText.setTextSize(45);
             descriptionSetText.setText(description);
             keywordSetText.setText(keywords);
+            ownerEmailSetText.setText(ownerEmail);
             administratorSetText.setText(administrator);
+
         }
 }
