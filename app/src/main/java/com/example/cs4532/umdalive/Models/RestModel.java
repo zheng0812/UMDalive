@@ -282,6 +282,7 @@ public class RestModel {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("An IOException was caught");
             } finally {
                 assert serverConnection != null;
                 serverConnection.disconnect();
