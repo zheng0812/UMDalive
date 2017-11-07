@@ -261,7 +261,7 @@ public class RestModel {
                     }
                 }
 
-                int responseCode = serverConnection.getResponseCode();
+                int responseCode = serverConnection.getResponseCode(); //the connection is failing here
                 Log.d("Debug:", "\nSending " + params[1] + " request to URL : " + params[0]);
                 Log.d("Debug: ", "Response Code : " + responseCode);
                 is = serverConnection.getInputStream();
