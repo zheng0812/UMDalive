@@ -54,11 +54,11 @@ public class EditableView extends AppCompatActivity{
                 e.printStackTrace();
             }
 
-            //clubNameSetText = (TextView) findViewById(R.id.display_club_name);
-            //descriptionSetText = (TextView) findViewById(R.id.display_club_description);
-            //keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
-            //ownerEmailSetText?
-            //administratorSetText = (TextView) findViewById(R.id.display_clubs_administrator);
+            clubNameSetText = (EditText) findViewById(R.id.edit_title);
+            descriptionSetText = (EditText) findViewById(R.id.edit_description);
+            //keywordSetText = (EditText) findViewById(R.id.display_clubs_keyword);
+            ownerEmailSetText = (EditText) findViewById(R.id.edit_email);
+            administratorSetText = (EditText) findViewById(R.id.edit_owner);
 
             clubNameSetText.setText(clubName);
             clubNameSetText.setTextSize(45);
