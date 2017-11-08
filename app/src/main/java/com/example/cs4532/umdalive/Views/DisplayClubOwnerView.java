@@ -66,5 +66,10 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
         {
             //we need to change the intent to the editable view
         }
+
+        private void clickGoHome()
+        {
+            //changes layout to go back to the main screen
+        }
     }
 

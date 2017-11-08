@@ -133,12 +133,31 @@
           android:background="@android:color/transparent"/>-->
 
     <Button
+        android:text="Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:id="@+id/edit_button"
         android:onClick="clickToEdit"
+        android:background="@color/bearGrey"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp" />
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="18dp"/>
+
+    <Button
+        android:text="Home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_button"
+        android:onClick="clickGoHome"
+        android:background="@color/bearGrey"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="18dp"/>
 
 </RelativeLayout>
