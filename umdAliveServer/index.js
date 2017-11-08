@@ -46,10 +46,10 @@ app.put('/clubs', function (req, res) {
     //console.log(req.query);	
     // Takes data from request and makes a new object
     var clubData = {
-        clubName: req.query.clubName,
-        username: req.query.username,
-        keywords: req.query.keywords,
-        description: req.query.description,
+        clubName: req.body.clubName,
+        username: req.body.username,
+        keywords: req.body.keywords,
+        description: req.body.description,
     };
 
 	//console.log(clubData);
@@ -69,13 +69,13 @@ app.put('/posts', function (req, res) {
     if (!req.query) return res.sendStatus(400);
 
     var postData = {
-        clubName: req.query.clubName,
-        title: req.query.title,
-        time: req.query.time,
-        date: req.query.date,
-        location: req.query.location,
-        description: req.query.description,
-        image: req.query.image
+        clubName: req.body.clubName,
+        title: req.body.title,
+        time: req.body.time,
+        date: req.body.date,
+        location: req.body.location,
+        description: req.body.description,
+        image: req.body.image
     };
 
     mongodb.insertPost(postData);
@@ -90,14 +90,14 @@ app.put('/posts', function (req, res) {
 
 app.put('/userData', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.query) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
 
     var userData = {
-        name: req.query.name,
-        email: req.query.emailAddress,
-        graduation_date: req.query.graduationDate,
-        major: req.query.major,
-        userType: req.query.userType,
+        name: req.body.name,
+        email: req.body.emailAddress,
+        graduation_date: req.body.graduationDate,
+        major: req.body.major,
+        userType: req.body.userType,
         users_clubs: [],
     };
 
