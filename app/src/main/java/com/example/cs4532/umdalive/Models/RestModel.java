@@ -185,6 +185,7 @@ public class RestModel {
             mostRecentPosts = new HTTPAsyncTask().execute(serverAddress + "/posts", "GET").get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            System.out.println("Caught in getRecentPosts");
         }
         return mostRecentPosts;
     }
@@ -278,6 +279,8 @@ public class RestModel {
                         return jsonData.toString();
                     } catch (JSONException e) {
                         e.printStackTrace();
+
+
                     }
                 }
             } catch (IOException e) {

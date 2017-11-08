@@ -167,7 +167,7 @@ public class UserInformationModel extends AppCompatActivity {
      *
      * @return jsonString string form of JSON object UserInformation
      */
-    public static String jsonStringify(String name, String email, String major, String gradDate, ArrayList<String> interests) {
+    public static String jsonStringify(String name, String email, String major, String gradDate,String userType, ArrayList<String> interests) {
         JSONObject jsonString = null;
         try {
             //Create JSONObject here
@@ -176,6 +176,7 @@ public class UserInformationModel extends AppCompatActivity {
             jsonString.put("email", email);
             jsonString.put("major", major);
             jsonString.put("gradDate", gradDate);
+            jsonString.put("userType", userType);
             jsonString.put("Interests", interests);
         } catch (JSONException e) {
             e.printStackTrace();

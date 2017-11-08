@@ -141,10 +141,10 @@ public class Presenter {
         restPut("putNewPost", PostInformationModel.jsonStringify(club, title, time, date, location, addInfo, image, clubOwner));
     }
 
-    public void putUser(String major, String gradDate, String Name, String email) {
+    public void putUser(String name, String major, String email, String gradDate) {
         UserDataView user = new UserDataView();
 
-        restPut("putNewUser", UserInformationModel.jsonStringify(Name, email, major, gradDate, user.getmSelectedItems()));
+        restPut("putNewUser", UserInformationModel.jsonStringify(name, major, email, gradDate, "club member", user.getmSelectedItems()));
     }
 
 
