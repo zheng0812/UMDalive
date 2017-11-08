@@ -134,7 +134,7 @@ public class Presenter {
      * @return list of post objects
      */
     public ArrayList<PostInformationModel> refreshPosts(String jsonString) {
-        return MainActivity.refreshPosts(jsonString);
+        return MainActivity.hehPosts(jsonString);
     }
 
     public void putPost(String club, String title, String time, String date, String location, String addInfo, String image, String clubOwner) {
