@@ -53,7 +53,7 @@ public class DisplayClubView extends AppCompatActivity {
         clubNameSetText = (TextView) findViewById(R.id.display_club_name);
         descriptionSetText = (TextView) findViewById(R.id.display_club_description);
         keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
-        administratorSetText = (TextView) findViewById(R.id.display_clubs_administrator);
+        administratorSetText = (TextView) findViewById(R.id.display_club_administrator);
 
         clubNameSetText.setText(clubName);
         clubNameSetText.setTextSize(45);

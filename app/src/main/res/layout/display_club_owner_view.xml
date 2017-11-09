@@ -6,7 +6,7 @@
     android:background="@color/colorAccent">
 
     <TextView
-        android:id="@+id/display_club_name"
+        android:id="@+id/display_club_owner_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,12 +23,12 @@
         android:textColor="@color/machinery" />
 
     <TextView
-        android:id="@+id/display_club_administrator_title"
+        android:id="@+id/display_club_administrator_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_name"
+        android:layout_below="@+id/display_club_owner_name"
         android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
         android:clickable="false"
@@ -40,12 +40,12 @@
         tools:inputType="none" />
 
     <TextView
-        android:id="@+id/display_clubs_administrator"
+        android:id="@+id/display_club_owner_administrator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_administrator_title"
+        android:layout_below="@+id/display_club_administrator_owner_title"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -56,12 +56,44 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:id="@+id/display_club_description_title"
+        android:id="@+id/display_club_email_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_clubs_administrator"
+        android:layout_below="@+id/display_club_owner_administrator"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:text="Contact Email:"
+        android:textColor="@color/machinery"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/display_club_email_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/display_club_email_owner_title"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:textColor="@color/machinery"
+        />
+
+    <TextView
+        android:id="@+id/display_club_description_owner_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/display_club_email_owner"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -70,14 +102,14 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/display_club_description"
+        android:id="@+id/display_club_owner_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_description_title"
+        android:layout_below="@+id/display_club_description_owner_title"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -86,23 +118,23 @@
         android:textColor="@color/machinery" />
 
     <TextView
-        android:id="@+id/display_club_keywords_title"
+        android:id="@+id/display_club_keywords_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_description"
+        android:layout_below="@+id/display_club_owner_description"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:text="Keywords"
         android:textColor="@color/machinery"
         android:textSize="18sp"
-        android:layout_alignRight="@+id/display_club_description_title"
-        android:layout_alignEnd="@+id/display_club_description_title" />
+        android:layout_alignRight="@+id/display_club_description_owner_title"
+        android:layout_alignEnd="@+id/display_club_description_owner_title" />
 
     <TextView
-        android:id="@+id/display_clubs_keyword"
+        android:id="@+id/display_clubs_owner_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
@@ -111,7 +143,7 @@
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:textColor="@color/machinery"
-        android:layout_below="@+id/display_club_keywords_title"
+        android:layout_below="@+id/display_club_keywords_owner_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
