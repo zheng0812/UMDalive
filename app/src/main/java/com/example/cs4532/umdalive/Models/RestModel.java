@@ -271,6 +271,19 @@ public class RestModel {
                         out.close();
                     }
                 }
+                if (params[1].equals("DELETE")) {
+                    //Log.d("DEBUG PUT:", "In put: params[0]=" + params[0] + ", params[1]=" + params[1] + ", params[2]=" + params[2]);
+                    Log.d("DEBUG DELETE:", "In delete: params[0]=" + params[0] + ", params[1]=" + params[1] + ", params[2]=" + params[2]);
+
+                    serverConnection.setDoOutput(true);
+                    serverConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+                    serverConnection.setRequestProperty("Content-Length", "" +
+                            Integer.toString(params[2].getBytes().length));
+                    DataOutputStream out = new DataOutputStream(serverConnection.getOutputStream());
+                    out.writeBytes(params[2]);
+                    out.flush();
+                    out.close();
+                }
 
                 int responseCode = serverConnection.getResponseCode(); //the connection is failing here
                 Log.d("Debug:", "\nSending " + params[1] + " request to URL : " + params[0]);

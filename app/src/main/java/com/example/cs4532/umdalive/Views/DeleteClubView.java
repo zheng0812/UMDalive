@@ -42,7 +42,9 @@ public class DeleteClubView extends AppCompatActivity {
      */
     public void onClickDeleteClub(View view) {
         String clubName = ((EditText)findViewById(R.id.editText)).getText().toString();
+        //((EditText) findViewById(R.id.editText)).setText("Trying to delete: " + clubName);
         presenter.deleteClub(clubName);
+        //presenter.restDelete("clubName", clubName);
     }
 
     /**

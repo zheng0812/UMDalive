@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import com.example.cs4532.umdalive.Models.AllClubs;
 import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Models.CreateClub;
+import com.example.cs4532.umdalive.R;
+import com.example.cs4532.umdalive.Views.DeleteClubView;
 import com.example.cs4532.umdalive.Views.LoginView;
 import com.example.cs4532.umdalive.Models.MainActivity;
 import com.example.cs4532.umdalive.Models.PostAdapter;
@@ -124,7 +126,7 @@ public class Presenter {
      * Used to delete a club
      *
      * @param clubName    name of club
-     * @return the new list of club names?
+     *
      */
     public void deleteClub(String clubName)
     {
@@ -137,6 +139,8 @@ public class Presenter {
         }
 
         restModel.deleteRequest(json.toString());
+
+        //restModel.deleteRequest(clubName);
 
     }
 
