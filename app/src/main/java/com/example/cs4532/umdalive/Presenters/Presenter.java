@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.cs4532.umdalive.Models.AllClubs;
 import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Models.CreateClub;
+import com.example.cs4532.umdalive.Models.DeleteClub;
 import com.example.cs4532.umdalive.Views.LoginView;
 import com.example.cs4532.umdalive.Models.MainActivity;
 import com.example.cs4532.umdalive.Models.PostAdapter;
@@ -115,6 +116,17 @@ public class Presenter {
      */
     public String makeClub(String clubName, String userName, String keyWords, String ownerEmail, String description) {
         return CreateClub.makeClub(clubName, userName, keyWords, ownerEmail, description);//, initialPost);
+    }
+
+    /**
+     * Used to delete a club
+     *
+     * @param clubName    name of club
+     * @return the new list of club names?
+     */
+    public boolean deleteClub(String clubName)
+    {
+        return DeleteClub.deleteClub(clubName);
     }
 
     /**
