@@ -40,7 +40,7 @@ var dummyUser1 = {
 app.put('/clubs', function (req, res) {
 
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.query)
+    if (!req.body)
         return res.sendStatus(400);
 	
     //console.log(req.query);	
@@ -61,12 +61,12 @@ app.put('/clubs', function (req, res) {
     };
     res.json(jsonResponse);
 
-    console.log("New club has been created: " + req.query.clubName);
+    console.log("New club has been created: " + req.body.clubName);
 });
 
 app.put('/posts', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.query) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
 
     var postData = {
         clubName: req.body.clubName,
@@ -149,7 +149,7 @@ app.get('/clubs/:clubName', function (req,res) {
         var club = result[0];
         console.log("Found club.");
         res.query = JSON.stringify(club.clubData);
-        res.send(res.query);
+        res.send(res.body);
     });
 });
 
