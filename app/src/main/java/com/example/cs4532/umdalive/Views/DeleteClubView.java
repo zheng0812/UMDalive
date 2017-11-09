@@ -40,20 +40,9 @@ public class DeleteClubView extends AppCompatActivity {
      *
      * @param view passing view
      */
-    public void onClickMakeClub(View view) {
-        Intent intent = new Intent(this, MainView.class);
-        invalidInput = (TextView) findViewById(R.id.invalid_input);
-        newName = (EditText) findViewById(R.id.name_title_enter);
-        admin = (EditText) findViewById(R.id.admin_of_club);
-        ownerEmail = (EditText) findViewById(R.id.admin_email);
-        description = (EditText) findViewById(R.id.description_of_club);
-
-        if (!checkStrings()) {
-            String jsonString = presenter.makeClub(newName.getText().toString(),
-                    (String) keywordItem, ownerEmail.getText().toString(), description.getText().toString());
-            startActivity(intent);
-            presenter.restPut("putNewClub", jsonString);
-        } else invalidInput.setText(errorMessage);
+    public void onClickDeleteClub(View view) {
+        String clubName = ((EditText)findViewById(R.id.editText)).getText().toString();
+        presenter.deleteClub(clubName);
     }
 
     /**

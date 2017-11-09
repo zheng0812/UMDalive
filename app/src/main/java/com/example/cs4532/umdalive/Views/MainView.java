@@ -136,6 +136,14 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     /**
+     * starts DeleteClubView
+     */
+    public void deleteClub(){
+        Intent intent = new Intent (this, DeleteClubView.class);
+        startActivity(intent);
+    }
+
+    /**
      * Makes it so pressing back when drawer is open will take the user back to the main screen
      */
     @Override
@@ -218,6 +226,8 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             searchClub();
         } else if (id == R.id.new_club) {
             makeNewClub();
+        }else if (id == R.id.delete_club){
+            deleteClub();
         } else if (id == R.id.nav_club1) {
 
         } else if (id == R.id.nav_club2) {

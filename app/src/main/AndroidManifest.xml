@@ -31,6 +31,7 @@
         <activity android:name="com.example.cs4532.umdalive.Views.PostForClubActivityView" />
         <activity android:name="com.example.cs4532.umdalive.Views.PostingActivityView" />
         <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubView" />
+        <activity android:name="com.example.cs4532.umdalive.Views.DeleteClubView" />
 
         <meta-data
             android:name="com.google.android.gms.version"

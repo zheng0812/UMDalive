@@ -225,6 +225,16 @@ public class RestModel {
     }
 
     /**
+     * Taken from PostingActivity
+     * change this later to be private and modify up above
+     *
+     * @param data the delete to be made
+     */
+    public void deleteRequest(String data) {
+        new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", data);
+    }
+
+    /**
      * put a new user
      *
      * @param data user

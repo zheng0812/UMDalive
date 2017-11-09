@@ -40,6 +40,7 @@
         android:textColor="@color/darkMaroon"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:onClick="onClickDeleteClub"/>
 
 </RelativeLayout>

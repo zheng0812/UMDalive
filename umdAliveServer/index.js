@@ -32,6 +32,18 @@ var dummyUser1 = {
  *   End of dummy users/clubs
  *////////////////////////////
 
+app.delete("/delete", function(req, res){
+    if (!req.body)
+        return res.sendStatus(400);
+	
+    mongodb.delete(req.body.clubName);
+
+    res.sendStatus(200);
+
+    console.log("Club has been deleted: " + req.body.clubName);
+}
+);
+
 /*
  ************************
  * PUT ROUTE SECTION

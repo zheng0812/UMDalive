@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import com.example.cs4532.umdalive.Models.AllClubs;
 import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Models.CreateClub;
-import com.example.cs4532.umdalive.Models.DeleteClub;
 import com.example.cs4532.umdalive.Views.LoginView;
 import com.example.cs4532.umdalive.Models.MainActivity;
 import com.example.cs4532.umdalive.Models.PostAdapter;
@@ -14,6 +13,8 @@ import com.example.cs4532.umdalive.Models.PostInformationModel;
 import com.example.cs4532.umdalive.Models.RestModel;
 import com.example.cs4532.umdalive.Models.UserInformationModel;
 import com.example.cs4532.umdalive.Views.UserDataView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -125,9 +126,18 @@ public class Presenter {
      * @param clubName    name of club
      * @return the new list of club names?
      */
-    public boolean deleteClub(String clubName)
+    public void deleteClub(String clubName)
     {
-        return DeleteClub.deleteClub(clubName);
+        JSONObject json = new JSONObject();
+        try{
+            json.put("clubName", clubName);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        restModel.deleteRequest(json.toString());
+
     }
 
     /**
