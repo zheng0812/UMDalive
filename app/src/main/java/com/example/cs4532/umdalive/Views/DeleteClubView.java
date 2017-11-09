@@ -49,7 +49,7 @@ public class DeleteClubView extends AppCompatActivity {
         description = (EditText) findViewById(R.id.description_of_club);
 
         if (!checkStrings()) {
-            String jsonString = presenter.makeClub(newName.getText().toString(), admin.getText().toString(),
+            String jsonString = presenter.makeClub(newName.getText().toString(),
                     (String) keywordItem, ownerEmail.getText().toString(), description.getText().toString());
             startActivity(intent);
             presenter.restPut("putNewClub", jsonString);

@@ -279,7 +279,7 @@ public class RestModel {
                         return jsonData.toString();
                     } catch (JSONException e) {
                         e.printStackTrace();
-
+                        System.out.println("JSONException was caught");
 
                     }
                 }
