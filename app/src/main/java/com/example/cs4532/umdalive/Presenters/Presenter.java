@@ -108,14 +108,15 @@ public class Presenter {
      * Used to create a new club object to be sent to the server.
      *
      * @param clubName    name of club
-     * @param userName    name of admin
+     * name of admin is hard coded
      * @param keyWords    tags
      * @param ownerEmail  club owner email
      * @param description description of club
      * @return string version of the JSON package.
      */
-    public String makeClub(String clubName, String userName, String keyWords, String ownerEmail, String description) {
-        return CreateClub.makeClub(clubName, userName, keyWords, ownerEmail, description);//, initialPost);
+    public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
+        getMainUser(restModel.restGet("getUserData","")).setUserType(clubName);
+        return CreateClub.makeClub(clubName, getUserName(), keyWords, ownerEmail, description);//, initialPost);
     }
 
     /**
@@ -159,7 +160,13 @@ public class Presenter {
         restPut("putNewUser", UserInformationModel.jsonStringify(name, major, email, gradDate, "club member", user.getmSelectedItems()));
     }
 
-
+    /**
+     * gets the userName
+     * @return the main userName
+     */
+    public String getUserName(){
+        return getMainUser(restModel.restGet("getUserData","")).getName();
+    }
     /**
      * gets all the club names
      *

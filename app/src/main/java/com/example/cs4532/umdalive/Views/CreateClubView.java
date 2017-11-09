@@ -55,12 +55,12 @@ public class CreateClubView extends AppCompatActivity {
         Intent intent = new Intent(this, MainView.class);
         invalidInput = (TextView) findViewById(R.id.invalid_input);
         newName = (EditText) findViewById(R.id.name_title_enter);
-        admin = (EditText) findViewById(R.id.admin_of_club);
+        admin = (EditText) findViewById(R.id.admin_of_club);//This should be either deleted or hard data as the user's name
         ownerEmail = (EditText) findViewById(R.id.admin_email);
         description = (EditText) findViewById(R.id.description_of_club);
 
         if (!checkStrings()) {
-            String jsonString = presenter.makeClub(newName.getText().toString(), admin.getText().toString(),
+            String jsonString = presenter.makeClub(newName.getText().toString(),
                     (String) keywordItem, ownerEmail.getText().toString(), description.getText().toString());
             startActivity(intent);
             presenter.restPut("putNewClub", jsonString);

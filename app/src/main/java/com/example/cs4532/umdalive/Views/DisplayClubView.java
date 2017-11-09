@@ -45,7 +45,7 @@ public class DisplayClubView extends AppCompatActivity {
             JSONObject clubObject = new JSONObject(jsonResponse);
             description = clubObject.get("description").toString();
             keywords = clubObject.get("keywords").toString();
-            administrator = clubObject.get("username").toString();
+            administrator = clubObject.get("clubOwner").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }

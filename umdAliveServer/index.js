@@ -47,7 +47,7 @@ app.put('/clubs', function (req, res) {
     // Takes data from request and makes a new object
     var clubData = {
         clubName: req.body.clubName,
-        username: req.body.username,
+        clubOwner: req.body.clubOwner,
         keywords: req.body.keywords,
         description: req.body.description,
     };

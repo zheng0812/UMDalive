@@ -16,6 +16,7 @@ public class CreateClub {
      */
     public static String makeClub(String clubName, String userName, String keyWords, String ownerEmail, String description) {
         ClubInformationModel newClub = new ClubInformationModel(clubName, userName, keyWords, ownerEmail, description);
+
         return newClub.jsonStringify();
     }
 }

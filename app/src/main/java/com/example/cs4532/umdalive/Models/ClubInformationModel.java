@@ -16,7 +16,6 @@ import org.json.JSONObject;
 @SuppressWarnings("unused")
 public class ClubInformationModel {
     private String clubName;
-    private String userName; //***
     private String keyWords;
     private String ownerEmail;
     private String description;
@@ -26,16 +25,15 @@ public class ClubInformationModel {
      * constructor
      *
      * @param clubName    name of club
-     * @param userName    user creating club
+     * @param clubOwner    user creating club
      * @param keyWords    keywords to id club
      * @param ownerEmail  club owner email
      * @param description of club
      */
 
-    public ClubInformationModel(String clubName, String userName, String ownerEmail, String keyWords, String description) {
+    public ClubInformationModel(String clubName, String clubOwner, String ownerEmail, String keyWords, String description) {
         this.clubName = clubName;
-        this.userName = userName; //***
-        this.clubOwner = userName; //when a club is created, the clubOwner is automatically set
+        this.clubOwner = clubOwner; //when a club is created, the clubOwner is automatically set
         //as the user creating the club
         this.keyWords = keyWords;
         this.ownerEmail = ownerEmail;
@@ -68,7 +66,7 @@ public class ClubInformationModel {
      * @param userName String of userName
      */
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.clubOwner = userName;
     }
 
     /**
@@ -77,7 +75,7 @@ public class ClubInformationModel {
      * @return userName
      */
     public String getUserName() {
-        return userName;
+        return clubOwner;
     }
 
     /**
@@ -162,7 +160,6 @@ public class ClubInformationModel {
         try {
             jsonString = new JSONObject();
             jsonString.put("clubName", clubName);
-            jsonString.put("username", userName); //****
             jsonString.put("clubOwner", clubOwner);
             jsonString.put("keywords", keyWords);
             jsonString.put("ownerEmail", ownerEmail);
