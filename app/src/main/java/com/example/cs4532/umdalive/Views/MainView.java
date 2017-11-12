@@ -144,6 +144,29 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     /**
+     * Goes back to the home screen
+     */
+    public void backToHome(){
+        Intent intent = new Intent (this, DisplayClubView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes back to the home from the owner view
+     */
+    public void ownerBackToHome(){
+        Intent intent = new Intent(this, DisplayClubOwnerView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes to the editable view
+     */
+    public void goEdit(){
+        Intent intent = new Intent(this, DisplayClubOwnerView.class);
+        startActivity(intent);
+    }
+    /**
      * Makes it so pressing back when drawer is open will take the user back to the main screen
      */
     @Override
@@ -226,9 +249,16 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             searchClub();
         } else if (id == R.id.new_club) {
             makeNewClub();
-        }else if (id == R.id.delete_club){
+        } else if (id == R.id.delete_club){
             deleteClub();
-        } else if (id == R.id.nav_club1) {
+        } else if (id == R.id.home_button){
+            backToHome();
+        } else if (id == R.id.owner_home_button){
+            ownerBackToHome();
+        } else if (id == R.id.edit_owner){
+            goEdit();
+        }
+        else if (id == R.id.nav_club1) {
 
         } else if (id == R.id.nav_club2) {
 

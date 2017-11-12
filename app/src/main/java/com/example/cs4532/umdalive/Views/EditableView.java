@@ -70,6 +70,7 @@ public class EditableView extends AppCompatActivity{
 
         }
 
+    //need to add stuff for this
         private void clickToSave(){
             Intent intent = new Intent (this, DisplayClubOwnerView.class); //goes to owner view, only owner should be editing
             //update all the information and send to the display_club_owner_view layout?

@@ -1,5 +1,6 @@
 package com.example.cs4532.umdalive.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -62,14 +63,22 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
             administratorSetText.setText(administrator);
         }
 
-        private void clickToEdit()
+    /**
+     * Goes to the editable view
+     */
+    private void clickToEdit()
         {
-            //we need to change the intent to the editable view
+            Intent intent = new Intent(this, EditableView.class);
+            startActivity(intent);
         }
 
-        private void clickGoHome()
-        {
-            //changes layout to go back to the main screen
-        }
+    /**
+     * Goes back to the home screen
+     */
+    public void clickOwnerGoHome()
+    {
+        Intent intent = new Intent (this, MainView.class);
+        startActivity(intent);
+    }
     }
 

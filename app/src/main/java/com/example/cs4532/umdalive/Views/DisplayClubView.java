@@ -1,8 +1,11 @@
 package com.example.cs4532.umdalive.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
@@ -61,4 +64,13 @@ public class DisplayClubView extends AppCompatActivity {
         keywordSetText.setText(keywords);
         administratorSetText.setText(administrator);
     }
+
+    /**
+     * Goes back to the home screen
+     */
+        public void clickGoHome(View view){
+            Intent intent = new Intent(this, MainView.class);
+            startActivity(intent);
+        }
+
 }
