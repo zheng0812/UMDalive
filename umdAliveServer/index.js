@@ -39,8 +39,9 @@ app.delete("/delete", function(req, res){
     mongodb.delete(req.body.clubName);
 
     res.sendStatus(200);
-	
+    
     console.log("Club has been deleted: " + req.body.clubName);
+
 }
 );
 
