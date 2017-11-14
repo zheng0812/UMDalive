@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -230,8 +231,19 @@ public class RestModel {
      *
      * @param data the delete to be made
      */
-    public void deleteRequest(String data) {
-        new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", data);
+    public boolean deleteRequest(String data) {
+        //only call this if the data matches a club name from the array list
+        boolean foundClub = false;
+        AllClubs listOfClubs = new AllClubs();
+        ArrayList<String> myList = listOfClubs.clubList;
+        for (String s: myList)
+        {
+            if (s.equals(data)) {
+                new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", data);
+                foundClub = true;
+            }
+        }
+        return foundClub;
     }
 
     /**
@@ -272,7 +284,6 @@ public class RestModel {
                     }
                 }
                 if (params[1].equals("DELETE")) {
-                    //Log.d("DEBUG PUT:", "In put: params[0]=" + params[0] + ", params[1]=" + params[1] + ", params[2]=" + params[2]);
                     Log.d("DEBUG DELETE:", "In delete: params[0]=" + params[0] + ", params[1]=" + params[1] + ", params[2]=" + params[2]);
 
                     serverConnection.setDoOutput(true);

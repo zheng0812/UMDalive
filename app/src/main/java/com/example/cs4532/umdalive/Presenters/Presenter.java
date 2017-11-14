@@ -128,7 +128,7 @@ public class Presenter {
      * @param clubName    name of club
      *
      */
-    public void deleteClub(String clubName)
+    public boolean deleteClub(String clubName)
     {
         JSONObject json = new JSONObject();
         try{
@@ -138,7 +138,7 @@ public class Presenter {
             System.out.println(ex.getMessage());
         }
 
-        restModel.deleteRequest(json.toString());
+        return restModel.deleteRequest(json.toString());
 
         //restModel.deleteRequest(clubName);
 

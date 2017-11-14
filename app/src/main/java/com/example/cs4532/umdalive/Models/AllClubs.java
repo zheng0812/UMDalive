@@ -29,6 +29,7 @@ public class AllClubs {
             JSONArray jsonArray = object.getJSONArray("items");
             if (jsonArray != null) {
                 int len = jsonArray.length();
+                clubList.clear();
                 for (int i = 0; i < len; i++) {
                     clubList.add(jsonArray.get(i).toString());
                     Log.d(jsonArray.get(i).toString(), jsonArray.get(i).toString());

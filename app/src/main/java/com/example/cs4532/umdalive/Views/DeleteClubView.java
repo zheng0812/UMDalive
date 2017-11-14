@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
@@ -43,7 +44,12 @@ public class DeleteClubView extends AppCompatActivity {
     public void onClickDeleteClub(View view) {
         String clubName = ((EditText)findViewById(R.id.editText)).getText().toString();
         //((EditText) findViewById(R.id.editText)).setText("Trying to delete: " + clubName);
-        presenter.deleteClub(clubName);
+        if (presenter.deleteClub(clubName) == false)
+        {
+            Toast.makeText(getApplicationContext(), "Club not found", Toast.LENGTH_LONG).show();
+
+        }
+
         //presenter.restDelete("clubName", clubName);
     }
 
