@@ -42,7 +42,7 @@ public class DisplayClubView extends AppCompatActivity {
      */
     private void setView() {
         try {
-            clubName = getIntent().getStringExtra(AllClubsView.CLUB_NAME);
+            clubName = getIntent().getStringExtra("NAME_OF_CLUB");
             String jsonResponse = presenter.restGet("getClub", clubName);
             Log.d("DisplayClub response: ", jsonResponse);
             JSONObject clubObject = new JSONObject(jsonResponse);
