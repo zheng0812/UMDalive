@@ -60,6 +60,7 @@ public class AllClubsView extends Activity {
                 //if club owner, set intent to DisplayClubOwnerView.class
                 //else
                 Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+
                 intent.putExtra(CLUB_NAME, itemValue);
                 startActivity(intent);
             }
