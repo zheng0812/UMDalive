@@ -83,3 +83,18 @@ module.exports.getCollection = function(collectionName, callback) {
     	}
         });
 };
+
+module.exports.delete = function(clubName){
+	mongoDBRef.collection('clubs').remove({'club' : clubName}, function(err, obj){
+		if (err) throw err;
+		else console.log(clubName + " deleted");
+	});
+
+};
+
+module.exports.deleteUser = function(userName){
+	mongoDBRef.collection('users').remove({'user' : userName}, function (err, obj){
+		if (err) throw err;
+		else console.log(userName + " deleted");
+	});
+};

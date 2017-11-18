@@ -31,6 +31,18 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
 
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_marginTop="23dp"
+        android:padding="20dp" />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -42,5 +54,54 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
         android:onClick="onClickDeleteClub"/>
+
+    <Button
+        android:id="@+id/noButton"
+        android:onClick="onClickNoDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="29dp"
+        android:text="No"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/warningPrompt"
+        android:layout_alignEnd="@+id/warningPrompt"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        android:textColor="@color/darkMaroon"
+        android:layout_marginRight="48dp"
+        android:layout_marginEnd="48dp" />
+
+    <TextView
+        android:id="@+id/warningPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="44dp"
+        android:text="@string/delete_warning"
+        android:visibility="invisible"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_alignRight="@+id/editText"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="@color/darkMaroon"
+        android:layout_centerHorizontal="true"
+        android:layout_alignEnd="@+id/editText" />
+
+    <Button
+        android:id="@+id/yesButton"
+        android:onClick="onClickYesDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:visibility="invisible"
+        android:layout_alignBaseline="@+id/noButton"
+        android:layout_alignBottom="@+id/noButton"
+        android:layout_alignLeft="@+id/warningPrompt"
+        android:layout_alignStart="@+id/warningPrompt"
+        android:textSize="20dp"
+        android:textColor="@color/darkMaroon"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp" />
 
 </RelativeLayout>

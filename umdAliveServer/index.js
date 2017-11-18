@@ -45,6 +45,19 @@ app.delete("/delete", function(req, res){
 }
 );
 
+app.delete("/deleteUser", function(req, res){
+	if (!req.body)
+		return res.sendStatus(400);
+
+	mongodb.deleteUser(req.body.userName);
+
+	res.sendStatus(200);
+
+	console.log("User has been deleted: " + req.body.userName);
+}
+);
+
+
 /*
  ************************
  * PUT ROUTE SECTION

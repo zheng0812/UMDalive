@@ -42,15 +42,28 @@ public class DeleteClubView extends AppCompatActivity {
      * @param view passing view
      */
     public void onClickDeleteClub(View view) {
+        findViewById(R.id.noButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.yesButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.warningPrompt).setVisibility(View.VISIBLE);
+    }
+
+    public void onClickNoDelete(View view){
+        findViewById(R.id.noButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.yesButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.warningPrompt).setVisibility(View.INVISIBLE);
+    }
+
+    public void onClickYesDelete(View view){
         String clubName = ((EditText)findViewById(R.id.editText)).getText().toString();
-        //((EditText) findViewById(R.id.editText)).setText("Trying to delete: " + clubName);
         if (presenter.deleteClub(clubName) == false)
         {
             Toast.makeText(getApplicationContext(), "Club not found", Toast.LENGTH_LONG).show();
 
         }
-
-        //presenter.restDelete("clubName", clubName);
+        else Toast.makeText(getApplicationContext(), "Club successfully deleted", Toast.LENGTH_LONG).show();
+        findViewById(R.id.noButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.yesButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.warningPrompt).setVisibility(View.INVISIBLE);
     }
 
     /**

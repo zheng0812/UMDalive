@@ -247,6 +247,12 @@ public class RestModel {
         return foundClub;
     }
 
+    public boolean deleteUser(String data){
+        boolean foundUser = false;
+        new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data);
+        return foundUser;
+    }
+
     /**
      * put a new user
      *
