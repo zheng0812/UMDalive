@@ -19,7 +19,7 @@ public class CreateClubView extends AppCompatActivity {
     private Object keywordItem = new Object();
     private Presenter presenter;
     private EditText newName;
-    private EditText admin;
+    private TextView admin;
     private EditText description;
     private EditText ownerEmail;
     private TextView invalidInput;
@@ -55,9 +55,10 @@ public class CreateClubView extends AppCompatActivity {
         Intent intent = new Intent(this, MainView.class);
         invalidInput = (TextView) findViewById(R.id.invalid_input);
         newName = (EditText) findViewById(R.id.name_title_enter);
-        admin = (EditText) findViewById(R.id.admin_of_club);//This should be either deleted or hard data as the user's name
+        admin = (TextView) findViewById(R.id.admin_of_club);//This should be either deleted or hard data as the user's name
         ownerEmail = (EditText) findViewById(R.id.admin_email);
         description = (EditText) findViewById(R.id.description_of_club);
+        admin.setText(presenter.getUserName());
 
         if (!checkStrings()) {
             String jsonString = presenter.makeClub(newName.getText().toString(),
