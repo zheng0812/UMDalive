@@ -150,7 +150,7 @@ public class Presenter {
      * @param userData to get
      * @return user
      */
-    public UserInformationModel getMainUser(String userData) {
+    public UserInformationModel getMainUser(String userData){
         return MainActivity.getUser(userData);
     }
 
