@@ -26,8 +26,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class RestModel {
-    public final String serverAddress = "http://131.212.41.37:65000"; //Emulator Tunnel
-    //10.0.2.2:5000
+    public final String serverAddress = "http://127.0.0.1:5000"; //Emulator Tunnel
     //public final String serverAddress = "http://131.212.41.37:5004"; //Permanent IP
 
     private Context context;
