@@ -88,6 +88,7 @@ module.exports.findUser = function(userName, callback){
     }
     });
     };
+
 module.exports.getCollection = function(collectionName, callback) {
     var cursor = mongoDBRef.collection(collectionName).find(function(err, docs) {
             if(err || !docs) {

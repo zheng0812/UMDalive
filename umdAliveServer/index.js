@@ -217,7 +217,7 @@ app.get('/userData/:user', function (req, res) {
      mongodb.findUser(req.params.userName, function(result){
      var user = result[0];
      console.log("Found user.");
-     res.query = JSON.stringify(club.clubData);
+     res.query = JSON.stringify(user.userData);
      res.send(res.body);
      });
 //    var user;
