@@ -13,11 +13,11 @@ import static junit.framework.Assert.assertTrue;
 
 public class TestPost {
 
-    private PostInformationModel emptyPost = new PostInformationModel("", "", "", "", "", "");
-    private PostInformationModel newPost = new PostInformationModel("", "", "", "", "", "");
-    private PostInformationModel notThisPost = new PostInformationModel("club", "title", "time", "date", "location", "description");
+    private PostInformationModel emptyPost = new PostInformationModel("", "", "", "", "", "","");
+    private PostInformationModel newPost = new PostInformationModel("", "", "", "", "", "","");
+    private PostInformationModel notThisPost = new PostInformationModel("club", "title", "time", "date", "location", "description","");
     private PostInformationModel finalPost = new PostInformationModel
-            ("Software Engineering", "Unit Testing", "4:00 pm", "April 13", "MWAH 177", "We Need To Test Our POJOs");
+            ("Software Engineering", "Unit Testing", "4:00 pm", "April 13", "MWAH 177", "We Need To Test Our POJOs","");
 
 
     @Test

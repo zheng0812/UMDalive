@@ -35,7 +35,7 @@ public class PresenterUnitTest {
     @Test
     public void methodTests(){
 
-        ClubInformationModel newClub = new ClubInformationModel("Club", "User", "Keyword","", "Description");
+        ClubInformationModel newClub = new ClubInformationModel("Club", "User", "Keyword", "Description", "");
 
         //REST tests
         assertTrue(presenter1.restGet("getAllClubs", "").equals(restModel.restGet("getAllClubs", "")));
@@ -49,7 +49,7 @@ public class PresenterUnitTest {
         //getMainUser
         String userData = restModel.restGet("getUserData", "");
         ArrayList<ClubInformationModel> clubs = new ArrayList<>();
-        UserInformationModel user = new UserInformationModel("Meggie Jo", "computer science", "umdAlive1@gmail.com", "2018", "club member", clubs);
+        UserInformationModel user = new UserInformationModel("Billy Joe", "umdAlive1@gmail.com", "2018", "computer science","", clubs);
         UserInformationModel newUser = presenter1.getMainUser(userData);
         assertTrue(newUser.equals(user));
 

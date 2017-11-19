@@ -208,16 +208,51 @@ app.get('/clubSearch/:keyword', function (req,res) {
             res.send(stringArray);
     });
 });
-
+//should return userName
 //Only returns dummy
 app.get('/userData/:user', function (req, res) {
+    var user;
+    console.log("Looking for " + req.params.userName);
 
-    res.send(JSON.stringify(dummyUser1));
+     mongodb.findUser(req.params.userName, function(result){
+     var user = result[0];
+     console.log("Found user.");
+     res.query = JSON.stringify(club.clubData);
+     res.send(res.body);
+     });
+//    var user;
+//    console.log("Looking for " + req.params.user);
+//
+//    mongodb.find
+    //res.send(JSON.stringify(dummyUser1));
 });
 
+//should return information about one user
 //Only returns dummy
 app.get('/userData/', function (req, res) {
-    res.send(JSON.stringify(dummyUser1));
+ //array to which each club will be stored
+    var userNames = {
+        userItems: []
+    };
+    mongodb.getCollection('users', function(result){
+            var userData = {
+                jsonArray: []
+            };
+
+            result.forEach(function(clubs){
+                userData.jsonArray.push(users);
+            });
+
+            for(var i = 0; i < userData.jsonArray.length; i++){
+                var curUser = userData.jsonArray[i];
+                userNames.userItems[i] = curUser.userData.userName;
+            }
+
+            var stringArray = JSON.stringify(userNames);
+            console.log("user being sent to client: " + stringArray);
+            res.send(stringArray);
+    });
+    //res.send(JSON.stringify(dummyUser1));
 });
 
 app.get('/posts', function (req, res) {

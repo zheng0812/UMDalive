@@ -121,7 +121,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             mFullName = acct.getDisplayName();
             mEmail = acct.getEmail();
             Uri personPhoto = acct.getPhotoUrl();
-
+            presenter.restPut("putNewUser","{" + acct.getDisplayName() + ", ," + acct.getEmail() + ", ,club member}");
 
             Log.d("presenters", "planning to user data to server");
 

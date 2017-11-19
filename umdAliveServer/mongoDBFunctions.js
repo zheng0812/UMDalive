@@ -50,10 +50,11 @@ module.exports.insertPost = function(postData) {
 * @param userData - JSON data of the post
 */
 module.exports.insertUser = function(userData) {
+
     //console.log(userData);
     mongoDBRef.collection('users').save({user: userData.name, userData}, function(err, result){
         if(err || !result) console.log("User failed to save in database.");
-        else console.log("Post inserted into posts collection in MongoDB.");
+        else console.log("User inserted into users collection in MongoDB.");
     });
 };
 
@@ -72,7 +73,21 @@ module.exports.findClub = function(clubName, callback) {
 	    else console.log("Club not found.")
     });
 };
-
+/**
+*Identifies user being used
+*
+*
+*
+*/
+module.exports.findUser = function(userName, callback){
+    mongoDBRef.collection('users').find({user: userName}).toArray(function(err,docs){
+    if(!err){
+    console.log("Found the following records");
+    console.log(docs);
+    callback(docs);
+    }
+    });
+    };
 module.exports.getCollection = function(collectionName, callback) {
     var cursor = mongoDBRef.collection(collectionName).find(function(err, docs) {
             if(err || !docs) {
