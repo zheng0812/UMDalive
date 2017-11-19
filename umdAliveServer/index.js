@@ -211,6 +211,7 @@ app.get('/clubSearch/:keyword', function (req,res) {
 
 //Only returns dummy
 app.get('/userData/:user', function (req, res) {
+
     res.send(JSON.stringify(dummyUser1));
 });
 
