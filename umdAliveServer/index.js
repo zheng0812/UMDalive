@@ -35,13 +35,14 @@ var dummyUser1 = {
 app.delete("/delete", function(req, res){
     if (!req.body)
         return res.sendStatus(400);
-	
+
+    console.log("GIMME DATA" + req.body.clubName);	
     mongodb.delete(req.body.clubName);
 
-    res.sendStatus(200);
     
     console.log("Club has been deleted: " + req.body.clubName);
 
+    res.sendStatus(200);
 }
 );
 
