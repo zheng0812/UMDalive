@@ -89,6 +89,8 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
 
+
+
     }
 
 
