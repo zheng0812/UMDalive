@@ -69,7 +69,7 @@ app.put('/clubs', function (req, res) {
     if (!req.body)
         return res.sendStatus(400);
 	
-    //console.log(req.query);	
+    //console.log(req.body);	
     // Takes data from request and makes a new object
     var clubData = {
         clubName: req.body.clubName,
@@ -106,8 +106,8 @@ app.put('/posts', function (req, res) {
 
     mongodb.insertPost(postData);
 
-    console.log("Club posting: " + req.query.clubName);
-    console.log("Title of post: " + req.query.title);
+    console.log("Club posting: " + req.body.clubName);
+    console.log("Title of post: " + req.body.title);
     var jsonResponse = {
         id: '123', status: 'updated'
     };
