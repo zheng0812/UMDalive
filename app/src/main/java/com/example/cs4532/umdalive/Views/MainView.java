@@ -166,6 +166,14 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
         Intent intent = new Intent(this, DisplayClubOwnerView.class);
         startActivity(intent);
     }
+
+    /**
+     * Saves the information from editable view and goes back to the displayClubOwnerView
+     */
+    public void goSave(){
+        Intent intent = new Intent(this, EditableView.class);
+        startActivity(intent);
+    }
     /**
      * Makes it so pressing back when drawer is open will take the user back to the main screen
      */
@@ -255,6 +263,8 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             backToHome();
         } else if (id == R.id.owner_home_button){
             ownerBackToHome();
+        } else if (id == R.id.save_button){
+            goSave();
         } else if (id == R.id.edit_owner){
             goEdit();
         }

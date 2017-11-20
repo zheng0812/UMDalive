@@ -61,18 +61,17 @@ public class EditableView extends AppCompatActivity{
             ownerEmailSetText = (EditText) findViewById(R.id.edit_email);
             administratorSetText = (EditText) findViewById(R.id.edit_owner);
 
-            clubNameSetText.setText(clubName);
+            clubNameSetText.setText(clubName, TextView.BufferType.EDITABLE);
             clubNameSetText.setTextSize(45);
-            descriptionSetText.setText(description);
-            keywordSetText.setText(keywords);
-            ownerEmailSetText.setText(ownerEmail);
-            administratorSetText.setText(administrator);
-
+            descriptionSetText.setText(description, TextView.BufferType.EDITABLE);
+            keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
+            keywordSetText.setText(ownerEmail, TextView.BufferType.EDITABLE);
+            administratorSetText.setText(administrator, TextView.BufferType.EDITABLE);
         }
 
-    //need to add stuff for this
+
         private void clickToSave(){
-            Intent intent = new Intent (this, DisplayClubOwnerView.class); //goes to owner view, only owner should be editing
-            //update all the information and send to the display_club_owner_view layout?
+            Intent intent = new Intent (this, DisplayClubOwnerView.class);
+            startActivity(intent);
         }
 }
