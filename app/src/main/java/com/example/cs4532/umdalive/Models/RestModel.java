@@ -231,16 +231,21 @@ public class RestModel {
      *
      * @param data the delete to be made
      */
-    public boolean deleteRequest(String data) {
+    public boolean deleteRequest(JSONObject data) {
         //only call this if the data matches a club name from the array list
         boolean foundClub = false;
         AllClubs listOfClubs = new AllClubs();
-        ArrayList<String> myList = listOfClubs.clubList;
+        ArrayList<String> myList = listOfClubs.getClubNames(this.getAllClubs());
         for (String s: myList)
         {
-            if (s.equals(data)) {
-                new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", data);
-                foundClub = true;
+            try {
+                if (s.equals(data.getString("clubName").toString())) {
+                    new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", data.toString());
+                    foundClub = true;
+                }
+            }
+            catch(JSONException je){
+                Log.d("JSONException: ", je.toString());
             }
         }
         return foundClub;

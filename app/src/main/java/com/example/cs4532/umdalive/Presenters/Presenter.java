@@ -138,7 +138,7 @@ public class Presenter {
             System.out.println(ex.getMessage());
         }
 
-        return restModel.deleteRequest(json.toString());
+        return restModel.deleteRequest(json);//.toString());
 
         //restModel.deleteRequest(clubName);
 
