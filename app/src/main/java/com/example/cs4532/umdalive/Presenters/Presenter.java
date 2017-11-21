@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class Presenter {
     private Activity activity;
     private RestModel restModel;
+    private String curUser;
 
 
     /**
@@ -247,17 +248,15 @@ public class Presenter {
         return PostInformationModel.checkAscii(str);
     }
 
-    public void userData(String major, String grad, String userType) {
-        LoginView log = new LoginView();
-
-        String email = log.getmEmail();
-
-        String name = log.getmFullName();
-
-        UserInformationModel User = new UserInformationModel(name, major, email, grad, userType);
-
-
-    }
-
+    /**
+     * Sets a variable to the current user's email logged in when a user logs in
+     * @param userEmail
+     */
+    public void setCurUser(String userEmail) {this.curUser = userEmail;}
+    /**
+     * Gets the email of the current user logged in
+     * @return curUser
+     */
+    public String getCurUser(){return curUser;    }
 
 }
