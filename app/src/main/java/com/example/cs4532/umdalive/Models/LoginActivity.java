@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     }
-
     private Button signedOutButton;
     private SignInButton signInButton;
     private RelativeLayout Rlayout;

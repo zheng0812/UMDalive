@@ -90,7 +90,6 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
 
 
 
-
     }
 
 
@@ -123,7 +122,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             mFullName = acct.getDisplayName();
             mEmail = acct.getEmail();
             Uri personPhoto = acct.getPhotoUrl();
-            presenter.restPut("putNewUser","{" + acct.getDisplayName() + ", ," + acct.getEmail() + ", ,club member}");
+            presenter.restPut("putNewUser",acct.getDisplayName()+ "/" + acct.getEmail());
 
             Log.d("presenters", "planning to user data to server");
 
@@ -179,6 +178,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
     // [START signIn]
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signIn]

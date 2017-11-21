@@ -263,9 +263,28 @@ public class RestModel {
      * @param data user
      */
     private void putNewUser(String data) {
+
         new HTTPAsyncTask().execute(serverAddress + "/userData", "PUT", data);
     }
+    private String JSONStringifyNewUser(String data){
 
+        JSONObject jsonString = null;
+//        try {
+//            //Create JSONObject here
+//            jsonString = new JSONObject();
+//            jsonString.put("name", name);
+//            jsonString.put("email", email);
+//            jsonString.put("major", major);
+//            jsonString.put("gradDate", gradDate);
+//            jsonString.put("userType", userType);
+//            jsonString.put("Interests", interests);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        Log.d("DEBUG:", jsonString.toString());
+
+        return jsonString.toString();
+    }
     private class HTTPAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override

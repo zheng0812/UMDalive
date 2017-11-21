@@ -33,19 +33,23 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/name_title_enter"
         android:ems="10"
-        android:textColor="@color/bearGrey" />
+        android:textColor="@color/bearGrey"
+        android:textSize="18sp" />
 
-    <EditText
+    <TextView
+        android:id="@+id/admin_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/admin_email"
-        android:hint="ex: doe453@d.umn.edu"
+        android:layout_alignBottom="@+id/admin_email_title"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/admin_of_club"
-        android:layout_alignLeft="@+id/admin_of_club"
-        android:layout_alignStart="@+id/admin_of_club"
-        android:textColor="@color/bearGrey" />
+        android:layout_toEndOf="@+id/admin_title"
+        android:layout_toRightOf="@+id/admin_title"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/bearGrey"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -161,21 +165,20 @@
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/admin_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/admin_email_title"
-        android:textColor="@color/machinery"
-        android:text="Contact Email:"
-        android:inputType="none"
-        android:clickable="false"
-        android:textSize="20sp"
-        android:layout_below="@+id/admin_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/admin_title"
         android:layout_toLeftOf="@+id/admin_email"
         android:layout_toStartOf="@+id/admin_email"
-        android:layout_above="@+id/description_of_club" />
+        android:clickable="false"
+        android:ems="10"
+        android:inputType="none"
+        android:text="Email:"
+        android:textColor="@color/machinery"
+        android:textSize="20sp" />
 
 
     <TextView

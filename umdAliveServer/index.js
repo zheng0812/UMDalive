@@ -240,7 +240,7 @@ app.get('/userData/', function (req, res) {
                 jsonArray: []
             };
 
-            result.forEach(function(clubs){
+            result.forEach(function(users){
                 userData.jsonArray.push(users);
             });
 
