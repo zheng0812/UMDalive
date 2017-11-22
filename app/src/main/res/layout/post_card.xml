@@ -20,15 +20,15 @@
 
         <ImageView
             android:id="@+id/post_image"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:background="@color/colorAccent"
             android:scaleType="centerCrop"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:layout_marginTop="117dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
             android:background="@drawable/card_title_rectangle"/>
 
         <TextView
@@ -39,7 +39,7 @@
             android:textSize="20sp"
             android:id="@+id/post_title_text"
             android:layout_width="241dp"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:maxLines="1" />
 
         <TextView
@@ -128,6 +128,8 @@
         android:id="@+id/extended_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <TextView
             android:id="@+id/description_content"
