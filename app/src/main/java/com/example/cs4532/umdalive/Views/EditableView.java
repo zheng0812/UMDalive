@@ -68,7 +68,7 @@ public class EditableView extends AppCompatActivity{
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
 
             clubNameSetText.setText(clubName, TextView.BufferType.EDITABLE);
-            clubNameSetText.setTextSize(45);
+            //clubNameSetText.setTextSize(45);
             descriptionSetText.setText(description, TextView.BufferType.EDITABLE);
            // keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
             ownerEmailSetText.setText(ownerEmail, TextView.BufferType.EDITABLE);
@@ -83,7 +83,7 @@ public class EditableView extends AppCompatActivity{
      */
         public void clickToSave(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class); //need to set everything here? or not?
-
+           intent.putExtra(CLUB_NAME, clubName);
             startActivity(intent);
         }
 }
