@@ -144,6 +144,14 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     /**
+     * Goes to UserDataView
+     */
+    public void goSaveData(){
+        Intent intent = new Intent (this, UserDataView.class);
+        startActivity(intent);
+    }
+
+    /**
      * Goes back to the home screen
      */
     public void backToHome(){
@@ -259,6 +267,8 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             makeNewClub();
         } else if (id == R.id.delete_club){
             deleteClub();
+        } else if (id == R.id.save_data_button){
+            goSaveData();
         } else if (id == R.id.home_button){
             backToHome();
         } else if (id == R.id.owner_home_button){
@@ -267,8 +277,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             goSave();
         } else if (id == R.id.edit_button){
             goEdit();
-        }
-        else if (id == R.id.nav_club1) {
+        } else if (id == R.id.nav_club1) {
 
         } else if (id == R.id.nav_club2) {
 

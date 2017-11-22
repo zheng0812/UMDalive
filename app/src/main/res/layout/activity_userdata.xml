@@ -52,8 +52,16 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="26dp"
         android:onClick="Interests"
-        />
+        android:id="@+id/button4" />
 
-   
+    <Button
+        android:id="@+id/save_data_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickSaveData"
+        android:text="Save"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.cs4532.umdalive.Views;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -123,6 +124,14 @@ public class UserDataView extends AppCompatActivity {
         return builder.create();
     }
 
+    /**
+     * Saves user data when save button is pressed
+     * @return
+     */
+    public void clickSaveData(View view){
+        Intent intent = new Intent(this, MainView.class);   //need to better implement so info is saved
+        startActivity(intent);
+    }
 
     public ArrayList<String> getmSelectedItems() {
         return mSelectedItems;
