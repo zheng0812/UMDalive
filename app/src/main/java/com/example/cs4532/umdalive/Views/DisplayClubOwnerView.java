@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
@@ -28,6 +29,7 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
         private TextView keywordSetText;
         private TextView administratorSetText;
 
+    public static final String CLUB_NAME2 = "com.example.kevin.umdalive.MESSAGE2";
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.display_club_owner_view);
@@ -51,31 +53,32 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            clubNameSetText = (TextView) findViewById(R.id.display_club_name);
-            descriptionSetText = (TextView) findViewById(R.id.display_club_description);
-            keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
+            clubNameSetText = (TextView) findViewById(R.id.display_club_owner_name);
+            descriptionSetText = (TextView) findViewById(R.id.display_club_owner_description);
+           // keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
             administratorSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
 
             clubNameSetText.setText(clubName);
             clubNameSetText.setTextSize(45);
             descriptionSetText.setText(description);
-            keywordSetText.setText(keywords);
+            //keywordSetText.setText(keywords);
             administratorSetText.setText(administrator);
         }
 
     /**
      * Goes to the editable view
      */
-    private void clickToEdit()
-        {
-            Intent intent = new Intent(this, EditableView.class);
-            startActivity(intent);
-        }
+    public void clickToEdit(View view)
+    {
+        Intent intent = new Intent(this, EditableView.class);
+        intent.putExtra(CLUB_NAME2, clubName);
+        startActivity(intent);
+    }
 
     /**
      * Goes back to the home screen
      */
-    public void clickOwnerGoHome()
+    public void clickOwnerGoHome(View view)
     {
         Intent intent = new Intent (this, MainView.class);
         startActivity(intent);

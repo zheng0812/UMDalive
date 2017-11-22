@@ -58,21 +58,21 @@ public class AllClubsView extends Activity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
                 //if club owner, set intent to DisplayClubOwnerView.class
-                if(false){//if(presenter.getMainUser(presenter.restGet("getUserData", "")).getUserType() == itemValue){ //throws some error, maybe from json?
-                    Intent intent = new Intent (AllClubsView.this, DisplayClubView.class);
+                if(true){
+
+                //if(presenter.getMainUser(presenter.restGet("getUserData", "")).getUserType() == itemValue){ //throws some error, maybe from json?
+                    Intent intent = new Intent (AllClubsView.this, DisplayClubOwnerView.class);
                     intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
                 //else
-                Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+                else {
+                    Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
 
-                intent.putExtra("NAME_OF_CLUB", itemValue);
-
-
-                intent.putExtra(CLUB_NAME, itemValue);
-
-                startActivity(intent);
-            }
+                    intent.putExtra(CLUB_NAME, itemValue);
+                    startActivity(intent);
+                }
+                }
         });
     }
 

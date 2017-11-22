@@ -265,7 +265,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             ownerBackToHome();
         } else if (id == R.id.save_button){
             goSave();
-        } else if (id == R.id.edit_owner){
+        } else if (id == R.id.edit_button){
             goEdit();
         }
         else if (id == R.id.nav_club1) {
