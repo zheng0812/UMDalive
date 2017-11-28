@@ -74,6 +74,8 @@ public class RestModel {
                 return getRecentPosts();
             case "getUserData":
                 return getUserData();
+            case "getUserEmail":
+                return getUserEmail(data);
             default:
                 return null;
         }
@@ -208,6 +210,23 @@ public class RestModel {
     }
 
     /**
+     *
+     */
+    private String getUserEmail(String data){
+        String emailOnServer = ""; //to string
+        data = "{email:"+data +"}";
+
+        try{
+            emailOnServer = new HTTPAsyncTask().execute(serverAddress + "/userEmail/" +data, "GET").get();
+        }
+        catch(InterruptedException | ExecutionException e){
+            e.printStackTrace();
+            emailOnServer = "";
+        }
+        return emailOnServer;
+    }
+
+    /**
      * Taken from Club.java
      *
      * @param data name of the club being fetched
@@ -263,28 +282,10 @@ public class RestModel {
      * @param data user
      */
     private void putNewUser(String data) {
-
+        //jsonStringify(data); possibly get
         new HTTPAsyncTask().execute(serverAddress + "/userData", "PUT", data);
     }
-    private String JSONStringifyNewUser(String data){
 
-        JSONObject jsonString = null;
-//        try {
-//            //Create JSONObject here
-//            jsonString = new JSONObject();
-//            jsonString.put("name", name);
-//            jsonString.put("email", email);
-//            jsonString.put("major", major);
-//            jsonString.put("gradDate", gradDate);
-//            jsonString.put("userType", userType);
-//            jsonString.put("Interests", interests);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        Log.d("DEBUG:", jsonString.toString());
-
-        return jsonString.toString();
-    }
     private class HTTPAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override

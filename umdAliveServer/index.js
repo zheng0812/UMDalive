@@ -209,18 +209,18 @@ app.get('/clubSearch/:keyword', function (req,res) {
             res.send(stringArray);
     });
 });
-//should return userName
+//should return userEmail
 //Only returns dummy
-app.get('/userData/:user', function (req, res) {
-    var user;
-    console.log("Looking for " + req.params.userName);
+app.get('/userEmail/:email', function (req, res) {
+     var user;
+         console.log("Looking for " + req.params.email);
 
-     mongodb.findUser(req.params.userName, function(result){
-     var user = result[0];
-     console.log("Found user.");
-     res.query = JSON.stringify(user.userData);
-     res.send(res.body);
-     });
+         mongodb.findUser(req.params.email, function(result){
+             var user = result[0];
+             console.log("Found user.");
+             res.query = JSON.stringify(user.userData);
+             res.send(res.body);
+         });
 //    var user;
 //    console.log("Looking for " + req.params.user);
 //

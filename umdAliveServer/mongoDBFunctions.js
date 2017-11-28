@@ -79,8 +79,8 @@ module.exports.findClub = function(clubName, callback) {
 *
 *
 */
-module.exports.findUser = function(userName, callback){
-    mongoDBRef.collection('users').find({user: userName}).toArray(function(err,docs){
+module.exports.findUser = function(userEmail, callback){
+    mongoDBRef.collection('users').find({email: userEmail}).toArray(function(err,docs){
     if(!err){
     console.log("Found the following records");
     console.log(docs);

@@ -37,7 +37,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     String Major = "";
     String gradDate = "";
     private Presenter presenter;
-    private static UserInformationModel thisUser;
+//    private static UserInformationModel thisUser;     *possibly remove this or use MainView for ghost variable
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private ArrayList<PostInformationModel> posts;
@@ -49,7 +49,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new Presenter(this);
-        thisUser = new UserInformationModel();
+//        thisUser = new UserInformationModel();
         layoutManager = new LinearLayoutManager(this);
         setContentView(R.layout.activity_main);
         Log.d("DEBUG: ", "Setting up view");
@@ -233,7 +233,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     public void setUser() {
         //will probably use the second parameter in the future for specific users..
         String userData = presenter.restGet("getUserData", "");
-        thisUser = presenter.getMainUser(userData);
+//        thisUser = presenter.getMainUser(userData);
     }
 
     /**

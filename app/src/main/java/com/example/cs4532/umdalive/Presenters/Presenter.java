@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class Presenter {
     private Activity activity;
     private RestModel restModel;
-    private String curUser;
+    private static String thisUser; //current user's email
 
 
     /**
@@ -42,6 +42,7 @@ public class Presenter {
     public Presenter(Activity incomingActivity) {
         restModel = new RestModel();
         activity = incomingActivity;
+        thisUser = null;
     }
 
     /**
@@ -50,7 +51,12 @@ public class Presenter {
     public Presenter() {
         activity = null;
         restModel = new RestModel();
+        thisUser = null;
     }
+
+    private String getThisUser(){return thisUser;}
+
+    private void setThisUser(String curUser){thisUser = curUser;}
 
     private Activity getActivity() {
         return activity;
@@ -252,11 +258,11 @@ public class Presenter {
      * Sets a variable to the current user's email logged in when a user logs in
      * @param userEmail
      */
-    public void setCurUser(String userEmail) {this.curUser = userEmail;}
+//    public void setCurUser(String userEmail) {this.curUser = userEmail;}
     /**
      * Gets the email of the current user logged in
      * @return curUser
      */
-    public String getCurUser(){return curUser;    }
+//    public String getCurUser(){return curUser;    }
 
 }
