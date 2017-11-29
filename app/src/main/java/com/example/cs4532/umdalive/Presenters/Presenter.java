@@ -202,12 +202,10 @@ public class Presenter {
      *
      * @return clubOwner
      */
-    public String getClubOwner(String clubName){
-        ArrayList<String> clubNames = getClubNames();
-        for (String s : clubNames)
-        {
-            All
-        }
+    public boolean checkIfClubOwner(String clubName){
+
+        return (getMainUser((restGet("getUserData", ""))).getUserType().equals(clubName));
+
     }
 
     /**
