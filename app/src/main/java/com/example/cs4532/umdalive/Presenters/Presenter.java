@@ -95,12 +95,23 @@ public class Presenter {
     /**
      * Rest Function sends parameters to RestModel where they are dealt with using switch statement.
      *
-     * @param task     to be performed
-     * @param toDelete what will be deleted
-     * @return Currently returns a string to represent what could be returned
+     * Used to delete a club
+     *
+     * @param clubName    name of club
+     *
      */
-    public String restDelete(String task, String toDelete) {
-        return restModel.restDelete(task, toDelete);
+    public boolean restDelete(String clubName)
+    {
+        JSONObject json = new JSONObject();
+        try{
+            json.put("clubName", clubName);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return restModel.restDelete("deleteRequest", json);
+
     }
 
     /**
@@ -127,28 +138,6 @@ public class Presenter {
     public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
         getMainUser(restModel.restGet("getUserData","")).setUserType(clubName);
         return CreateClub.makeClub(clubName, getUserName(), keyWords, ownerEmail, description);//, initialPost);
-    }
-
-    /**
-     * Used to delete a club
-     *
-     * @param clubName    name of club
-     *
-     */
-    public boolean deleteClub(String clubName)
-    {
-        JSONObject json = new JSONObject();
-        try{
-            json.put("clubName", clubName);
-        }
-        catch(Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return restModel.deleteRequest(json);//.toString());
-
-        //restModel.deleteRequest(clubName);
-
     }
 
     /**

@@ -116,8 +116,18 @@ public class RestModel {
      * @param data         to delete
      * @return null
      */
-    public String restDelete(String deleteString, String data) {
-        return null;
+    public boolean restDelete(String deleteString, JSONObject data) {
+
+        boolean didRequest = false;
+        switch (deleteString) {
+            case "deleteRequest":
+                didRequest = deleteRequest(data);
+                break;
+            case "deleteUser":
+                didRequest = deleteUser(data);
+                break;
+        }
+        return didRequest;
     }
 
     /**
@@ -270,9 +280,9 @@ public class RestModel {
         return foundClub;
     }
 
-    public boolean deleteUser(String data){
+    public boolean deleteUser(JSONObject data){
         boolean foundUser = false;
-        new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data);
+        new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data.toString());
         return foundUser;
     }
 

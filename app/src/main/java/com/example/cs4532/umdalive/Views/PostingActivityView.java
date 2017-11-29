@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Presenters.Presenter;
@@ -63,12 +64,19 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
         boolean isError = checkStrings();
         //;
         Log.d("Club posting: " + clubName, "New post: " + title.getText().toString());
-        if (!isError) {
-            //not sure what's happening with clubOwner here
-            presenter.putPost(clubName, title.getText().toString(), time.getText().toString(), date.getText().toString()
-                    , location.getText().toString(), addInfo.getText().toString(), imageString, clubOwner);
-            Intent intent = new Intent(this, MainView.class);
-            startActivity(intent);
+        if (!isError)
+        {
+            //String myType = presenter.getMainUser((presenter.restGet("getUserData", ""))).getUserType();
+            //temporary fix for Meggie Jo club member (after, delete !)
+            if (!presenter.checkIfClubOwner(clubName)) {
+                presenter.putPost(clubName, title.getText().toString(), time.getText().toString(), date.getText().toString()
+                        , location.getText().toString(), addInfo.getText().toString(), imageString, clubOwner);
+                Intent intent = new Intent(this, MainView.class);
+                startActivity(intent);
+            }
+            else  Toast.makeText(getApplicationContext(), "You are not the owner of this club", Toast.LENGTH_LONG).show();
+            //else  Toast.makeText(getApplicationContext(), myType, Toast.LENGTH_LONG).show();
+
         } else inputError.setText(errorMessage);
     }
 
