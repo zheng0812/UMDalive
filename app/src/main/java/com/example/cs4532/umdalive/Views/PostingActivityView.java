@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
 import com.vansuita.pickimage.bean.PickResult;
@@ -48,6 +49,9 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
         displayImage = (ImageView) findViewById(R.id.result_image);
         inputError = (TextView) findViewById(R.id.invalid_input);
         imageSetup();
+
+        clubOwner = "Jack Daniels";
+
     }
 
     /**

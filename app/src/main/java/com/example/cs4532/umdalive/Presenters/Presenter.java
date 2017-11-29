@@ -198,6 +198,19 @@ public class Presenter {
     }
 
     /**
+     * gets the clubOwner of a specified club
+     *
+     * @return clubOwner
+     */
+    public String getClubOwner(String clubName){
+        ArrayList<String> clubNames = getClubNames();
+        for (String s : clubNames)
+        {
+            All
+        }
+    }
+
+    /**
      * used to get all clubs with a keyword
      *
      * @param keyword to search

@@ -42,4 +42,5 @@ public class AllClubs {
         }
         return clubList;
     }
+
 }
