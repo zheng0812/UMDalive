@@ -46,22 +46,20 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click to select interest"
-        android:layout_below="@+id/graduation_text"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp"
+        android:layout_below="@+id/graduation_text"
         android:onClick="Interests"
-        android:id="@+id/button4" />
+        android:text="Click to select interest" />
 
     <Button
-        android:id="@+id/save_data_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="clickSaveData"
-        android:text="Save"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="Finished"
+        android:onClick="onFinishProfile"/>
+
 
 
 </RelativeLayout>
