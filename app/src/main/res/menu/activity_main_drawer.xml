@@ -37,7 +37,7 @@
 
         <item
             android:id="@+id/delete_club"
-            android:icon="@drawable/ic_add"
+            android:icon="@drawable/ic_subtract"
             android:title="Delete a Club" />
 
     </group>

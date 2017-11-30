@@ -100,21 +100,12 @@ public class Presenter {
      *
      * Used to delete a club
      *
-     * @param clubName    name of club
-     *
+     * @param task to be performed
+     * @param data data to be handle
      */
-    public boolean restDelete(String clubName)
+    public boolean restDelete(String task, String data)
     {
-        JSONObject json = new JSONObject();
-        try{
-            json.put("clubName", clubName);
-        }
-        catch(Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return restModel.restDelete("deleteRequest", json);
-
+        return restModel.restDelete(task, data);
     }
 
     /**

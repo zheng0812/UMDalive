@@ -118,11 +118,11 @@ public class RestModel {
      * @param data         to delete
      * @return null
      */
-    public boolean restDelete(String deleteString, JSONObject data) {
+    public boolean restDelete(String deleteString, String data) {
 
         boolean didRequest = false;
         switch (deleteString) {
-            case "deleteRequest":
+            case "deleteClub":
                 didRequest = deleteRequest(data);
                 break;
             case "deleteUser":
@@ -274,16 +274,24 @@ public class RestModel {
      * @param data the delete to be made
      * @return foundClub    if the club was successfully deleted
      */
-    public boolean deleteRequest(JSONObject data) {
-        //only call this if the data matches a club name from the array list
+    public boolean deleteRequest(String data) {
         boolean foundClub = false;
         AllClubs listOfClubs = new AllClubs();
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("clubName" , data);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
         ArrayList<String> myList = listOfClubs.getClubNames(this.getAllClubs());
         for (String s: myList)
         {
             try {
-                if (s.equals(data.getString("clubName").toString())) {
-                    new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", data.toString());
+                if (s.equals(json.getString("clubName").toString())) {
+                    new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", json.toString());
                     foundClub = true;
                 }
             }
@@ -300,8 +308,17 @@ public class RestModel {
      * @param data the delete to be made
      * @return foundPost    if the post was successfully deleted
      */
-    public boolean deletePost(JSONObject data){
+    public boolean deletePost(String data){
         boolean foundPost = false;
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("title" , data);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
         new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", data.toString());
         return foundPost;
     }
@@ -312,8 +329,17 @@ public class RestModel {
      * @param data the delete to be made
      * @return foundUser    if the user was successfully deleted
      */
-    public boolean deleteUser(JSONObject data){
+    public boolean deleteUser(String data){
         boolean foundUser = false;
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("userName" , data);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
         new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data.toString());
         return foundUser;
     }

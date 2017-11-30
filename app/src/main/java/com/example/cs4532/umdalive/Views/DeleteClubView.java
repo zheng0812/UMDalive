@@ -55,7 +55,7 @@ public class DeleteClubView extends AppCompatActivity {
 
     public void onClickYesDelete(View view){
         String clubName = ((EditText)findViewById(R.id.editText)).getText().toString();
-        if (presenter.restDelete(clubName) == false)
+        if (!presenter.restDelete("deleteClub", clubName))
         {
             Toast.makeText(getApplicationContext(), "Club not found", Toast.LENGTH_LONG).show();
 
