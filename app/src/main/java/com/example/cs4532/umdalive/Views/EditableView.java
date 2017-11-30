@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
@@ -75,6 +76,12 @@ public class EditableView extends AppCompatActivity{
             administratorSetText.setText(administrator, TextView.BufferType.EDITABLE);
 
     }
+
+        public void deletePost()
+        {
+            Intent intent = new Intent (this, DeletingPostView.class);
+            startActivity(intent);
+        }
 
 
     /**

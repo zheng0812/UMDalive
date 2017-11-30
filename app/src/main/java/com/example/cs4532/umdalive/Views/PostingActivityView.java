@@ -62,20 +62,16 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
      */
     public void sendPost(View view) {
         boolean isError = checkStrings();
-        //;
         Log.d("Club posting: " + clubName, "New post: " + title.getText().toString());
         if (!isError)
         {
-            //String myType = presenter.getMainUser((presenter.restGet("getUserData", ""))).getUserType();
-            //temporary fix for Meggie Jo club member (after, delete !)
-            if (!presenter.checkIfClubOwner(clubName)) {
+            if (presenter.checkIfClubOwner(clubName)) {
                 presenter.putPost(clubName, title.getText().toString(), time.getText().toString(), date.getText().toString()
                         , location.getText().toString(), addInfo.getText().toString(), imageString, clubOwner);
                 Intent intent = new Intent(this, MainView.class);
                 startActivity(intent);
             }
             else  Toast.makeText(getApplicationContext(), "You are not the owner of this club", Toast.LENGTH_LONG).show();
-            //else  Toast.makeText(getApplicationContext(), myType, Toast.LENGTH_LONG).show();
 
         } else inputError.setText(errorMessage);
     }

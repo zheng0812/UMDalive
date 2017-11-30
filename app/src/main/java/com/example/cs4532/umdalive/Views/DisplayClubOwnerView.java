@@ -17,7 +17,7 @@ import org.json.JSONObject;
  * Created by meggi on 11/7/2017.
  */
 
-public class DisplayClubOwnerView  extends AppCompatActivity {
+public class DisplayClubOwnerView extends AppCompatActivity {
 
         private Presenter presenter;
         private String clubName;
@@ -55,7 +55,7 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
 
             clubNameSetText = (TextView) findViewById(R.id.display_club_owner_name);
             descriptionSetText = (TextView) findViewById(R.id.display_club_owner_description);
-           // keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
+            keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
             administratorSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
 
             clubNameSetText.setText(clubName);
@@ -68,12 +68,11 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
     /**
      * Goes to the editable view
      */
-    public void clickToEdit(View view)
-    {
-        Intent intent = new Intent(this, EditableView.class);
-        intent.putExtra(CLUB_NAME2, clubName);
-        startActivity(intent);
-    }
+    private void clickToEditClub(View view)
+        {
+            Intent intent = new Intent(this, EditableView.class);
+            startActivity(intent);
+        }
 
     /**
      * Goes back to the home screen
@@ -83,5 +82,5 @@ public class DisplayClubOwnerView  extends AppCompatActivity {
         Intent intent = new Intent (this, MainView.class);
         startActivity(intent);
     }
-    }
+}
 

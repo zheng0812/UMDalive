@@ -55,22 +55,21 @@ public class AllClubsView extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) listView.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
                 //if club owner, set intent to DisplayClubOwnerView.class
-                if (true) {
-                   // if(presenter.checkIfClubOwner(itemValue)){ //if user type = club name, they are clubowner
-                    Intent intent = new Intent(AllClubsView.this, DisplayClubOwnerView.class);
+                if(!presenter.checkIfClubOwner(itemValue)){//temporarily always returns false due to error
+                    Intent intent = new Intent (AllClubsView.this, DisplayClubOwnerView.class);
+                    intent.putExtra("NAME_OF_CLUB", itemValue);
                     intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
-                //else
-                Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
-
-                intent.putExtra("NAME_OF_CLUB", itemValue);
-
+                else {
+                    Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+                    intent.putExtra("NAME_OF_CLUB", itemValue);
+                    intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
-                }
+            }
         });
     }
 
