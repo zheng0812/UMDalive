@@ -132,7 +132,7 @@ app.put('/userData', function (req, res) {
     console.log("Creating user" + req.body.name);
 
     var jsonResponse = {
-        //id: '123', status: 'updated'
+        id: '123', status: 'updated'
     };
     res.json(jsonResponse);
     //res.json(userData);
@@ -214,20 +214,20 @@ app.get('/clubSearch/:keyword', function (req,res) {
 //should return userEmail
 //Only returns dummy
 app.get('/userEmail/:email', function (req, res) {
-     var user;
-         console.log("Looking for " + req.params.email);
-
-         mongodb.findUser(req.params.email, function(result){
-             var user = result[0];
-             console.log("Found user.");
-             res.query = JSON.stringify(user.userData);
-             res.send(res.body);
-         });
+//     var user;
+//         console.log("Looking for " + req.params.email);
+//
+//         mongodb.findUser(req.params.email, function(result){
+//             var user = result[0];
+//             console.log("Found user.");
+//             res.query = JSON.stringify(user.userData);
+//             res.send(res.body);
+//         });
 //    var user;
 //    console.log("Looking for " + req.params.user);
 //
 //    mongodb.find
-    //res.send(JSON.stringify(dummyUser1));
+    res.send(JSON.stringify(dummyUser1));
 });
 
 //should return information about one user
@@ -246,8 +246,8 @@ app.get('/userData/', function (req, res) {
                 usersData.jsonArray.push(users);
             });
 
-            for(var i = 0; i < usersData.jsonArray.length; i++){
-                var curUser = usersData.jsonArray[i];
+            for(var i = 0; i < userData.jsonArray.length; i++){
+                var curUser = userData.jsonArray[i];
                 userNames.userItems[i] = curUser.userData.name;
             }
 
