@@ -14,7 +14,6 @@ import com.example.cs4532.umdalive.R;
 
 import java.util.ArrayList;
 
-;
 
 /**
  * Created by Andrew Miller 3/21/2017
@@ -58,10 +57,9 @@ public class AllClubsView extends Activity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
                 //if club owner, set intent to DisplayClubOwnerView.class
-                if(true){
-
-                //if(presenter.getMainUser(presenter.restGet("getUserData", "")).getUserType() == itemValue){ //throws some error, maybe from json?
-                    Intent intent = new Intent (AllClubsView.this, DisplayClubOwnerView.class);
+                if (true) {
+                   // if(presenter.checkIfClubOwner(itemValue)){ //if user type = club name, they are clubowner
+                    Intent intent = new Intent(AllClubsView.this, DisplayClubOwnerView.class);
                     intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
@@ -70,10 +68,6 @@ public class AllClubsView extends Activity {
 
                 intent.putExtra("NAME_OF_CLUB", itemValue);
 
-
-                //intent.putExtra(CLUB_NAME, itemValue);
-
-                    intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
                 }
