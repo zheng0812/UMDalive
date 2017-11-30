@@ -115,9 +115,9 @@ module.exports.deleteUser = function(userName){
 	});
 };
 
-module.exports.deletePost = function(postData){
-	mongoDBRef.collection('posts').remove({'title' : postData.title}, function (err, obj){
+module.exports.deletePost = function(title){
+	mongoDBRef.collection('posts').remove({'post' : title}, function (err, obj){
 		if (err) throw err;
-		else console.log(postData.title + " deleted");
+		else console.log(title + " deleted");
 	});
 };

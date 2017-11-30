@@ -68,11 +68,11 @@ app.delete("/deletePost", function(req, res){
 	if (!req.body)
 		return res.sendStatus(400);
 
-	mongodb.deletePost(req.body.postData);
+	mongodb.deletePost(req.body.title);
 	
 	res.sendStatus(200);
 
-	console.log("Post has been deleted: " + req.body.postData);
+	console.log("Post has been deleted: " + req.body.title);
 	
 }
 );
