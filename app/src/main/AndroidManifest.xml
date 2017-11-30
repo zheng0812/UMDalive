@@ -33,8 +33,7 @@
         <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubView" />
         <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubOwnerView" />
         <activity android:name="com.example.cs4532.umdalive.Views.DeleteClubView" />
-        <activity android:name="com.example.cs4532.umdalive.Views.EditableView" />
-
+        <activity android:name="com.example.cs4532.umdalive.Views.NewUserDataView" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

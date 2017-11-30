@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class Presenter {
     private Activity activity;
     private RestModel restModel;
-    private static String thisUser; //current user's email
+    private String thisUser; //current user's email
 
 
     /**
@@ -54,9 +54,12 @@ public class Presenter {
         thisUser = null;
     }
 
-    private String getThisUser(){return thisUser;}
+    public String getThisUser(){return thisUser;}
 
-    private void setThisUser(String curUser){thisUser = curUser;}
+    public void setThisUser(String curUser){
+        thisUser = curUser;
+        //restPut("putNewUser", curUser);
+    }
 
     private Activity getActivity() {
         return activity;

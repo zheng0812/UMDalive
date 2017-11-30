@@ -66,8 +66,12 @@ public class AllClubsView extends Activity {
                     startActivity(intent);
                 }
                 //else
-                else {
-                    Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+                Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+
+                intent.putExtra("NAME_OF_CLUB", itemValue);
+
+
+                //intent.putExtra(CLUB_NAME, itemValue);
 
                     intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);

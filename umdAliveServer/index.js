@@ -129,11 +129,13 @@ app.put('/userData', function (req, res) {
     };
 
     mongodb.insertUser(userData);
+    console.log("Creating user" + req.body.name);
 
     var jsonResponse = {
-        id: '123', status: 'updated'
+        id: '123', status: 'updated', something: req.body.name
     };
     res.json(jsonResponse);
+    //res.json(userData);
 });
 
 /*
@@ -236,24 +238,46 @@ app.get('/userData/', function (req, res) {
         userItems: []
     };
     mongodb.getCollection('users', function(result){
-            var userData = {
+            var usersData = {
                 jsonArray: []
             };
 
             result.forEach(function(users){
-                userData.jsonArray.push(users);
+                usersData.jsonArray.push(users);
             });
 
-            for(var i = 0; i < userData.jsonArray.length; i++){
-                var curUser = userData.jsonArray[i];
-                userNames.userItems[i] = curUser.userData.userName;
+            for(var i = 0; i < usersData.jsonArray.length; i++){
+                var curUser = usersData.jsonArray[i];
+                userNames.userItems[i] = curUser.userData.name;
             }
 
             var stringArray = JSON.stringify(userNames);
-            console.log("user being sent to client: " + stringArray);
+            console.log("users being sent to client: " + stringArray);
             res.send(stringArray);
     });
     //res.send(JSON.stringify(dummyUser1));
+//      var clubNames = {
+//            items: []
+//        };
+//        mongodb.getCollection('clubs', function(result){
+//                var clubsData = {
+//                    jsonArray: []
+//                };
+//
+//                result.forEach(function(clubs){
+//                    clubsData.jsonArray.push(clubs);
+//                });
+//
+//                for(var i = 0; i < clubsData.jsonArray.length; i++){
+//                    var curClub = clubsData.jsonArray[i];
+//                    clubNames.items[i] = curClub.clubData.clubName;
+//                }
+//
+//                var stringArray = JSON.stringify(clubNames);
+//                console.log("clubs being sent to client: " + stringArray);
+//                res.send(stringArray);
+//        });
+
 });
 
 app.get('/posts', function (req, res) {

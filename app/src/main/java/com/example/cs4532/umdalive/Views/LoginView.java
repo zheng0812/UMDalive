@@ -122,10 +122,28 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             mFullName = acct.getDisplayName();
             mEmail = acct.getEmail();
             if(presenter.restGet("getUserEmail",mEmail).equals(mEmail)){
+                String hello = presenter.restGet("getUserEmail",mEmail);
                 //login
+                Intent intent = new Intent(this, MainView.class);
+
+                intent.putExtra("Email", mEmail);
+                intent.putExtra("Name", mFullName);
+
+
+                //intent.putExtra("pic", personPhoto.toString());
+
+
+                // intent.setData(personPhoto);
+
+                startActivity(intent);
             }
             else{
+                System.out.println("It went into the if");
+                presenter.setThisUser(mEmail);
+                Intent intent = new Intent(this,NewUserDataView.class);
+                startActivity(intent);
                 //put in a new
+
             }
             Uri personPhoto = acct.getPhotoUrl();
             //if(rest.findUser(acct.getEmail())){put user in database and setCurUser to acct.getEmail(); }
@@ -134,18 +152,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             Log.d("presenters", "planning to user data to server");
 
 
-            Intent intent = new Intent(this, MainView.class);
 
-            intent.putExtra("Email", mEmail);
-            intent.putExtra("Name", mFullName);
-
-
-            //intent.putExtra("pic", personPhoto.toString());
-
-
-            intent.setData(personPhoto);
-
-            startActivity(intent);
 
             updateUI(true);
         } else {
