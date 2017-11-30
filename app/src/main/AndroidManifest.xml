@@ -31,9 +31,11 @@
         <activity android:name="com.example.cs4532.umdalive.Views.PostForClubActivityView" />
         <activity android:name="com.example.cs4532.umdalive.Views.PostingActivityView" />
         <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubView" />
-        <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubOwnerView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubOwnerView" />
         <activity android:name="com.example.cs4532.umdalive.Views.DeleteClubView" />
-        <activity android:name="com.example.cs4532.umdalive.Views.NewUserDataView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.DeletingPostView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.EditableView" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

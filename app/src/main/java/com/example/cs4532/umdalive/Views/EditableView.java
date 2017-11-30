@@ -49,17 +49,18 @@ public class EditableView extends AppCompatActivity{
          */
         private void setView() {
             try {
-                clubName = getIntent().getStringExtra(DisplayClubOwnerView.CLUB_NAME2);
+                clubName = getIntent().getStringExtra("NAME_OF_CLUB");
                 String jsonResponse = presenter.restGet("getClub", clubName);
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
                 description = clubObject.get("description").toString();
-                keywords = clubObject.get("keywords").toString();
+                //keywords = clubObject.get("keywords").toString();
                 administrator = clubObject.get("username").toString();
                 ownerEmail = clubObject.get("ownerEmail").toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
 
             clubNameSetText = (EditText) findViewById(R.id.edit_title);
             descriptionSetText = (EditText) findViewById(R.id.edit_description);
@@ -71,26 +72,22 @@ public class EditableView extends AppCompatActivity{
             clubNameSetText.setText(clubName, TextView.BufferType.EDITABLE);
             //clubNameSetText.setTextSize(45);
             descriptionSetText.setText(description, TextView.BufferType.EDITABLE);
-           // keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
+            //keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
             ownerEmailSetText.setText(ownerEmail, TextView.BufferType.EDITABLE);
             administratorSetText.setText(administrator, TextView.BufferType.EDITABLE);
 
-    }
+        }
 
-        public void deletePost()
+        public void deletePost(View view)
         {
             Intent intent = new Intent (this, DeletingPostView.class);
+            intent.putExtra("NAME_OF_CLUB", clubName);
             startActivity(intent);
         }
 
 
-    /**
-     * Saves updated information and displays it in DisplayClubOwnerView
-     * @param view
-     */
-        public void clickToSave(View view){
-            Intent intent = new Intent (this, DisplayClubOwnerView.class); //need to set everything here? or not?
-           intent.putExtra(CLUB_NAME, clubName);
+        private void clickToSave(View view){
+            Intent intent = new Intent (this, DisplayClubOwnerView.class);
             startActivity(intent);
         }
 }

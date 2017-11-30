@@ -42,13 +42,13 @@ public class DisplayClubOwnerView extends AppCompatActivity {
          */
         private void setView() {
             try {
-                clubName = getIntent().getStringExtra(AllClubsView.CLUB_NAME);
+                clubName = getIntent().getStringExtra("NAME_OF_CLUB");
                 String jsonResponse = presenter.restGet("getClub", clubName);
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
                 description = clubObject.get("description").toString();
                 keywords = clubObject.get("keywords").toString();
-                administrator = clubObject.get("username").toString();
+                administrator = clubObject.get("clubOwner").toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -68,9 +68,10 @@ public class DisplayClubOwnerView extends AppCompatActivity {
     /**
      * Goes to the editable view
      */
-    private void clickToEditClub(View view)
+    public void clickToEdit(View view)
         {
             Intent intent = new Intent(this, EditableView.class);
+            intent.putExtra("NAME_OF_CLUB", clubName);
             startActivity(intent);
         }
 
