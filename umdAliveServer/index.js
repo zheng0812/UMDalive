@@ -132,7 +132,7 @@ app.put('/userData', function (req, res) {
     console.log("Creating user" + req.body.name);
 
     var jsonResponse = {
-        id: '123', status: 'updated', something: req.body.name
+        //id: '123', status: 'updated'
     };
     res.json(jsonResponse);
     //res.json(userData);
@@ -252,8 +252,8 @@ app.get('/userData/', function (req, res) {
             }
 
             var stringArray = JSON.stringify(userNames);
-            console.log("users being sent to client: " + stringArray);
-            res.send(stringArray);
+            console.log("user being sent to client: " + stringArray);
+           res.send(stringArray);
     });
     //res.send(JSON.stringify(dummyUser1));
 //      var clubNames = {
