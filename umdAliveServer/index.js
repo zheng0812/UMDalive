@@ -32,6 +32,12 @@ var dummyUser1 = {
  *   End of dummy users/clubs
  *////////////////////////////
 
+/*
+ ***********************
+ * DELETE ROUTE SECTION
+ ***********************
+ */
+
 app.delete("/delete", function(req, res){
     if (!req.body)
         return res.sendStatus(400);
@@ -58,6 +64,18 @@ app.delete("/deleteUser", function(req, res){
 }
 );
 
+app.delete("/deletePost", function(req, res){
+	if (!req.body)
+		return res.sendStatus(400);
+
+	mongodb.deletePost(req.body.postData);
+	
+	res.sendStatus(200);
+
+	console.log("Post has been deleted: " + req.body.postData);
+	
+}
+);
 
 /*
  ************************

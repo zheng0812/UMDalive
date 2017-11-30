@@ -128,6 +128,8 @@ public class RestModel {
             case "deleteUser":
                 didRequest = deleteUser(data);
                 break;
+            case "deletePost":
+                didRequest = deletePost(data);
         }
         return didRequest;
     }
@@ -257,10 +259,20 @@ public class RestModel {
     }
 
     /**
-     * Taken from PostingActivity
-     * change this later to be private and modify up above
+     * put a new user
+     *
+     * @param data user
+     */
+    private void putNewUser(String data) {
+        //jsonStringify(data); possibly get
+        new HTTPAsyncTask().execute(serverAddress + "/userData", "PUT", data);
+    }
+
+    /**
+     * Deletes a club from the collection of clubs
      *
      * @param data the delete to be made
+     * @return foundClub    if the club was successfully deleted
      */
     public boolean deleteRequest(JSONObject data) {
         //only call this if the data matches a club name from the array list
@@ -282,20 +294,28 @@ public class RestModel {
         return foundClub;
     }
 
+    /**
+     * Deletes a post from the collection of posts
+     *
+     * @param data the delete to be made
+     * @return foundPost    if the post was successfully deleted
+     */
+    public boolean deletePost(JSONObject data){
+        boolean foundPost = false;
+        new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", data.toString());
+        return foundPost;
+    }
+
+    /**
+     * Deletes a user from the collection of users
+     *
+     * @param data the delete to be made
+     * @return foundUser    if the user was successfully deleted
+     */
     public boolean deleteUser(JSONObject data){
         boolean foundUser = false;
         new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data.toString());
         return foundUser;
-    }
-
-    /**
-     * put a new user
-     *
-     * @param data user
-     */
-    private void putNewUser(String data) {
-        //jsonStringify(data); possibly get
-        new HTTPAsyncTask().execute(serverAddress + "/userData", "PUT", data);
     }
 
     private class HTTPAsyncTask extends AsyncTask<String, Integer, String> {

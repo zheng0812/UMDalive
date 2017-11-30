@@ -114,3 +114,10 @@ module.exports.deleteUser = function(userName){
 		else console.log(userName + " deleted");
 	});
 };
+
+module.exports.deletePost = function(postData){
+	mongoDBRef.cloosetion('posts').remove({'title' : postData.title}, function (err, obj){
+		if (err) throw err;
+		else console.log(post.title + " deleted");
+	});
+};
