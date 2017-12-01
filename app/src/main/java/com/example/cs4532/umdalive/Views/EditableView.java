@@ -72,6 +72,7 @@ public class EditableView extends AppCompatActivity{
             clubNameSetText.setText(clubName, TextView.BufferType.EDITABLE);
             //clubNameSetText.setTextSize(45);
             descriptionSetText.setText(description, TextView.BufferType.EDITABLE);
+
             //keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
             ownerEmailSetText.setText(ownerEmail, TextView.BufferType.EDITABLE);
             administratorSetText.setText(administrator, TextView.BufferType.EDITABLE);
