@@ -139,8 +139,11 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             }
             else{
                 System.out.println("It went into the if");
+
                 presenter.setThisUser(mEmail);
                 Intent intent = new Intent(this,NewUserDataView.class);
+                intent.putExtra("Email", mEmail);
+                intent.putExtra("Name", mFullName);
                 startActivity(intent);
                 //put in a new
 

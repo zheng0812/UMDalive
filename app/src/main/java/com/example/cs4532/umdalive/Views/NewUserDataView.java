@@ -31,13 +31,16 @@ public class NewUserDataView extends AppCompatActivity {
     Object graduationItem;
     Object majorItem;
     ArrayList mSelectedItems;
+    String email;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new Presenter();
         setContentView(R.layout.activity_userdata);
-
+        email = getIntent().getStringExtra("Email");
+        name = getIntent().getStringExtra("Name");
         major = (Spinner) findViewById(R.id.spinnermajor);
         gradDate = (Spinner) findViewById(R.id.spinnergrad);
 
@@ -72,7 +75,7 @@ public class NewUserDataView extends AppCompatActivity {
         edit.putString("major", Major);
         edit.putString("gradDate", graduationDate);
         edit.apply();
-        presenter.putUser("hello",Major,"email",graduationDate);
+        presenter.putUser(name,Major,email,graduationDate);
     }
 
     public void convertToStrings() {
@@ -129,7 +132,7 @@ public class NewUserDataView extends AppCompatActivity {
     public void onFinishProfile(View view){
         Intent intent = new Intent(this, MainView.class);
         intent.putExtra("Email", presenter.getThisUser());
-        intent.putExtra("Name", "Hello");
+        intent.putExtra("Name", name);
         startActivity(intent);
     }
 
