@@ -231,21 +231,17 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/userEmail/:email', function (req, res) {
-//     var user;
-//         console.log("Looking for " + req.params.email);
-//
-//         mongodb.findUser(req.params.email, function(result){
-//             var user = result[0];
-//             console.log("Found user.");
-//             res.query = JSON.stringify(user.userData);
-//             res.send(res.body);
-//         });
-//    var user;
-//    console.log("Looking for " + req.params.user);
-//
-//    mongodb.find
-    res.send(JSON.stringify(dummyUser1));
+app.get('/users/:email', function (req, res) {
+var user;
+    console.log("Looking for " + req.params.email);
+
+    mongodb.findUser(req.params.email, function(result){
+        var user = result[0];
+        console.log("Found user.");
+        res.query = JSON.stringify(user.userData);
+        res.send(res.body);
+    });
+//    res.send(JSON.stringify(dummyUser1));
 });
 
 //should return information about one user

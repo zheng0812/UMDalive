@@ -52,7 +52,7 @@ module.exports.insertPost = function(postData) {
 module.exports.insertUser = function(userData) {
 
     //console.log(userData);
-    mongoDBRef.collection('users').save({user: userData.name, userData}, function(err, result){
+    mongoDBRef.collection('users').save({user: userData.email, userData}, function(err, result){
         if(err || !result) console.log("User failed to save in database.");
         else console.log("User inserted into users collection in MongoDB.");
     });
@@ -79,8 +79,8 @@ module.exports.findClub = function(clubName, callback) {
 *
 *
 */
-module.exports.findUser = function(userEmail, callback){
-    mongoDBRef.collection('users').find({email: userEmail}).toArray(function(err,docs){
+module.exports.findUser = function(email, callback){
+    mongoDBRef.collection('users').find({user: email}).toArray(function(err,docs){
     if(!err){
     console.log("Found the following records");
     console.log(docs);
