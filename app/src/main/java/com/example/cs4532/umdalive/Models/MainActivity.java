@@ -68,4 +68,26 @@ public class MainActivity {
         return list;
     }
 
+    /**
+     * @param jsonString representing all posts
+     * @return ArrayList of PostInfoModels
+     */
+    public static ArrayList<PostInformationModel> refreshPosts(String jsonString) {
+        ArrayList<PostInformationModel> list = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i = len - 1; i >= 0; i--) {
+                    JSONObject currentJSON = jsonArray.getJSONObject(i);
+                    list.add(new PostInformationModel(currentJSON));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }
