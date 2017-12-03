@@ -45,10 +45,12 @@ public class DeletingPostView extends AppCompatActivity {
         if (!presenter.restDelete("deletePost", title)) {
             Toast.makeText(getApplicationContext(), "Post not found", Toast.LENGTH_LONG).show();
 
-        } else
+        } else {
             Toast.makeText(getApplicationContext(), "Post successfully deleted", Toast.LENGTH_LONG).show();
+        }
         findViewById(R.id.noButton2).setVisibility(View.INVISIBLE);
         findViewById(R.id.yesButton2).setVisibility(View.INVISIBLE);
         findViewById(R.id.warningPrompt2).setVisibility(View.INVISIBLE);
+
     }
 }

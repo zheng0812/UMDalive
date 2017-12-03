@@ -39,10 +39,9 @@ public class CreateClubView extends AppCompatActivity {
 
         admin = (TextView) findViewById(R.id.admin_of_club);
         //admin.setText(presenter.getUserName());
-        admin.setText("Meggie Jo");
+
         ownerEmail = (TextView) findViewById(R.id.admin_email);
         //ownerEmail.setText(presenter.getMainUser(presenter.restGet("getUserData","")).getEmail());
-        ownerEmail.setText("umdAlive@gmail.com");
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 keywordItem = parent.getItemAtPosition(pos);

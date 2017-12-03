@@ -319,12 +319,34 @@ public class RestModel {
             System.out.println(ex.getMessage());
         }
 
+/*
+        MainActivity myPostAdapter = new MainActivity();
+        ArrayList<PostInformationModel> myPostList = myPostAdapter.refreshPosts();
+        for (String s: myList)
+        {
+            try {
+                if (s.equals(json.getString("title").toString())) {
+                    new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
+                    foundPost = true;
+                }
+            }
+            catch(JSONException je){
+                Log.d("JSONException: ", je.toString());
+            }
+        }
+*/
+        //going to use postData in PostAdapter
+        //check in MainView?
+
         new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", data.toString());
         return foundPost;
     }
 
     /**
      * Deletes a user from the collection of users
+     * Currently, this function is not implemented. deleteUser will always return false, but
+     * the deleteUser commands work in index.js and mongoDBFunctions.js, so a user could be
+     * deleted using Postman if necessary.
      *
      * @param data the delete to be made
      * @return foundUser    if the user was successfully deleted
