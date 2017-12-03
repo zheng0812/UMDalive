@@ -1,7 +1,7 @@
 //loads the MongoDB package
 var mongojs = require("mongojs");
 
-var url = 'mongodb://127.0.0.1:60000/umdAliveDatabase';
+var url = 'mongodb://127.0.0.1:60000umdAliveDatabase';
 
 //array of collections we will use
 var collections = ['clubs', 'users', 'posts'];
@@ -38,7 +38,8 @@ module.exports.insertClub = function(clubData) {
 * @param postData - JSON data of the post
 */
 module.exports.insertPost = function(postData) {
-    mongoDBRef.collection('posts').save({post: postData.clubName, postData}, function(err, result){
+	//HERE! if the server is broken, it's totally because I changed postData.clubName to postData.title
+    mongoDBRef.collection('posts').save({post: postData.title, postData}, function(err, result){
         if(err || !result) console.log("Post failed to save in database.");
         else console.log("Post inserted into posts collection in MongoDB.");
     });
