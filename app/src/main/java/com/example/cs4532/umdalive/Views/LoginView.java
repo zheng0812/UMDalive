@@ -138,7 +138,6 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
                 startActivity(intent);
             }
             else{
-                System.out.println("It went into the if");
 
                 presenter.setThisUser(mEmail);
                 Intent intent = new Intent(this,NewUserDataView.class);
@@ -150,7 +149,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             }
             Uri personPhoto = acct.getPhotoUrl();
             //if(rest.findUser(acct.getEmail())){put user in database and setCurUser to acct.getEmail(); }
-            presenter.restPut("putNewUser",acct.getDisplayName()+ "/" + acct.getEmail());
+           // presenter.restPut("putNewUser",acct.getDisplayName()+ "/" + acct.getEmail());
 
             Log.d("presenters", "planning to user data to server");
 
@@ -201,7 +200,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
     // [END signIn]
 
     // [START signOut]
-    private void signOut() {
+    private void signOut() {//possibly make public and call when want to logout
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override

@@ -90,7 +90,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
         Major = bb.getString("NUM", "");
         gradDate = bb.getString("gradDate", "");
 
-        presenter.putUser(name, value, Major, gradDate);
+//        presenter.putUser(name, value, Major, gradDate);
 
 
     }

@@ -130,7 +130,7 @@ public class Presenter {
      * @return string version of the JSON package.
      */
     public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
-        getMainUser(restModel.restGet("getUserData","")).setUserType(clubName);
+       // getMainUser(restModel.restGet("getUserData","")).setUserType(clubName); FIX THIS AFTER USERS ARE SETUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         return CreateClub.makeClub(clubName, getUserName(), keyWords, ownerEmail, description);//, initialPost);
     }
 
