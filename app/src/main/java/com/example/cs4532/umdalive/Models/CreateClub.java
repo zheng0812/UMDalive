@@ -21,7 +21,7 @@ public class CreateClub {
     public static String makeClub(String clubName, String userName, String keyWords, String ownerEmail, String description) {
         Presenter presenter = new Presenter();
         ClubInformationModel newClub = new ClubInformationModel(clubName, userName, keyWords, ownerEmail, description);
-        presenter.getMainUser((presenter.restGet("getUserEmail", presenter.getThisUser()))).setUserType(clubName);
+        //presenter.getMainUser((presenter.restGet("getUserEmail", presenter.getThisUser()))).setUserType(clubName);
         return newClub.jsonStringify();
     }
 }

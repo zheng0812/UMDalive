@@ -132,8 +132,8 @@ public class Presenter {
      * @return string version of the JSON package.
      */
     public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
-        getMainUser(restModel.restGet("getUserEmail",ownerEmail)).setUserType(clubName);
-        return CreateClub.makeClub(clubName, getUserEmail(), keyWords, ownerEmail, description);//, initialPost);
+       // getMainUser(restModel.restGet("getUserEmail",ownerEmail)).setUserType(clubName);
+        return CreateClub.makeClub(clubName, ownerEmail, keyWords, ownerEmail, description);//, initialPost);
     }
 
     /**
