@@ -1,6 +1,7 @@
 package com.example.cs4532.umdalive.Presenters;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.cs4532.umdalive.Models.AllClubs;
@@ -19,6 +20,8 @@ import com.example.cs4532.umdalive.Views.UserDataView;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by ryan_000 on 3/15/2017.
@@ -42,7 +45,6 @@ public class Presenter {
     public Presenter(Activity incomingActivity) {
         restModel = new RestModel();
         activity = incomingActivity;
-        thisUser = null;
     }
 
     /**
@@ -51,7 +53,7 @@ public class Presenter {
     public Presenter() {
         activity = null;
         restModel = new RestModel();
-        thisUser = null;
+
     }
 
     public String getThisUser(){return thisUser;}
@@ -130,8 +132,8 @@ public class Presenter {
      * @return string version of the JSON package.
      */
     public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
-       // getMainUser(restModel.restGet("getUserData","")).setUserType(clubName); FIX THIS AFTER USERS ARE SETUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        return CreateClub.makeClub(clubName, getUserName(), keyWords, ownerEmail, description);//, initialPost);
+        getMainUser(restModel.restGet("getUserEmail",ownerEmail)).setUserType(clubName);
+        return CreateClub.makeClub(clubName, getUserEmail(), keyWords, ownerEmail, description);//, initialPost);
     }
 
     /**
@@ -165,11 +167,11 @@ public class Presenter {
     }
 
     /**
-     * gets the userName
-     * @return the main userName
+     * gets the userEmail
+     * @return the main userEmail
      */
-    public String getUserName(){
-        return getMainUser(restModel.restGet("getUserData","")).getName();
+    public String getUserEmail(){
+        return getMainUser(restModel.restGet("getUserEmail",thisUser)).getName();
     }
     /**
      * gets all the club names
@@ -187,8 +189,8 @@ public class Presenter {
      */
     public boolean checkIfClubOwner(String clubName){
 
-        //return (getMainUser((restGet("getUserData", ""))).getUserType().equals(clubName));
-        return true;
+        return (getMainUser((restGet("getUserEmail", thisUser))).getUserType().equals(clubName));
+       // return true;
     }
 
     /**

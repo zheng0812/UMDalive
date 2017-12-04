@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity {
-
     /**
      * used to get the current user
      *

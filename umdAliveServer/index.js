@@ -244,7 +244,7 @@ var user;
 //    res.send(JSON.stringify(dummyUser1));
 });
 
-//should return information about one user
+//returns an array of all users
 //Only returns dummy
 app.get('/userData/', function (req, res) {
  //array to which each club will be stored

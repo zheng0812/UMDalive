@@ -232,7 +232,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
      */
     public void setUser() {
         //will probably use the second parameter in the future for specific users..
-        String userData = presenter.restGet("getUserData", "");
+//        String userData = presenter.restGet("getUserEmail", );
 //        thisUser = presenter.getMainUser(userData);
     }
 

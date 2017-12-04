@@ -227,18 +227,16 @@ public class RestModel {
      *
      */
     private String getUserEmail(String data){
-        String emailOnServer = ""; //to string
-        data = "{email:"+data +"}";
-
-        try{
-            emailOnServer = new HTTPAsyncTask().execute(serverAddress + "/userEmail/" +data, "GET").get();
-        }
-        catch(InterruptedException | ExecutionException e){
-            e.printStackTrace();
-            emailOnServer = "";
-        }
-        return emailOnServer;
+        try {
+        data = data.replace("/", "_");
+        Log.d(data, data);
+        return new HTTPAsyncTask().execute(serverAddress + "/users/" + data, "GET").get();
+    } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
     }
+        return null;
+}
+
 
     /**
      * Taken from Club.java

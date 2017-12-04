@@ -76,6 +76,7 @@ public class NewUserDataView extends AppCompatActivity {
         edit.putString("gradDate", graduationDate);
         edit.apply();
         presenter.putUser(name,Major,email,graduationDate);
+        edit.putString("email", email);
     }
 
     public void convertToStrings() {

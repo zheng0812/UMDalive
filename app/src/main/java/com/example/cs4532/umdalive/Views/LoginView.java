@@ -3,6 +3,7 @@ package com.example.cs4532.umdalive.Views;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -128,7 +129,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
 
                 intent.putExtra("Email", mEmail);
                 intent.putExtra("Name", mFullName);
-
+                presenter.setThisUser(mEmail);
 
                 //intent.putExtra("pic", personPhoto.toString());
 
