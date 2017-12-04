@@ -14,6 +14,7 @@ import com.example.cs4532.umdalive.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by meggi on 11/5/2017.
@@ -29,12 +30,12 @@ public class EditableView extends AppCompatActivity{
         private String description;
         private String keywords;
         private String ownerEmail;
-        private String administrator;
-        private EditText clubNameSetText;
-        private EditText descriptionSetText;
+        private String clubOwner;
+        private EditText clubNameEditable;
+        private EditText descriptionEditable;
         private EditText keywordSetText;
-        private EditText ownerEmailSetText;
-        private EditText administratorSetText;
+        private TextView ownerEmailSetText;
+        private TextView clubOwnerSetText;
         private TextView invalidInput;
 
         protected void onCreate(Bundle savedInstanceState) {
@@ -53,30 +54,30 @@ public class EditableView extends AppCompatActivity{
                 String jsonResponse = presenter.restGet("getClub", clubName);
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
+
                 description = clubObject.get("description").toString();
                 //keywords = clubObject.get("keywords").toString();
-                administrator = clubObject.get("username").toString();
+                clubOwner = clubObject.get("username").toString();
                 ownerEmail = clubObject.get("ownerEmail").toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
-            clubNameSetText = (EditText) findViewById(R.id.edit_title);
-            descriptionSetText = (EditText) findViewById(R.id.edit_description);
+            clubNameEditable = (EditText) findViewById(R.id.edit_title);
+            descriptionEditable = (EditText) findViewById(R.id.edit_description);
            // keywordSetText = (EditText) findViewById(R.id.);
             ownerEmailSetText = (EditText) findViewById(R.id.edit_email);
-            administratorSetText = (EditText) findViewById(R.id.edit_owner);
+            clubOwnerSetText = (EditText) findViewById(R.id.edit_owner);
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
 
-            clubNameSetText.setText(clubName, TextView.BufferType.EDITABLE);
-            //clubNameSetText.setTextSize(45);
-            descriptionSetText.setText(description, TextView.BufferType.EDITABLE);
-
+            clubNameEditable.setText(clubName, TextView.BufferType.EDITABLE);
+            descriptionEditable.setText(description, TextView.BufferType.EDITABLE);
             //keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
-            ownerEmailSetText.setText(ownerEmail, TextView.BufferType.EDITABLE);
-            administratorSetText.setText(administrator, TextView.BufferType.EDITABLE);
 
+            //feed these ones in like the createClub
+            ownerEmailSetText.setText(ownerEmail, TextView.BufferType.NORMAL); //should not be editable
+            clubOwnerSetText.setText(clubOwner, TextView.BufferType.NORMAL); //should not be editable
         }
 
         public void deletePost(View view)
@@ -89,6 +90,7 @@ public class EditableView extends AppCompatActivity{
 
         private void clickToSave(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
+            //update edit text views before switching views? or after?
             startActivity(intent);
         }
 }
