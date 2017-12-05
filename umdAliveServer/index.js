@@ -91,7 +91,7 @@ app.put('/clubs', function (req, res) {
     //console.log(req.body);	
     // Takes data from request and makes a new object
     var clubData = {
-        clubName: req.body.clubName,
+        clubName: req.body.clubName,//ELLLLLIIE PUT AN EMAIL IN THIS LIST _***************************************************************
         clubOwner: req.body.clubOwner,
         keywords: req.body.keywords,
         description: req.body.description,
@@ -231,14 +231,14 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/users/:email', function (req, res) {
+app.get('/users/:name', function (req, res) {
 var user;
-    console.log("Looking for " + req.params.email);
+    console.log("Looking for " + req.params.name);
 
-    mongodb.findUser(req.params.email, function(result){
+    mongodb.findUser(req.params.name, function(result){
         var user = result[0];
         console.log("Found user.");
-        res.query = JSON.stringify(user.usersData);//was user.userData
+        res.query = JSON.stringify(user.userData);//was user.userData
         res.send(res.body);
     });
 //    res.send(JSON.stringify(dummyUser1));
