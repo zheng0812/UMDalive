@@ -39,7 +39,7 @@ public class CreateClubView extends AppCompatActivity {
 
         admin = (TextView) findViewById(R.id.admin_of_club);
         //admin.setText(presenter.getUserName());
-        admin.setText("Megan Effinger");
+        admin.setText("Meggie Jo");
 
         ownerEmail = (TextView) findViewById(R.id.admin_email);
         //ownerEmail.setText(presenter.getMainUser(presenter.restGet("getUserData","")).getEmail());
