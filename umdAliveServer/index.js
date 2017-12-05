@@ -231,11 +231,11 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/users/:email', function (req, res) {
+app.get('/users/:emailAddress', function (req, res) {
 var user;
-    console.log("Looking for " + req.params.email);
+    console.log("Looking for " + req.params.emailAddress);
 
-    mongodb.findUser(req.params.email, function(result){
+    mongodb.findUser(req.params.emailAddress, function(result){
         var user = result[0];
         console.log(user);
         console.log("Found user.");
