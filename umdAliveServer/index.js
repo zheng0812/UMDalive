@@ -56,11 +56,11 @@ app.delete("/deleteUser", function(req, res){
 	if (!req.body)
 		return res.sendStatus(400);
 
-	mongodb.deleteUser(req.body.userEmail);
+	mongodb.deleteUser(req.body.userName);
 
 	res.sendStatus(200);
 
-	console.log("User has been deleted: " + req.body.userEmail);
+	console.log("User has been deleted: " + req.body.userName);
 }
 );
 
@@ -138,8 +138,8 @@ app.put('/userData', function (req, res) {
     if (!req.body) return res.sendStatus(400);
 
     var userData = {
-        email: req.body.email,
         name: req.body.name,
+        email: req.body.email,
         graduation_date: req.body.graduationDate,
         major: req.body.major,
         userType: req.body.userType,
@@ -231,11 +231,11 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/userData/:email', function (req, res) {
+app.get('/userData/:name', function (req, res) {
 var user;
-    console.log("Looking for " + req.params.email);
+    console.log("Looking for " + req.params.name);
 
-    mongodb.findUser(req.params.email, function(result){
+    mongodb.findUser(req.params.name, function(result){
         var user = result[0];
         console.log(user);
         console.log("Found user.");
@@ -250,7 +250,7 @@ var user;
 //Only returns dummy
 app.get('/userData/', function (req, res) {
  //array to which each club will be stored
-    var userEmails = {
+    var userNames = {
         userItems: []
     };
     mongodb.getCollection('users', function(result){
@@ -266,10 +266,10 @@ app.get('/userData/', function (req, res) {
             for(var i = 0; i < usersData.jsonArray.length; i++){
                 var curUser = usersData.jsonArray[i];
 
-                userEmails.userItems[i] = curUser.userData.email;
+                userNames.userItems[i] = curUser.userData.name;
             }
 
-            var stringArray = JSON.stringify(userEmails);
+            var stringArray = JSON.stringify(userNames);
 
             console.log("users being sent to client: " + stringArray);
             res.send(stringArray);

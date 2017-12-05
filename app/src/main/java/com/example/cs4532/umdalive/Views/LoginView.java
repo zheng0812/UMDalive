@@ -122,8 +122,8 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             GoogleSignInAccount acct = result.getSignInAccount();
             mFullName = acct.getDisplayName();
             mEmail = acct.getEmail();
-//            if(!presenter.restGet("getUserEmail",mEmail).equals(mEmail)){
-//                String hello = presenter.restGet("getUserEmail",mEmail);
+            if(presenter.restGet("getUserEmail",mEmail).equals(mEmail)){
+                String hello = presenter.restGet("getUserEmail",mEmail);
 //                //login
                 Intent intent = new Intent(this, MainView.class);
 
@@ -137,17 +137,17 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
                 // intent.setData(personPhoto);
 
                 startActivity(intent);
-//            }
-//            else{
-//
-//                presenter.setThisUser(mEmail);
-//                Intent intent = new Intent(this,NewUserDataView.class);
-//                intent.putExtra("Email", mEmail);
-//                intent.putExtra("Name", mFullName);
-//                startActivity(intent);
-//                //put in a new
-//
-//            }
+            }
+            else{
+
+                presenter.setThisUser(mEmail);
+                Intent intent = new Intent(this,NewUserDataView.class);
+                intent.putExtra("Email", mEmail);
+                intent.putExtra("Name", mFullName);
+                startActivity(intent);
+                //put in a new
+
+            }
 //            Uri personPhoto = acct.getPhotoUrl();
             //if(rest.findUser(acct.getEmail())){put user in database and setCurUser to acct.getEmail(); }
            // presenter.restPut("putNewUser",acct.getDisplayName()+ "/" + acct.getEmail());
