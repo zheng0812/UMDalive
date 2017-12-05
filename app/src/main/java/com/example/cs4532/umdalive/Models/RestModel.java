@@ -317,7 +317,7 @@ public class RestModel {
             System.out.println(ex.getMessage());
         }
 
-        /*
+
         //still working on this; not properly implemented?
         String mostRecentPosts = getRecentPosts();
             try {
@@ -329,7 +329,7 @@ public class RestModel {
             catch(JSONException je){
                 Log.d("JSONException: ", je.toString());
             }
-        */
+
 
         //going to use postData in PostAdapter
         //check in MainView?
