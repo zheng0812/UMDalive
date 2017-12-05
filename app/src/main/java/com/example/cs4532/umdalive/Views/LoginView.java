@@ -122,7 +122,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             GoogleSignInAccount acct = result.getSignInAccount();
             mFullName = acct.getDisplayName();
             mEmail = acct.getEmail();
-            if(presenter.restGet("getUserEmail",mEmail).equals(mEmail)){
+            if(!presenter.restGet("getUserEmail",mEmail).equals(mEmail)){
                 String hello = presenter.restGet("getUserEmail",mEmail);
                 //login
                 Intent intent = new Intent(this, MainView.class);
