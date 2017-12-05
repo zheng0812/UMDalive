@@ -42,11 +42,13 @@ public class DeletingPostView extends AppCompatActivity {
 
     public void onClickYesDeletePost(View view) {
         String title = ((EditText) findViewById(R.id.edit_title)).getText().toString();
-        if (!presenter.restDelete("deletePost", title)) {
+        if (!presenter.checkIfClubOwner(title)) {
+            Toast.makeText(getApplicationContext(), "I'm sorry, you are not the owner of that club", Toast.LENGTH_LONG).show();
+        }else if (!presenter.restDelete("deletePost", title) ) {
             Toast.makeText(getApplicationContext(), "Post not found", Toast.LENGTH_LONG).show();
-
         } else {
-            Toast.makeText(getApplicationContext(), "Post successfully deleted", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Option not currently available", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Post successfully deleted", Toast.LENGTH_LONG).show();
         }
         findViewById(R.id.noButton2).setVisibility(View.INVISIBLE);
         findViewById(R.id.yesButton2).setVisibility(View.INVISIBLE);

@@ -317,13 +317,11 @@ public class RestModel {
             System.out.println(ex.getMessage());
         }
 
-/*
-        MainActivity myPostAdapter = new MainActivity();
-        ArrayList<PostInformationModel> myPostList = myPostAdapter.refreshPosts();
-        for (String s: myList)
-        {
+        /*
+        //still working on this; not properly implemented?
+        String mostRecentPosts = getRecentPosts();
             try {
-                if (s.equals(json.getString("title").toString())) {
+                if (mostRecentPosts.equals(json.getString("title").toString())) {
                     new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
                     foundPost = true;
                 }
@@ -331,10 +329,12 @@ public class RestModel {
             catch(JSONException je){
                 Log.d("JSONException: ", je.toString());
             }
-        }
-*/
+        */
+
         //going to use postData in PostAdapter
         //check in MainView?
+
+        foundPost = true; //temporary fix
 
         new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", data.toString());
         return foundPost;
