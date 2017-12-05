@@ -14,7 +14,7 @@ import com.example.cs4532.umdalive.R;
  * Created by meggi on 11/30/2017.
  */
 
-public class DeletingPostView extends AppCompatActivity {
+public class  DeletingPostView extends AppCompatActivity {
 
     private Presenter presenter;
     EditText myTitle;
