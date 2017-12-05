@@ -250,7 +250,7 @@ var user;
 //Only returns dummy
 app.get('/userData/', function (req, res) {
  //array to which each club will be stored
-    var userNames = {
+    var userEmails = {
         userItems: []
     };
     mongodb.getCollection('users', function(result){
@@ -262,37 +262,20 @@ app.get('/userData/', function (req, res) {
                 usersData.jsonArray.push(users);
             });
 
-            for(var i = 0; i < userData.jsonArray.length; i++){
-                var curUser = userData.jsonArray[i];
-                userNames.userItems[i] = curUser.userData.name;
+
+            for(var i = 0; i < usersData.jsonArray.length; i++){
+                var curUser = usersData.jsonArray[i];
+
+                userEmails.userItems[i] = curUser.userData.email;
             }
 
-            var stringArray = JSON.stringify(userNames);
-            console.log("user being sent to client: " + stringArray);
-           res.send(stringArray);
+            var stringArray = JSON.stringify(userEmails);
+
+            console.log("users being sent to client: " + stringArray);
+            res.send(stringArray);
+
     });
-    //res.send(JSON.stringify(dummyUser1));
-//      var clubNames = {
-//            items: []
-//        };
-//        mongodb.getCollection('clubs', function(result){
-//                var clubsData = {
-//                    jsonArray: []
-//                };
-//
-//                result.forEach(function(clubs){
-//                    clubsData.jsonArray.push(clubs);
-//                });
-//
-//                for(var i = 0; i < clubsData.jsonArray.length; i++){
-//                    var curClub = clubsData.jsonArray[i];
-//                    clubNames.items[i] = curClub.clubData.clubName;
-//                }
-//
-//                var stringArray = JSON.stringify(clubNames);
-//                console.log("clubs being sent to client: " + stringArray);
-//                res.send(stringArray);
-//        });
+   
 
 });
 
