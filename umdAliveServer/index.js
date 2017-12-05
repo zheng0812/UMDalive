@@ -139,9 +139,9 @@ app.put('/userData', function (req, res) {
 
     var userData = {
         name: req.body.name,
+        major: req.body.major,
         email: req.body.email,
         graduation_date: req.body.graduationDate,
-        major: req.body.major,
         userType: req.body.userType,
         users_clubs: [],
     };
