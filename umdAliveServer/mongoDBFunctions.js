@@ -111,10 +111,10 @@ module.exports.delete = function(clubName){
 
 };
 
-module.exports.deleteUser = function(userName){
-	mongoDBRef.collection('users').remove({'user' : userName}, function (err, obj){
+module.exports.deleteUser = function(userEmail){
+	mongoDBRef.collection('users').remove({'user' : userEmail}, function (err, obj){
 		if (err) throw err;
-		else console.log(userName + " deleted");
+		else console.log(userEmail + " deleted");
 	});
 };
 

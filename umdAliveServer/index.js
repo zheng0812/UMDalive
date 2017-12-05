@@ -56,11 +56,11 @@ app.delete("/deleteUser", function(req, res){
 	if (!req.body)
 		return res.sendStatus(400);
 
-	mongodb.deleteUser(req.body.userName);
+	mongodb.deleteUser(req.body.userEmail);
 
 	res.sendStatus(200);
 
-	console.log("User has been deleted: " + req.body.userName);
+	console.log("User has been deleted: " + req.body.userEmail);
 }
 );
 
@@ -275,7 +275,7 @@ app.get('/userData/', function (req, res) {
             res.send(stringArray);
 
     });
-   
+
 
 });
 
