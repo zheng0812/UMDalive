@@ -51,9 +51,12 @@ module.exports.insertPost = function(postData) {
 * @param userData - JSON data of the post
 */
 module.exports.insertUser = function(userData) {
+var temp = userData.email;
+
+    var title = temp.split('/').join('_');
 
     //console.log(userData);
-    mongoDBRef.collection('users').save({user: userData.email, userData}, function(err, result){
+    mongoDBRef.collection('users').save({user: title, userData}, function(err, result){
         if(err || !result) console.log("User failed to save in database.");
         else console.log("User inserted into users collection in MongoDB.");
     });
