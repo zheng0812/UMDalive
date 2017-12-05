@@ -238,7 +238,7 @@ var user;
     mongodb.findUser(req.params.email, function(result){
         var user = result[0];
         console.log("Found user.");
-        res.query = JSON.stringify(user.userData);
+        res.query = JSON.stringify(user.usersData);//was user.userData
         res.send(res.body);
     });
 //    res.send(JSON.stringify(dummyUser1));
