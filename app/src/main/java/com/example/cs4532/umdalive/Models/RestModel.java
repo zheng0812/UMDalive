@@ -336,7 +336,7 @@ public class RestModel {
 
         foundPost = true; //temporary fix
 
-        new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", data.toString());
+        new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
         return foundPost;
     }
 

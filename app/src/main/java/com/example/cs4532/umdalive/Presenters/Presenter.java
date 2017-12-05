@@ -190,7 +190,7 @@ public class Presenter {
     public boolean checkIfClubOwner(String clubName){
 
         //return (getMainUser((restGet("getUserEmail", thisUser))).getUserType().equals(clubName));
-       return true;
+        return true;
     }
 
     /**

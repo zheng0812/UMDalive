@@ -17,6 +17,7 @@ import com.example.cs4532.umdalive.R;
 public class DeletingPostView extends AppCompatActivity {
 
     private Presenter presenter;
+    EditText myTitle;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,10 @@ public class DeletingPostView extends AppCompatActivity {
     }
 
     public void onClickYesDeletePost(View view) {
-        String title = ((EditText) findViewById(R.id.edit_title)).getText().toString();
+        //why is title getting nothing?
+        myTitle = ((EditText) findViewById(R.id.edit_title2));
+        String title = myTitle.getText().toString();
+
         if (!presenter.checkIfClubOwner(title)) {
             Toast.makeText(getApplicationContext(), "I'm sorry, you are not the owner of that club", Toast.LENGTH_LONG).show();
         }else if (!presenter.restDelete("deletePost", title) ) {

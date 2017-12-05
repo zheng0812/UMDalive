@@ -31,7 +31,7 @@
         android:layout_margin="20dp"/>
 
     <EditText
-        android:id="@+id/edit_title"
+        android:id="@+id/edit_title2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
