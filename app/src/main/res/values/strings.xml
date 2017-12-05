@@ -68,6 +68,7 @@
         <item name="mathematics">Mathematics</item>
         <item name="english">English</item>
         <item name="history">History</item>
+        <item name="music">Music</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
