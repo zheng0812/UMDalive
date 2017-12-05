@@ -138,7 +138,7 @@ app.put('/userData', function (req, res) {
     if (!req.body) return res.sendStatus(400);
 
     var userData = {
-        email: req.body.emailAddress,
+        email: req.body.email,
         name: req.body.name,
         graduation_date: req.body.graduationDate,
         major: req.body.major,
@@ -231,11 +231,11 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/users/:emailAddress', function (req, res) {
+app.get('/users/:email', function (req, res) {
 var user;
-    console.log("Looking for " + req.params.emailAddress);
+    console.log("Looking for " + req.params.email);
 
-    mongodb.findUser(req.params.emailAddress, function(result){
+    mongodb.findUser(req.params.email, function(result){
         var user = result[0];
         console.log(user);
         console.log("Found user.");
