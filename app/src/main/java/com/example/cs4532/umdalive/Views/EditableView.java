@@ -55,7 +55,8 @@ public class EditableView extends AppCompatActivity{
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
 
-                description = clubObject.get("description").toString();
+                description = getIntent().getStringExtra("DESCRIPTION_OF_CLUB");
+                //description = clubObject.get("description").toString();
                 //keywords = clubObject.get("keywords").toString();
                 clubOwner = clubObject.get("username").toString();
                 ownerEmail = clubObject.get("ownerEmail").toString();

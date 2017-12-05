@@ -73,6 +73,10 @@ public class DisplayClubOwnerView extends AppCompatActivity {
         {
             Intent intent = new Intent(this, EditableView.class);
             intent.putExtra("NAME_OF_CLUB", clubName);
+            intent.putExtra("DESCRIPTION_OF_CLUB", description);
+            intent.putExtra("ADMINISTRATOR_OF_CLUB", administrator);
+            intent.putExtra("KEYWORDS_OF_CLUB", keywords);
+
             startActivity(intent);
         }
 
