@@ -310,6 +310,11 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
         //commented out because not needed at this point.
     }
 
+    public ArrayList<PostInformationModel> getPosts()
+    {
+        return posts;
+    }
+
     /**
      * This was all in onCreate and it was really cluttered so I just moved it to a separate function.
      */

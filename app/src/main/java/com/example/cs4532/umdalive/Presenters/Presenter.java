@@ -15,6 +15,7 @@ import com.example.cs4532.umdalive.Models.PostAdapter;
 import com.example.cs4532.umdalive.Models.PostInformationModel;
 import com.example.cs4532.umdalive.Models.RestModel;
 import com.example.cs4532.umdalive.Models.UserInformationModel;
+import com.example.cs4532.umdalive.Views.MainView;
 import com.example.cs4532.umdalive.Views.UserDataView;
 
 import org.json.JSONObject;
@@ -154,6 +155,15 @@ public class Presenter {
      */
     public ArrayList<PostInformationModel> refreshPosts(String jsonString) {
         return MainActivity.refreshPosts(jsonString);
+    }
+
+    /**
+     * For Rest Model
+     *
+     * @return ArrayList of post objects
+     */
+    public ArrayList<PostInformationModel> getPostArray() {
+        //return MainView.getPosts();
     }
 
     public void putPost(String club, String title, String time, String date, String location, String addInfo, String image, String clubOwner) {
