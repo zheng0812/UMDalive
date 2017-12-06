@@ -30,6 +30,7 @@ public class RestModel {
     public final String serverAddress = "http://131.212.41.37:65000"; //Ellie's Mongo
     //10.0.2.2:5000
     //public final String serverAddress = "http://131.212.41.37:5004"; //Permanent IP
+    ArrayList<PostInformationModel> myPostArray;
 
     private Context context;
 
@@ -40,6 +41,7 @@ public class RestModel {
      */
     public RestModel(Context context) {
         this.context = context;
+        myPostArray = new ArrayList<PostInformationModel>();
     }
 
     /**
@@ -307,7 +309,6 @@ public class RestModel {
      * @return foundPost    if the post was successfully deleted
      */
     public boolean deletePost(String data){
-        boolean foundPost = false;
         JSONObject json = new JSONObject();
 
         try{
@@ -317,27 +318,15 @@ public class RestModel {
             System.out.println(ex.getMessage());
         }
 
+        for (PostInformationModel myPost: myPostArray) {
 
-        //still working on this; not properly implemented?
-        String mostRecentPosts = getRecentPosts();
-            try {
-                if (mostRecentPosts.equals(json.getString("title").toString())) {
-                    new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
-                    foundPost = true;
-                }
+            if (myPost.getTitle().equals(data)) {
+                new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
+                return true;
             }
-            catch(JSONException je){
-                Log.d("JSONException: ", je.toString());
-            }
+        }
 
-
-        //going to use postData in PostAdapter
-        //check in MainView?
-
-        foundPost = true; //temporary fix
-
-        new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
-        return foundPost;
+        return false;
     }
 
     /**
@@ -362,6 +351,11 @@ public class RestModel {
 
         new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data.toString());
         return foundUser;
+    }
+
+    public void setPostArray(ArrayList<PostInformationModel> posts)
+    {
+        myPostArray = posts;
     }
 
     private class HTTPAsyncTask extends AsyncTask<String, Integer, String> {

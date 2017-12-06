@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.cs4532.umdalive.Views.MainView.*;
 
 /**
  * Created by ryan_000 on 3/15/2017.
@@ -34,6 +35,7 @@ public class Presenter {
     private Activity activity;
     private RestModel restModel;
     private String thisUser; //current user's email
+    private ArrayList<PostInformationModel> myPosts;
 
 
     /**
@@ -46,6 +48,7 @@ public class Presenter {
     public Presenter(Activity incomingActivity) {
         restModel = new RestModel();
         activity = incomingActivity;
+        myPosts = new ArrayList<PostInformationModel>();
     }
 
     /**
@@ -108,6 +111,8 @@ public class Presenter {
      */
     public boolean restDelete(String task, String data)
     {
+        myPosts = refreshPosts(restGet("getRecentPosts", ""));
+        restModel.setPostArray(myPosts);
         return restModel.restDelete(task, data);
     }
 
@@ -154,7 +159,8 @@ public class Presenter {
      * @return list of post objects
      */
     public ArrayList<PostInformationModel> refreshPosts(String jsonString) {
-        return MainActivity.refreshPosts(jsonString);
+        myPosts = MainActivity.refreshPosts(jsonString);
+        return myPosts;
     }
 
     /**
@@ -163,7 +169,16 @@ public class Presenter {
      * @return ArrayList of post objects
      */
     public ArrayList<PostInformationModel> getPostArray() {
-        //return MainView.getPosts();
+        return myPosts;
+    }
+
+    /**
+     * For Rest Model
+     *
+     * @return ArrayList of post objects
+     */
+    public void setPostArray(ArrayList<PostInformationModel> posts) {
+        restModel.setPostArray(posts);
     }
 
     public void putPost(String club, String title, String time, String date, String location, String addInfo, String image, String clubOwner) {
@@ -202,6 +217,7 @@ public class Presenter {
         //return (getMainUser((restGet("getUserEmail", thisUser))).getUserType().equals(clubName));
         return true;
     }
+
 
     /**
      * used to get all clubs with a keyword
