@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class RestModel {
-    //public final String serverAddress = "http://10.0.2.2:5000";//Possible personal debugging
+    //public final String serverAddress = "http://127.0.0.1:60000";//Possible personal debugging
     public final String serverAddress = "http://131.212.41.37:65000"; //Ellie's Mongo
     //10.0.2.2:5000
     //public final String serverAddress = "http://131.212.41.37:5004"; //Permanent IP
@@ -417,6 +417,7 @@ public class RestModel {
                     while ((line = br.readLine()) != null) {
                         sb.append(line);
                     }
+
                     try {
                         JSONObject jsonData = new JSONObject(sb.toString());
                         return jsonData.toString();
