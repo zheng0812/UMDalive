@@ -53,7 +53,7 @@ public class DisplayClubOwnerView extends AppCompatActivity {
                 //administrator = clubObject.get("clubOwner").toString();
 
                // keywords= clubObject.getJSONObject(clubName).getString("keywords");
-              //  description = clubObject.getJSONObject(clubName).getString("description");
+   //             description = clubObject.getJSONObject("clubData").getString("description");
                 System.out.println("help me"+description);
             } catch (JSONException e) {
                 e.printStackTrace();
