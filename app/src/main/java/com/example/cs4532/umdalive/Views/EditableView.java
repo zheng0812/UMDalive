@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,11 +38,13 @@ public class EditableView extends AppCompatActivity{
         private TextView ownerEmailSetText;
         private TextView clubOwnerSetText;
         private TextView invalidInput;
+        private Button saveButton;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.editable_view);
             presenter = new Presenter(this);
+            saveButton = (Button) findViewById(R.id.save_button);
             setView();
         }
 
@@ -54,16 +57,21 @@ public class EditableView extends AppCompatActivity{
                 String jsonResponse = presenter.restGet("getClub", clubName);
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
-
+/**
                 description = getIntent().getStringExtra("DESCRIPTION_OF_CLUB");
+                keywords = getIntent().getStringExtra("KEYWORDS_OF_CLUB");
+                clubOwner = getIntent().getStringExtra("ADMINISTRATOR_OF_CLUB");
+                ownerEmail = getIntent().getStringExtra("OWNER_EMAIL_OF_CLUB");
+*/
+                keywords= clubObject.getJSONObject(clubName).getString("keywords");
+                description = clubObject.getJSONObject(clubName).getString("description");
                 //description = clubObject.get("description").toString();
                 //keywords = clubObject.get("keywords").toString();
-                clubOwner = clubObject.get("username").toString();
-                ownerEmail = clubObject.get("ownerEmail").toString();
+                //clubOwner = clubObject.get("username").toString();
+                //ownerEmail = clubObject.get("ownerEmail").toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 
             clubNameEditable = (EditText) findViewById(R.id.edit_title);
             descriptionEditable = (EditText) findViewById(R.id.edit_description);
@@ -73,7 +81,8 @@ public class EditableView extends AppCompatActivity{
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
 
             clubNameEditable.setText(clubName, TextView.BufferType.EDITABLE);
-            descriptionEditable.setText(description, TextView.BufferType.EDITABLE);
+            descriptionEditable.append(description);
+//            descriptionEditable.setText(description, TextView.BufferType.EDITABLE);
             //keywordSetText.setText(keywords, TextView.BufferType.EDITABLE);
 
             //feed these ones in like the createClub
@@ -89,9 +98,16 @@ public class EditableView extends AppCompatActivity{
         }
 
 
-        private void clickToSave(View view){
+        public void clickToSave(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
             //update edit text views before switching views? or after?
+           /**
+            intent.putExtra("NAME_OF_CLUB", clubNameEditable);
+            intent.putExtra("DESCRIPTION_OF_CLUB", descriptionEditable);
+            intent.putExtra("OWNER_OF_CLUB", clubOwnerSetText);
+            //intent.putExtra("KEYWORDS_OF_CLUB", keywords);
+            intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmailSetText);
+            */
             startActivity(intent);
         }
 }

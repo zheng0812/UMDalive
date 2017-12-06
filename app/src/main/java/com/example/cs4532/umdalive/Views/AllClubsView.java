@@ -3,6 +3,7 @@ package com.example.cs4532.umdalive.Views;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -24,6 +28,10 @@ public class AllClubsView extends Activity {
 
     ListView listView;
     Presenter presenter;
+    private String description;
+    private String clubOwner;
+    private String keywords;
+    private String ownerEmail;
 
     public static final String CLUB_NAME = "com.example.kevin.umdalive.MESSAGE";
 
@@ -55,18 +63,41 @@ public class AllClubsView extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) listView.getItemAtPosition(position);
+                //have to find how to get these
+
+                try {
+                    String jsonResponse = presenter.restGet("getClub", itemValue);
+                    Log.d("DisplayClub response: ", jsonResponse);
+                    JSONObject clubObject = new JSONObject(jsonResponse);
+                    description = clubObject.get("description").toString();
+                    keywords = clubObject.get("keywords").toString();
+                    ownerEmail = clubObject.get("ownerEmail").toString();
+                    clubOwner = clubObject.get("clubOwner").toString();
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 //Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
                 //if club owner, set intent to DisplayClubOwnerView.class
 
                 if(presenter.checkIfClubOwner(itemValue)){
                     Intent intent = new Intent (AllClubsView.this, DisplayClubOwnerView.class);
                     intent.putExtra("NAME_OF_CLUB", itemValue);
+                    intent.putExtra("DESCRIPTION_OF_CLUB",description);
+                    intent.putExtra("OWNER_OF_CLUB", clubOwner);
+                    intent.putExtra("KEYWORDS_OF_CLUB", keywords);
+                    intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmail);
                     intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
                 else {
                     Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
                     intent.putExtra("NAME_OF_CLUB", itemValue);
+                    intent.putExtra("DESCRIPTION_OF_CLUB", description);
+                    intent.putExtra("OWNER_OF_CLUB", clubOwner);
+                    intent.putExtra("KEYWORDS_OF_CLUB", keywords);
+                    intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmail);
                     intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
