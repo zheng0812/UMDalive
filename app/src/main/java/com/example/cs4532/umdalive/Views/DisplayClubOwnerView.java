@@ -47,10 +47,10 @@ public class DisplayClubOwnerView extends AppCompatActivity {
                 String jsonResponse = presenter.restGet("getClub", clubName);
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
-                //description = clubObject.get("description").toString();
-                //keywords = clubObject.get("keywords").toString();
-                //ownerEmail = clubObject.get("ownerEmail").toString();
-                //administrator = clubObject.get("clubOwner").toString();
+                description = clubObject.get("description").toString();
+                keywords = clubObject.get("keywords").toString();
+                ownerEmail = clubObject.get("ownerEmail").toString();
+                administrator = clubObject.get("clubOwner").toString();
 
                // keywords= clubObject.getJSONObject(clubName).getString("keywords");
    //             description = clubObject.getJSONObject("clubData").getString("description");
