@@ -48,6 +48,7 @@ public class DisplayClubOwnerView extends AppCompatActivity {
                 String jsonResponse = presenter.restGet("getClub", clubName);
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
+
                 description = clubObject.get("description").toString();
                 keywords = clubObject.get("keywords").toString();
                 ownerEmail = clubObject.get("ownerEmail").toString();
@@ -55,6 +56,7 @@ public class DisplayClubOwnerView extends AppCompatActivity {
 
                 //keywords= clubObject.getJSONObject(clubName).getString("keywords");
                 // description = clubObject.getJSONObject("clubData").getString("description");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
