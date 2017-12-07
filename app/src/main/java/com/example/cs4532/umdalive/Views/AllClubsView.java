@@ -56,6 +56,7 @@ public class AllClubsView extends Activity {
     private void setView() {
         ArrayList<String> clubNames = presenter.getClubNames();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clubNames);
+        //Try making a new xml for a better looking all clubs view
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
