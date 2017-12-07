@@ -198,7 +198,7 @@ app.get('/clubs/:clubName', function (req,res) {
         var club = result[0];
         console.log("Found club.");
         res.query = JSON.stringify(club.clubData);
-        console.log(res.query+ "THIS IS THE ONE ABBY ADDED");
+	console.log(res.query + "Abby's Addition");
         res.send(res.query);
     });
 });

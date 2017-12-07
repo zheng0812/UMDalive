@@ -139,7 +139,7 @@ public class Presenter {
      */
     public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
        // getMainUser(restModel.restGet("getUserEmail",ownerEmail)).setUserType(clubName);
-        return CreateClub.makeClub(clubName, "Meggie Jo", keyWords, ownerEmail, description);//, initialPost);
+        return CreateClub.makeClub(clubName, "Meggie Jo", ownerEmail, keyWords, description);//, initialPost);
         /******* need username *************/
     }
 
