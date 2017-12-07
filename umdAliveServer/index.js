@@ -234,7 +234,7 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/userData/:email', function (req, res) {
+app.get('/users/:email', function (req, res) {
 var user;
     console.log("Looking for " + req.params.email);
 
@@ -242,7 +242,9 @@ var user;
         var user = result[0];
         console.log(user);
         console.log("Found user.");
+        //console.log(res.body);
         res.query = JSON.stringify(user.userData);//was user.userData
+        console.log("-------------------")
         res.send(res.query);
         
     });
