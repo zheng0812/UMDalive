@@ -66,12 +66,12 @@ public class DisplayClubOwnerView extends AppCompatActivity {
             descriptionSetText.setText(description);
             ownerEmailSetText = (TextView) findViewById(R.id.display_club_email_owner);
             ownerEmailSetText.setText(ownerEmail);
-            //keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
+            keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
             administratorSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
 
             clubNameSetText.setText(clubName);
             //descriptionSetText.setText(description);
-            //keywordSetText.setText(keywords);
+            keywordSetText.setText(keywords);
             administratorSetText.setText(administrator);
         }
 
