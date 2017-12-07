@@ -57,8 +57,8 @@ public class EditableView extends AppCompatActivity{
                 Log.d("DisplayClub response: ", jsonResponse);
                 JSONObject clubObject = new JSONObject(jsonResponse);
 
-                keywords= clubObject.getJSONObject(clubName).getString("keywords");
-                description = clubObject.getJSONObject(clubName).getString("description");
+                keywords= clubObject.getJSONObject(clubName).getString("keywords");// probably don't need this
+                description = clubObject.getJSONObject(clubName).getString("description");//probably don't need this
 
                 description = clubObject.get("description").toString();
                 keywords = clubObject.get("keywords").toString();
@@ -72,12 +72,12 @@ public class EditableView extends AppCompatActivity{
             clubNameEditable = (EditText) findViewById(R.id.edit_title);
             descriptionEditable = (EditText) findViewById(R.id.edit_description);
             keywordSetText = (TextView) findViewById(R.id.keyword_title);
-            ownerEmailSetText = (EditText) findViewById(R.id.edit_email);
-            clubOwnerSetText = (EditText) findViewById(R.id.edit_owner);
+            ownerEmailSetText = (TextView) findViewById(R.id.edit_email);
+            clubOwnerSetText = (TextView) findViewById(R.id.edit_owner);
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
 
-            clubNameEditable.setText(clubName, TextView.BufferType.EDITABLE);
-            descriptionEditable.setText(description, TextView.BufferType.EDITABLE);
+            clubNameEditable.setText(clubName);
+            descriptionEditable.setText(description);
 
             //feed these ones in like the createClub
             keywordSetText.setText(keywords);
