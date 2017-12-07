@@ -35,9 +35,12 @@ public class EditableView extends AppCompatActivity{
         private String clubOwner;
         private EditText clubNameEditable;
         private EditText descriptionEditable;
+        private EditText newName;
+        private EditText newDescription;
         private TextView ownerEmailSetText;
         private TextView clubOwnerSetText;
         private TextView invalidInput;
+        private String errorMessage;
         private Button saveButton;
 
         protected void onCreate(Bundle savedInstanceState) {
@@ -107,28 +110,47 @@ public class EditableView extends AppCompatActivity{
 
         public void clickToSaveClubInfo(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
-            //update edit text views before switching views? or after?
-            //descriptionEditable.toString();
 
-            try {
+            invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
+            newName = (EditText) findViewById(R.id.edit_title);
+            newDescription = (EditText) findViewById(R.id.edit_description);
 
-                clubName = getIntent().getStringExtra("NAME_OF_CLUB");
-                String jsonResponse = presenter.restGet("getClub", clubName);
-                Log.d("DisplayClub response: ", jsonResponse);
-                JSONObject clubObject = new JSONObject(jsonResponse);
 
-                description = clubObject.get("description").toString();
-                clubObject.put("description", descriptionEditable.toString());
+            presenter.restDelete("deleteClub", clubName);
 
-                presenter.restDelete("deleteClub", clubName);
-                //presenter.restPut("putNewClub", )
+            if (!checkStrings()) {
+                String jsonString = presenter.makeClub(newName.getText().toString(),
+                        (String) keywordItem, ownerEmailSetText.getText().toString(), newDescription.getText().toString());
+                startActivity(intent);
+                presenter.restPut("putNewClub", jsonString);
+            } else invalidInput.setText(errorMessage);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            intent.putExtra("NAME_OF_CLUB", clubName);
-
+            intent.putExtra("NAME_OF_CLUB", newName.getText().toString());
             startActivity(intent);
         }
+
+    /**
+     * Checks if strings are invalid
+     *
+     * @return false if invalid input
+     */
+    private boolean checkStrings() {
+        boolean isError = false;
+
+        errorMessage = "";
+        if (newName.getText().toString().matches("") || presenter.isClubNameValid(newName.getText().toString())) {
+            errorMessage = "You must enter a valid club name";
+            isError = true;
+        }
+        if (clubOwnerSetText.getText().toString().matches("") || presenter.isClubInfoValid(clubOwnerSetText.getText().toString())) {
+            errorMessage = "You must enter a valid admin name.";
+            isError = true;
+        }
+        if (newDescription.getText().toString().matches("") || presenter.isClubInfoValid(newDescription.getText().toString())) {
+            errorMessage = "You must enter a valid description.";
+            isError = true;
+        }
+        return isError;
+    }
 }
