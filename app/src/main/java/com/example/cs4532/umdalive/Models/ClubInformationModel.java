@@ -161,8 +161,8 @@ public class ClubInformationModel {
             jsonString = new JSONObject();
             jsonString.put("clubName", clubName);
             jsonString.put("clubOwner", clubOwner);
-            jsonString.put("keywords", keyWords);
             jsonString.put("ownerEmail", ownerEmail);
+            jsonString.put("keywords", keyWords);
             jsonString.put("description", description);
             //jsonString.put("post", post);
         } catch (JSONException e) {

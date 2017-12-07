@@ -92,10 +92,11 @@ app.put('/clubs', function (req, res) {
     //console.log(req.body);	
     // Takes data from request and makes a new object
     var clubData = {
-        clubName: req.body.clubName,//ELLLLLIIE PUT AN EMAIL IN THIS LIST _***************************************************************
+        clubName: req.body.clubName,
         clubOwner: req.body.clubOwner,
+        ownerEmail: req.body.email
         keywords: req.body.keywords,
-        description: req.body.description,
+        description: req.body.description
     };
 
 	//console.log(clubData);

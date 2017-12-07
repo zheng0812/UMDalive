@@ -26,6 +26,7 @@ public class DisplayClubOwnerView extends AppCompatActivity {
         private String ownerEmail;
         private String administrator;
         private TextView clubNameSetText;
+        private TextView ownerEmailSetText;
         private TextView descriptionSetText;
         private TextView keywordSetText;
         private TextView administratorSetText;
@@ -54,19 +55,21 @@ public class DisplayClubOwnerView extends AppCompatActivity {
 
                // keywords= clubObject.getJSONObject(clubName).getString("keywords");
    //             description = clubObject.getJSONObject("clubData").getString("description");
-                System.out.println("help me"+description);
+                //System.out.println("help me"+description);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             clubNameSetText = (TextView) findViewById(R.id.display_club_owner_name);
+            clubNameSetText.setTextSize(45);
             descriptionSetText = (TextView) findViewById(R.id.display_club_owner_description);
             descriptionSetText.setText(description);
-            keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
+            ownerEmailSetText = (TextView) findViewById(R.id.display_club_email_owner);
+            ownerEmailSetText.setText(ownerEmail);
+            //keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
             administratorSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
 
             clubNameSetText.setText(clubName);
-            clubNameSetText.setTextSize(45);
             //descriptionSetText.setText(description);
             //keywordSetText.setText(keywords);
             administratorSetText.setText(administrator);
