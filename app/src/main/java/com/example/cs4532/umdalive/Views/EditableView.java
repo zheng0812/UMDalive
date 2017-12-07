@@ -98,7 +98,7 @@ public class EditableView extends AppCompatActivity{
         }
 
 
-        public void clickToSave(View view){
+        public void clickToSaveClubInfo(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
             //update edit text views before switching views? or after?
 
