@@ -101,7 +101,7 @@ public class UserDataView extends AppCompatActivity {
                                     mSelectedItems.add(interestList[which]);
                                 } else if (mSelectedItems.contains(which)) {
                                     // Else, if the item is already in the array, remove it
-                                    mSelectedItems.remove((Integer) Integer.valueOf(which));
+                                    mSelectedItems.remove(Integer.valueOf(which));
                                 }
                             }
                         })

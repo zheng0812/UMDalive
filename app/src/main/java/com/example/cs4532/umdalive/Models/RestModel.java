@@ -286,7 +286,7 @@ public class RestModel {
             System.out.println(ex.getMessage());
         }
 
-        ArrayList<String> myList = listOfClubs.getClubNames(this.getAllClubs());
+        ArrayList<String> myList = AllClubs.getClubNames(this.getAllClubs());
         for (String s: myList)
         {
             try {
