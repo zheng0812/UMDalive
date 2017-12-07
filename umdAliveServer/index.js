@@ -233,11 +233,11 @@ app.get('/clubSearch/:keyword', function (req,res) {
 });
 //should return userEmail
 //Only returns dummy
-app.get('/userData/:name', function (req, res) {
+app.get('/userData/:email', function (req, res) {
 var user;
-    console.log("Looking for " + req.params.name);
+    console.log("Looking for " + req.params.email);
 
-    mongodb.findUser(req.params.name, function(result){
+    mongodb.findUser(req.params.email, function(result){
         var user = result[0];
         console.log(user);
         console.log("Found user.");
