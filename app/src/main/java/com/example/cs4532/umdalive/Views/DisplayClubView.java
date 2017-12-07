@@ -24,11 +24,13 @@ public class DisplayClubView extends AppCompatActivity {
     private String clubName;
     private String description;
     private String keywords;
-    private String administrator;
+    private String clubOwner;
+    private String ownerEmail;
     private TextView clubNameSetText;
     private TextView descriptionSetText;
     private TextView keywordSetText;
-    private TextView administratorSetText;
+    private TextView clubOwnerSetText;
+    private TextView ownerEmailSetText;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,21 +50,24 @@ public class DisplayClubView extends AppCompatActivity {
             JSONObject clubObject = new JSONObject(jsonResponse);
             description = clubObject.get("description").toString();
             keywords = clubObject.get("keywords").toString();
-            administrator = clubObject.get("clubOwner").toString();
+            ownerEmail = clubObject.get("ownerEmail").toString();
+            clubOwner = clubObject.get("clubOwner").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         clubNameSetText = (TextView) findViewById(R.id.display_club_name);
         descriptionSetText = (TextView) findViewById(R.id.display_club_description);
+        ownerEmailSetText = (TextView) findViewById(R.id.display_club_email);
         keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
-        administratorSetText = (TextView) findViewById(R.id.display_club_administrator);
+        clubOwnerSetText = (TextView) findViewById(R.id.display_club_administrator);
 
         clubNameSetText.setText(clubName);
         clubNameSetText.setTextSize(45);
         descriptionSetText.setText(description);
+        ownerEmailSetText.setText(ownerEmail);
         keywordSetText.setText(keywords);
-        administratorSetText.setText(administrator);
+        clubOwnerSetText.setText(clubOwner);
     }
 
     /**

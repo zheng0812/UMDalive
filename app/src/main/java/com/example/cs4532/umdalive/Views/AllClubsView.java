@@ -33,7 +33,6 @@ public class AllClubsView extends Activity {
     private String keywords;
     private String ownerEmail;
 
-    public static final String CLUB_NAME = "com.example.kevin.umdalive.MESSAGE";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,25 +79,14 @@ public class AllClubsView extends Activity {
 
                 //Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
                 //if club owner, set intent to DisplayClubOwnerView.class
-
-                if(presenter.checkIfClubOwner(itemValue)){
+                if(!presenter.checkIfClubOwner(itemValue)){
                     Intent intent = new Intent (AllClubsView.this, DisplayClubOwnerView.class);
                     intent.putExtra("NAME_OF_CLUB", itemValue);
-                    intent.putExtra("DESCRIPTION_OF_CLUB",description);
-                    intent.putExtra("OWNER_OF_CLUB", clubOwner);
-                    intent.putExtra("KEYWORDS_OF_CLUB", keywords);
-                    intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmail);
-                    intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
                 else {
                     Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
                     intent.putExtra("NAME_OF_CLUB", itemValue);
-                    intent.putExtra("DESCRIPTION_OF_CLUB", description);
-                    intent.putExtra("OWNER_OF_CLUB", clubOwner);
-                    intent.putExtra("KEYWORDS_OF_CLUB", keywords);
-                    intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmail);
-                    intent.putExtra(CLUB_NAME, itemValue);
                     startActivity(intent);
                 }
             }

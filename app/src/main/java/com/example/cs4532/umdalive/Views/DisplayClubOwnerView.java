@@ -53,24 +53,22 @@ public class DisplayClubOwnerView extends AppCompatActivity {
                 ownerEmail = clubObject.get("ownerEmail").toString();
                 administrator = clubObject.get("clubOwner").toString();
 
-               // keywords= clubObject.getJSONObject(clubName).getString("keywords");
-   //             description = clubObject.getJSONObject("clubData").getString("description");
-                //System.out.println("help me"+description);
+                //keywords= clubObject.getJSONObject(clubName).getString("keywords");
+                // description = clubObject.getJSONObject("clubData").getString("description");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             clubNameSetText = (TextView) findViewById(R.id.display_club_owner_name);
-            clubNameSetText.setTextSize(45);
+            clubNameSetText.setTextSize(45); //title of the club
             descriptionSetText = (TextView) findViewById(R.id.display_club_owner_description);
-            descriptionSetText.setText(description);
             ownerEmailSetText = (TextView) findViewById(R.id.display_club_email_owner);
-            ownerEmailSetText.setText(ownerEmail);
             keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
             administratorSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
 
             clubNameSetText.setText(clubName);
-            //descriptionSetText.setText(description);
+            descriptionSetText.setText(description);
+            ownerEmailSetText.setText(ownerEmail);
             keywordSetText.setText(keywords);
             administratorSetText.setText(administrator);
         }
@@ -82,10 +80,6 @@ public class DisplayClubOwnerView extends AppCompatActivity {
         {
             Intent intent = new Intent(this, EditableView.class);
             intent.putExtra("NAME_OF_CLUB", clubName);
-           intent.putExtra("DESCRIPTION_OF_CLUB", description);
-            intent.putExtra("ADMINISTRATOR_OF_CLUB", administrator);
-            intent.putExtra("KEYWORDS_OF_CLUB", keywords);
-            intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmail);
 
             startActivity(intent);
         }

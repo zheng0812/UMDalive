@@ -101,13 +101,9 @@ public class EditableView extends AppCompatActivity{
         public void clickToSave(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
             //update edit text views before switching views? or after?
-           /**
-            intent.putExtra("NAME_OF_CLUB", clubNameEditable);
-            intent.putExtra("DESCRIPTION_OF_CLUB", descriptionEditable);
-            intent.putExtra("OWNER_OF_CLUB", clubOwnerSetText);
-            //intent.putExtra("KEYWORDS_OF_CLUB", keywords);
-            intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmailSetText);
-            */
+
+            //intent.putExtra("NAME_OF_CLUB", clubNameEditable);
+
             startActivity(intent);
         }
 }
