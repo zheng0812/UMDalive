@@ -188,7 +188,7 @@ public class Presenter {
     public void putUser(String name, String major, String email, String gradDate) {
         UserDataView user = new UserDataView();
 
-        restPut("putNewUser", UserInformationModel.jsonStringify(name, major, email, gradDate, "club member", user.getmSelectedItems()));
+        restPut("putNewUser", UserInformationModel.jsonStringify(name, email, major, gradDate, "club member", user.getmSelectedItems()));
     }
 
     /**

@@ -173,8 +173,8 @@ public class UserInformationModel extends AppCompatActivity {
             //Create JSONObject here
             jsonString = new JSONObject();
             jsonString.put("name", name);
-            jsonString.put("email", email);
             jsonString.put("major", major);
+            jsonString.put("email", email);
             jsonString.put("gradDate", gradDate);
             jsonString.put("userType", userType);
             jsonString.put("Interests", interests);

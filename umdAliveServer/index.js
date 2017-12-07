@@ -242,7 +242,7 @@ var user;
         console.log(user);
         console.log("Found user.");
         res.query = JSON.stringify(user.userData);//was user.userData
-        res.send(res.body);
+        res.send(res.query);
         
     });
 //    res.send(JSON.stringify(dummyUser1));
@@ -252,7 +252,7 @@ var user;
 //Only returns dummy
 app.get('/userData/', function (req, res) {
  //array to which each club will be stored
-    var userNames = {
+    var userEmails = {
         userItems: []
     };
     mongodb.getCollection('users', function(result){
@@ -268,10 +268,10 @@ app.get('/userData/', function (req, res) {
             for(var i = 0; i < usersData.jsonArray.length; i++){
                 var curUser = usersData.jsonArray[i];
 
-                userNames.userItems[i] = curUser.userData.name;
+                userEmails.userItems[i] = curUser.userData.email;
             }
 
-            var stringArray = JSON.stringify(userNames);
+            var stringArray = JSON.stringify(userEmails);
 
             console.log("users being sent to client: " + stringArray);
             res.send(stringArray);
