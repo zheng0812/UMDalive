@@ -108,8 +108,26 @@ public class EditableView extends AppCompatActivity{
         public void clickToSaveClubInfo(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
             //update edit text views before switching views? or after?
+            //descriptionEditable.toString();
 
-            //intent.putExtra("NAME_OF_CLUB", clubNameEditable);
+            try {
+
+                clubName = getIntent().getStringExtra("NAME_OF_CLUB");
+                String jsonResponse = presenter.restGet("getClub", clubName);
+                Log.d("DisplayClub response: ", jsonResponse);
+                JSONObject clubObject = new JSONObject(jsonResponse);
+
+                description = clubObject.get("description").toString();
+                clubObject.put("description", descriptionEditable.toString());
+
+                presenter.restDelete("deleteClub", clubName);
+                //presenter.restPut("putNewClub", )
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            intent.putExtra("NAME_OF_CLUB", clubName);
 
             startActivity(intent);
         }
