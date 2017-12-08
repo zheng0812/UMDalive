@@ -94,7 +94,7 @@ app.put('/clubs', function (req, res) {
     var clubData = {
         clubName: req.body.clubName,
         clubOwner: req.body.clubOwner,
-        ownerEmail: req.body.email,
+	ownerEmail : req.body.ownerEmail,
         keywords: req.body.keywords,
         description: req.body.description
     };
