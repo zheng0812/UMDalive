@@ -29,19 +29,26 @@ public class EditableView extends AppCompatActivity{
 
         private Object keywordItem = new Object();
         private Presenter presenter;
+
+        //for the current club you are editing
         private String clubName;
         private String description;
         private String ownerEmail;
         private String clubOwner;
+
+        //for use of the editableview.xml
         private EditText clubNameEditable;
         private EditText descriptionEditable;
-        private EditText newName;
-        private EditText newDescription;
         private TextView ownerEmailSetText;
         private TextView clubOwnerSetText;
+        private Button saveButton;
+
+        //for the new club when saving edits
+        private EditText newName;
+        private EditText newDescription;
         private TextView invalidInput;
         private String errorMessage;
-        private Button saveButton;
+
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -68,7 +75,7 @@ public class EditableView extends AppCompatActivity{
         }
 
         /**
-         * sets up view
+         * sets up view for editing the club
          */
         private void setView() {
             try {
@@ -87,17 +94,17 @@ public class EditableView extends AppCompatActivity{
 
             clubNameEditable = (EditText) findViewById(R.id.edit_title);
             descriptionEditable = (EditText) findViewById(R.id.edit_description);
-            //keywordSetText = (Spinner) findViewById(R.id.keywordChooser);
             ownerEmailSetText = (TextView) findViewById(R.id.edit_email);
             clubOwnerSetText = (TextView) findViewById(R.id.edit_owner);
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
 
+            //clubOwners can edit clubName and description
             clubNameEditable.setText(clubName);
             descriptionEditable.setText(description);
 
-            //feed these ones in like the createClub
-            ownerEmailSetText.setText(ownerEmail); //should not be editable
-            clubOwnerSetText.setText(clubOwner); //should not be editable
+            //these are not editable, only administrators will change these
+            ownerEmailSetText.setText(ownerEmail);
+            clubOwnerSetText.setText(clubOwner);
         }
 
         public void deletePost(View view)
@@ -107,8 +114,16 @@ public class EditableView extends AppCompatActivity{
             startActivity(intent);
         }
 
-
-        public void clickToSaveClubInfo(View view){
+    /**
+     * onClick function for the Save button in the editable view
+     *
+     * This function stores the edited information entered by the
+     * user, deletes the old club, and creates a new club with
+     * the new information.
+     *
+     * @param view
+     */
+    public void clickToSaveClubInfo(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
 
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);

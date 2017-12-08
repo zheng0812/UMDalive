@@ -9,10 +9,9 @@
         android:id="@+id/display_club_owner_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/edit_button"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp"
+        android:layout_alignRight="@+id/edit_button"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="center_horizontal"
@@ -20,7 +19,8 @@
         android:paddingBottom="10dp"
         android:text="Club Name"
         android:textAllCaps="true"
-        android:textColor="@color/machinery" />
+        android:textColor="@color/machinery"
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/display_club_administrator_owner_title"
@@ -165,18 +165,21 @@
           android:background="@android:color/transparent"/>-->
 
     <Button
-        android:text="Edit"
+        android:id="@+id/edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_button"
-        android:onClick="clickToEdit"
+        android:layout_alignBaseline="@+id/owner_home_button"
+        android:layout_alignBottom="@+id/owner_home_button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
         android:background="@color/bearGrey"
+        android:onClick="clickToEdit"
+        android:text="Edit"
         android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:textColor="@color/colorAccent"
-        android:textSize="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="18dp"/>
+        android:textSize="16dp" />
 
     <Button
         android:text="Home"

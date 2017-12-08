@@ -24,14 +24,13 @@ public class DisplayClubOwnerView extends AppCompatActivity {
         private String description;
         private String keywords;
         private String ownerEmail;
-        private String administrator;
+        private String clubOwner;
         private TextView clubNameSetText;
         private TextView ownerEmailSetText;
         private TextView descriptionSetText;
         private TextView keywordSetText;
-        private TextView administratorSetText;
+        private TextView clubOwnerSetText;
 
-    public static final String CLUB_NAME2 = "com.example.kevin.umdalive.MESSAGE2";
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.display_club_owner_view);
@@ -40,7 +39,9 @@ public class DisplayClubOwnerView extends AppCompatActivity {
         }
 
         /**
-         * sets up view
+         * sets up view for the display the club owner will see
+         *
+         * club owner role has permission to edit their club
          */
         private void setView() {
             try {
@@ -52,10 +53,7 @@ public class DisplayClubOwnerView extends AppCompatActivity {
                 description = clubObject.get("description").toString();
                 keywords = clubObject.get("keywords").toString();
                 ownerEmail = clubObject.get("ownerEmail").toString();
-                administrator = clubObject.get("clubOwner").toString();
-
-                //keywords= clubObject.getJSONObject(clubName).getString("keywords");
-                // description = clubObject.getJSONObject("clubData").getString("description");
+                clubOwner = clubObject.get("clubOwner").toString();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -66,13 +64,13 @@ public class DisplayClubOwnerView extends AppCompatActivity {
             descriptionSetText = (TextView) findViewById(R.id.display_club_owner_description);
             ownerEmailSetText = (TextView) findViewById(R.id.display_club_email_owner);
             keywordSetText = (TextView) findViewById(R.id.display_clubs_owner_keyword);
-            administratorSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
+            clubOwnerSetText = (TextView) findViewById(R.id.display_club_owner_administrator);
 
             clubNameSetText.setText(clubName);
             descriptionSetText.setText(description);
             ownerEmailSetText.setText(ownerEmail);
             keywordSetText.setText(keywords);
-            administratorSetText.setText(administrator);
+            clubOwnerSetText.setText(clubOwner);
         }
 
     /**
@@ -82,11 +80,6 @@ public class DisplayClubOwnerView extends AppCompatActivity {
         {
             Intent intent = new Intent(this, EditableView.class);
             intent.putExtra("NAME_OF_CLUB", clubName);
-            intent.putExtra("DESCRIPTION_OF_CLUB", description);
-            intent.putExtra("ADMINISTRATOR_OF_CLUB", administrator);
-            intent.putExtra("KEYWORDS_OF_CLUB", keywords);
-            intent.putExtra("OWNER_EMAIL_OF_CLUB", ownerEmail);
-
             startActivity(intent);
         }
 

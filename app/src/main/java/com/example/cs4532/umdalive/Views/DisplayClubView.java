@@ -15,8 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * This class is supposed to display the club that is selected from all clubs but the previous group never did that so it's just
- * blank spaces.
+ * This class displays the club that is selected from all clubs and the information that goes along with it.
  */
 public class DisplayClubView extends AppCompatActivity {
 
@@ -48,10 +47,12 @@ public class DisplayClubView extends AppCompatActivity {
             String jsonResponse = presenter.restGet("getClub", clubName);
             Log.d("DisplayClub response: ", jsonResponse);
             JSONObject clubObject = new JSONObject(jsonResponse);
+
             description = clubObject.get("description").toString();
             keywords = clubObject.get("keywords").toString();
             ownerEmail = clubObject.get("ownerEmail").toString();
             clubOwner = clubObject.get("clubOwner").toString();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -63,7 +64,7 @@ public class DisplayClubView extends AppCompatActivity {
         clubOwnerSetText = (TextView) findViewById(R.id.display_club_administrator);
 
         clubNameSetText.setText(clubName);
-        clubNameSetText.setTextSize(45);
+        clubNameSetText.setTextSize(45); //displayed larger as it's the title
         descriptionSetText.setText(description);
         ownerEmailSetText.setText(ownerEmail);
         keywordSetText.setText(keywords);
