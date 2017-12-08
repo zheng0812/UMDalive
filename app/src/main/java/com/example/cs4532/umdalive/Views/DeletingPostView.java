@@ -1,5 +1,6 @@
 package com.example.cs4532.umdalive.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -67,5 +68,13 @@ public class  DeletingPostView extends AppCompatActivity {
         findViewById(R.id.yesButton2).setVisibility(View.INVISIBLE);
         findViewById(R.id.warningPrompt2).setVisibility(View.INVISIBLE);
 
+    }
+
+    /**
+     * Goes back to the home screen
+     */
+    public void clickGoHome(View view){
+        Intent intent = new Intent(this, MainView.class);
+        startActivity(intent);
     }
 }
