@@ -23,7 +23,7 @@
         android:textSize="25dp" />
 
     <TextView
-        android:id="@+id/display_club_administrator_owner_title"
+        android:id="@+id/display_club_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -34,18 +34,18 @@
         android:clickable="false"
         android:ems="10"
         android:inputType="none"
-        android:text="Administrator of Club:"
+        android:text="Club Owner:"
         android:textColor="@color/machinery"
         android:textSize="18sp"
         tools:inputType="none" />
 
     <TextView
-        android:id="@+id/display_club_owner_administrator"
+        android:id="@+id/display_club_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_administrator_owner_title"
+        android:layout_below="@+id/display_club_owner_title"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_owner_administrator"
+        android:layout_below="@+id/display_club_owner"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"

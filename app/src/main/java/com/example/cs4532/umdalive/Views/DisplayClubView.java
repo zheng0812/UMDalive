@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
@@ -61,7 +60,7 @@ public class DisplayClubView extends AppCompatActivity {
         descriptionSetText = (TextView) findViewById(R.id.display_club_description);
         ownerEmailSetText = (TextView) findViewById(R.id.display_club_email);
         keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
-        clubOwnerSetText = (TextView) findViewById(R.id.display_club_administrator);
+        clubOwnerSetText = (TextView) findViewById(R.id.display_club_username);
 
         clubNameSetText.setText(clubName);
         clubNameSetText.setTextSize(45); //displayed larger as it's the title
