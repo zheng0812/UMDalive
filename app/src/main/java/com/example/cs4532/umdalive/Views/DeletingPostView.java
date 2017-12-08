@@ -26,6 +26,8 @@ public class  DeletingPostView extends AppCompatActivity {
     }
 
     /**
+     * makes yes and no buttons visible to confirm delete
+     *
      * @param view passing view
      */
     public void onClickDeletePost(View view) {
@@ -34,12 +36,22 @@ public class  DeletingPostView extends AppCompatActivity {
         findViewById(R.id.warningPrompt2).setVisibility(View.VISIBLE);
     }
 
+    /**
+     * makes yes and no buttons invisible when user decides not to delete
+     *
+     * @param view passing view
+     */
     public void onClickNoDeletePost(View view) {
         findViewById(R.id.noButton2).setVisibility(View.INVISIBLE);
         findViewById(R.id.yesButton2).setVisibility(View.INVISIBLE);
         findViewById(R.id.warningPrompt2).setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * deletes a post from the collection of posts
+     *
+     * @param view passing view
+     */
     public void onClickYesDeletePost(View view) {
 
         String title = ((EditText) findViewById(R.id.edit_title2)).getText().toString();

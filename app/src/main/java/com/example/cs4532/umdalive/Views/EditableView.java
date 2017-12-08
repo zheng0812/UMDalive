@@ -107,6 +107,11 @@ public class EditableView extends AppCompatActivity{
             clubOwnerSetText.setText(clubOwner);
         }
 
+        /**
+        * switches for a view for deleting posts
+        *
+        * @param view
+        */
         public void deletePost(View view)
         {
             Intent intent = new Intent (this, DeletingPostView.class);

@@ -37,7 +37,7 @@ public class DeleteClubView extends AppCompatActivity {
     }
 
     /**
-     *
+     *makes yes and no buttons visible to confirm delete
      *
      * @param view passing view
      */
@@ -47,12 +47,22 @@ public class DeleteClubView extends AppCompatActivity {
         findViewById(R.id.warningPrompt).setVisibility(View.VISIBLE);
     }
 
+    /**
+     * makes yes and no buttons invisible when user decides not to delete
+     *
+     * @param view passing view
+     */
     public void onClickNoDelete(View view){
         findViewById(R.id.noButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.yesButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.warningPrompt).setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * deletes a club from the collection of clubs
+     *
+     * @param view passing view
+     */
     public void onClickYesDelete(View view){
         String clubName = ((EditText)findViewById(R.id.editText)).getText().toString();
         if (!presenter.restDelete("deleteClub", clubName))
