@@ -213,14 +213,14 @@ public class Presenter {
         return PostInformationModel.checkAscii(str);
     }
 
-    public void userData(String major, String grad) {
+    public void userData(String major, String grad, String userType) {
         LoginView log = new LoginView();
 
         String email = log.getmEmail();
 
         String name = log.getmFullName();
 
-        UserInformationModel User = new UserInformationModel(name, major, email, grad);
+        UserInformationModel User = new UserInformationModel(name, major, email, grad, userType);
 
 
     }
