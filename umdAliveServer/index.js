@@ -1,5 +1,5 @@
 var express = require('express');
-var queryParser = require('body-parser');
+var bodyParser = require('body-parser');
 
 // Initialize main instanced class
 var app = express();
@@ -8,12 +8,12 @@ var app = express();
 app.set("port", 5000);
 
 // Support encoded bodies
-app.use(queryParser.urlencoded({
+app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 // Support JSON-encoded bodies
-app.use(queryParser.json());
+app.use(bodyParser.json());
 //loads the mongo functions in this file
 var mongodb = require('./mongoDBFunctions.js');
 console.log(mongodb);
@@ -39,16 +39,16 @@ var dummyUser1 = {
 app.put('/clubs', function (req, res) {
 
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.query)
+    if (!req.body)
         return res.sendStatus(400);
-	
-    //console.log(req.query);	
+
+    //console.log(req.body);
     // Takes data from request and makes a new object
     var clubData = {
-        clubName: req.query.clubName,
-        username: req.query.username,
-        keywords: req.query.keywords,
-        description: req.query.description,
+        clubName: req.body.clubName,
+        username: req.body.username,
+        keywords: req.body.keywords,
+        description: req.body.description,
     };
 
 	//console.log(clubData);
@@ -60,27 +60,27 @@ app.put('/clubs', function (req, res) {
     };
     res.json(jsonResponse);
 
-    console.log("New club has been created: " + req.query.clubName);
+    console.log("New club has been created: " + req.body.clubName);
 });
 
 app.put('/posts', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.query) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
 
     var postData = {
-        clubName: req.query.clubName,
-        title: req.query.title,
-        time: req.query.time,
-        date: req.query.date,
-        location: req.query.location,
-        description: req.query.description,
-        image: req.query.image
+        clubName: req.body.clubName,
+        title: req.body.title,
+        time: req.body.time,
+        date: req.body.date,
+        location: req.body.location,
+        description: req.body.description,
+        image: req.body.image
     };
 
     mongodb.insertPost(postData);
 
-    console.log("Club posting: " + req.query.clubName);
-    console.log("Title of post: " + req.query.title);
+    console.log("Club posting: " + req.body.clubName);
+    console.log("Title of post: " + req.body.title);
     var jsonResponse = {
         id: '123', status: 'updated'
     };
@@ -89,13 +89,13 @@ app.put('/posts', function (req, res) {
 
 app.put('/userData', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.query) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
 
     var userData = {
-        name: req.query.name,
-        email: req.query.emailAddress,
-        graduation_date: req.query.graduationDate,
-        major: req.query.major,
+        name: req.body.name,
+        email: req.body.emailAddress,
+        graduation_date: req.body.graduationDate,
+        major: req.body.major,
         users_clubs: [],
     };
 
@@ -146,8 +146,8 @@ app.get('/clubs/:clubName', function (req,res) {
     mongodb.findClub(req.params.clubName, function(result){
         var club = result[0];
         console.log("Found club.");
-        res.query = JSON.stringify(club.clubData);
-        res.send(res.query);
+        res.body = JSON.stringify(club.clubData);
+        res.send(res.body);
     });
 });
 
@@ -223,5 +223,3 @@ app.listen(app.get("port"), function () {
     console.log('CS4531 UMDAlive app listening on port: ', app.get("port"));
 
 });
-
-
