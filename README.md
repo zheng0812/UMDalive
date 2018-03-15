@@ -12,6 +12,12 @@ Computer Science (CS)
 Andy Miller, Wesley Osumo, Ryan Gebhart, and Jenna Anderson. 
 
 ------------
+Google Services and Login
+------------
+
+You will need to generate a google-services.json file to replace the one found under your "app" folder. To generate this file you can use this link: https://developers.google.com/mobile/add?platform=android&cntapi=signin&cnturl=https:%2F%2Fdevelopers.google.com%2Fidentity%2Fsign-in%2Fandroid%2Fsign-in%3Fconfigured%3Dtrue&cntlbl=Continue%20Adding%20Sign-In
+
+------------
 Preparing to Install
 -------------
 The application should work without trouble for over 97% of Android users, but the tested software version details are outlined below.
