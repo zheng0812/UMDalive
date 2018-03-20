@@ -36,7 +36,7 @@
     <activity android:name="com.example.cs4532.umdalive.Views.DeletingPostView" />
     <activity android:name="com.example.cs4532.umdalive.Views.EditableView" />
     <activity android:name="com.example.cs4532.umdalive.Views.SearchClubsView"/>
-
+    <activity android:name=".Views.NewUserDataView"/>
 
     <activity android:name="com.example.cs4532.umdalive.Views.UserDataView"/>
         <meta-data
