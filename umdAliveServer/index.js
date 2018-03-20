@@ -5,7 +5,7 @@ var queryParser = require('body-parser');
 var app = express();
 
 // Set the port
-app.set("port", 65000);//REAL ONE
+app.set("port", 5000);//REAL ONE
 //app.set("port",60000);
 
 // Support encoded bodies
@@ -238,14 +238,18 @@ var user;
     console.log("Looking for " + req.params.email);
 
     mongodb.findUser(req.params.email, function(result){
-        var user = result[0];
-        console.log(user);
-        console.log("Found user.");
-        //console.log(res.body);
-        res.query = JSON.stringify(user.userData);//was user.userData
-        console.log("-------------------")
-        res.send(res.query);
-        
+    
+        if(result.length > 0){
+            var user = result[0];
+            console.log(user);
+            console.log("Found user.");
+            //console.log(res.body);
+            res.query = JSON.stringify(user.userData);//was user.userData
+            console.log("-------------------")
+            res.send(res.query);
+        } else {
+            res.send(404);
+        }
     });
 //    res.send(JSON.stringify(dummyUser1));
 });
