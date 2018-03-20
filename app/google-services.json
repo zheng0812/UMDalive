@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:583303716846:android:c92a657c2f72a815",
         "android_client_info": {
-          "package_name": "com.example.cs4531.umdalive"
+          "package_name": "com.example.cs4532.umdalive"
         }
       },
       "oauth_client": [
@@ -55,7 +55,7 @@
           "client_id": "583303716846-hholkeg4fjjstvaf1c882b1ahs1lcj8d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.cs4531.umdalive",
+            "package_name": "com.example.cs4532.umdalive",
             "certificate_hash": "f2bb1ff2051fbb50087f06403139fbc8f4b4ad6e"
           }
         },
