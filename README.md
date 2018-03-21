@@ -16,6 +16,12 @@ Preparing to Install
 -------------
 The application should work without trouble for over 97% of Android users, but the tested software version details are outlined below.
 
+**Google-services.json**
+Using the following link to generate the google-services.json file
+Package Name: com.example.cs4532.umdalive
+
+https://developers.google.com/mobile/add?platform=android&cntapi=signin&cnturl=https:%2F%2Fdevelopers.google.com%2Fidentity%2Fsign-in%2Fandroid%2Fsign-in%3Fconfigured%3Dtrue&cntlbl=Continue%20Adding%20Sign-In
+
  **Software Information:**
 
 > - Android Studio Version last verified to work with `master`: 2.2.3
