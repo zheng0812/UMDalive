@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.cs4532.umdalive.Models.UserInformationModel;
@@ -33,6 +34,7 @@ public class NewUserDataView extends AppCompatActivity {
     ArrayList mSelectedItems;
     String email;
     String name;
+    Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class NewUserDataView extends AppCompatActivity {
         name = getIntent().getStringExtra("Name");
         major = (Spinner) findViewById(R.id.spinnermajor);
         gradDate = (Spinner) findViewById(R.id.spinnergrad);
+        save = (Button) findViewById(R.id.save_button);
 
         interestList = getResources().getStringArray(R.array.list_of_interests);
         ArrayAdapter<CharSequence> gradAdapter = ArrayAdapter.createFromResource(this, R.array.graduation_date, android.R.layout.simple_spinner_item);
@@ -67,6 +70,13 @@ public class NewUserDataView extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFinishProfile(v);
             }
         });
         convertToStrings();

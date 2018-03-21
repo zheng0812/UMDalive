@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
@@ -29,13 +31,14 @@ public class UserDataView extends AppCompatActivity {
     Object graduationItem;
     Object majorItem;
     ArrayList mSelectedItems;
+    Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new Presenter();
         setContentView(R.layout.activity_userdata);
-
+        save = (Button) findViewById(R.id.save_button);
         major = (Spinner) findViewById(R.id.spinnermajor);
         gradDate = (Spinner) findViewById(R.id.spinnergrad);
 
@@ -64,6 +67,15 @@ public class UserDataView extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickSaveData(v);
+            }
+        });
+
+
         convertToStrings();
         SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
@@ -129,7 +141,7 @@ public class UserDataView extends AppCompatActivity {
      * @return
      */
     public void clickSaveData(View view){
-        Intent intent = new Intent(this, MainView.class);   //need to better implement so info is saved
+        Intent intent = new Intent(view.getContext(), MainView.class);   //need to better implement so info is saved
         startActivity(intent);
     }
 

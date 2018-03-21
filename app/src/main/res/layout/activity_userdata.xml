@@ -61,12 +61,12 @@
         android:id="@+id/button3" />
 
     <Button
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
-        android:onClick="clickSaveData"
         android:text="Save" />
 
 </RelativeLayout>
