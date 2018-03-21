@@ -17,7 +17,8 @@ public class ClubInformationUnitTest {
     String username1="SassAdmin";
     String keywords1="Rhonda";
     String description1="fabulous";
-    ClubInformationModel testOne = new ClubInformationModel(clubName1, username1, keywords1, description1);
+    String email = "megan.go";
+    ClubInformationModel testOne = new ClubInformationModel(clubName1, username1, email, keywords1, description1);
 
 
     @Test

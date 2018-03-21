@@ -38,7 +38,8 @@ module.exports.insertClub = function(clubData) {
 * @param postData - JSON data of the post
 */
 module.exports.insertPost = function(postData) {
-    mongoDBRef.collection('posts').save({post: postData.clubName, postData}, function(err, result){
+	//HERE! if the server is broken, it's totally because I changed postData.clubName to postData.title
+    mongoDBRef.collection('posts').save({post: postData.title, postData}, function(err, result){
         if(err || !result) console.log("Post failed to save in database.");
         else console.log("Post inserted into posts collection in MongoDB.");
     });
@@ -50,10 +51,13 @@ module.exports.insertPost = function(postData) {
 * @param userData - JSON data of the post
 */
 module.exports.insertUser = function(userData) {
-    console.log(userData);
-    mongoDBRef.collection('users').save({user: userData.name, userData}, function(err, result){
+var temp = userData.email;
+
+
+    //console.log(userData);
+    mongoDBRef.collection('users').save({user: userData.email, userData}, function(err, result){
         if(err || !result) console.log("User failed to save in database.");
-        else console.log("Post inserted into posts collection in MongoDB.");
+        else console.log("User inserted into users collection in MongoDB.");
     });
 };
 
@@ -72,6 +76,22 @@ module.exports.findClub = function(clubName, callback) {
 	    else console.log("Club not found.")
     });
 };
+/**
+*Identifies user being used
+*
+*
+*
+*/
+module.exports.findUser = function(email, callback){
+    console.log("--------------------\n");
+    mongoDBRef.collection('users').find({user: email}).toArray(function(err,docs){
+    if(!err){
+    console.log("Found the following records");
+    console.log(docs);
+    callback(docs);
+    }
+    });
+    };
 
 module.exports.getCollection = function(collectionName, callback) {
     var cursor = mongoDBRef.collection(collectionName).find(function(err, docs) {
@@ -82,4 +102,26 @@ module.exports.getCollection = function(collectionName, callback) {
     	    callback(docs);
     	}
         });
+};
+
+module.exports.delete = function(clubName){
+	mongoDBRef.collection('clubs').remove({'club' : clubName}, function(err, obj){
+		if (err) throw err;
+		else console.log(clubName + " deleted");
+	});
+
+};
+
+module.exports.deleteUser = function(userName){
+	mongoDBRef.collection('users').remove({'user' : userName}, function (err, obj){
+		if (err) throw err;
+		else console.log(userName + " deleted");
+	});
+};
+
+module.exports.deletePost = function(title){
+	mongoDBRef.collection('posts').remove({'post' : title}, function (err, obj){
+		if (err) throw err;
+		else console.log(title + " deleted");
+	});
 };

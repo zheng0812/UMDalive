@@ -1,20 +1,29 @@
 package com.example.cs4532.umdalive.Presenters;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.cs4532.umdalive.Models.AllClubs;
 import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Models.CreateClub;
+import com.example.cs4532.umdalive.R;
+import com.example.cs4532.umdalive.Views.DeleteClubView;
 import com.example.cs4532.umdalive.Views.LoginView;
 import com.example.cs4532.umdalive.Models.MainActivity;
 import com.example.cs4532.umdalive.Models.PostAdapter;
 import com.example.cs4532.umdalive.Models.PostInformationModel;
 import com.example.cs4532.umdalive.Models.RestModel;
 import com.example.cs4532.umdalive.Models.UserInformationModel;
+import com.example.cs4532.umdalive.Views.MainView;
 import com.example.cs4532.umdalive.Views.UserDataView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.cs4532.umdalive.Views.MainView.*;
 
 /**
  * Created by ryan_000 on 3/15/2017.
@@ -25,6 +34,8 @@ import java.util.ArrayList;
 public class Presenter {
     private Activity activity;
     private RestModel restModel;
+    private String thisUser; //current user's email
+    private ArrayList<PostInformationModel> myPosts;
 
 
     /**
@@ -37,6 +48,7 @@ public class Presenter {
     public Presenter(Activity incomingActivity) {
         restModel = new RestModel();
         activity = incomingActivity;
+        myPosts = new ArrayList<PostInformationModel>();
     }
 
     /**
@@ -45,6 +57,14 @@ public class Presenter {
     public Presenter() {
         activity = null;
         restModel = new RestModel();
+
+    }
+
+    public String getThisUser(){return thisUser;}
+
+    public void setThisUser(String curUser){
+        thisUser = curUser;
+        //restPut("putNewUser", curUser);
     }
 
     private Activity getActivity() {
@@ -84,12 +104,16 @@ public class Presenter {
     /**
      * Rest Function sends parameters to RestModel where they are dealt with using switch statement.
      *
-     * @param task     to be performed
-     * @param toDelete what will be deleted
-     * @return Currently returns a string to represent what could be returned
+     * Used to delete a club
+     *
+     * @param task to be performed
+     * @param data data to be handle
      */
-    public String restDelete(String task, String toDelete) {
-        return restModel.restDelete(task, toDelete);
+    public boolean restDelete(String task, String data)
+    {
+        myPosts = refreshPosts(restGet("getRecentPosts", ""));
+        restModel.setPostArray(myPosts);
+        return restModel.restDelete(task, data);
     }
 
     /**
@@ -107,13 +131,16 @@ public class Presenter {
      * Used to create a new club object to be sent to the server.
      *
      * @param clubName    name of club
-     * @param userName    name of admin
+     * name of admin is hard coded
      * @param keyWords    tags
+     * @param ownerEmail  club owner email
      * @param description description of club
      * @return string version of the JSON package.
      */
-    public String makeClub(String clubName, String userName, String keyWords, String description) {
-        return CreateClub.makeClub(clubName, userName, keyWords, description);//, initialPost);
+    public String makeClub(String clubName, String keyWords, String ownerEmail, String description) {
+       // getMainUser(restModel.restGet("getUserEmail",ownerEmail)).setUserType(clubName);
+        return CreateClub.makeClub(clubName, "Meggie Jo", ownerEmail, keyWords, description);//, initialPost);
+        /******* need username *************/
     }
 
     /**
@@ -122,7 +149,7 @@ public class Presenter {
      * @param userData to get
      * @return user
      */
-    public UserInformationModel getMainUser(String userData) {
+    public UserInformationModel getMainUser(String userData){
         return MainActivity.getUser(userData);
     }
 
@@ -133,20 +160,45 @@ public class Presenter {
      * @return list of post objects
      */
     public ArrayList<PostInformationModel> refreshPosts(String jsonString) {
-        return MainActivity.refreshPosts(jsonString);
+        myPosts = MainActivity.refreshPosts(jsonString);
+        return myPosts;
     }
 
-    public void putPost(String club, String title, String time, String date, String location, String addInfo, String image) {
-        restPut("putNewPost", PostInformationModel.jsonStringify(club, title, time, date, location, addInfo, image));
+    /**
+     * For Rest Model
+     *
+     * @return ArrayList of post objects
+     */
+    public ArrayList<PostInformationModel> getPostArray() {
+        return myPosts;
     }
 
-    public void putUser(String major, String gradDate, String Name, String email) {
+    /**
+     * For Rest Model
+     *
+     * @return ArrayList of post objects
+     */
+    public void setPostArray(ArrayList<PostInformationModel> posts) {
+        restModel.setPostArray(posts);
+    }
+
+    public void putPost(String club, String title, String time, String date, String location, String addInfo, String image, String clubOwner) {
+        restPut("putNewPost", PostInformationModel.jsonStringify(club, title, time, date, location, addInfo, image, clubOwner));
+    }
+
+    public void putUser(String name, String major, String email, String gradDate) {
         UserDataView user = new UserDataView();
 
-        restPut("putNewUser", UserInformationModel.jsonStringify(Name, email, major, gradDate, user.getmSelectedItems()));
+        restPut("putNewUser", UserInformationModel.jsonStringify(name, email, major, gradDate, "club member", user.getmSelectedItems()));
     }
 
-
+    /**
+     * gets the userEmail
+     * @return the main userEmail
+     */
+    public String getUserEmail(){
+        return getMainUser(restModel.restGet("getUserEmail",thisUser)).getName();
+    }
     /**
      * gets all the club names
      *
@@ -155,6 +207,18 @@ public class Presenter {
     public ArrayList<String> getClubNames() {
         return AllClubs.getClubNames(restGet("getAllClubs", ""));
     }
+
+    /**
+     * gets the clubOwner of a specified club
+     *
+     * @return clubOwner
+     */
+    public boolean checkIfClubOwner(String clubName) {
+        //this function will eventually be able to be implemented when getUserType() is functioning properly
+        //return (getMainUser((restGet("getUserEmail", thisUser))).getUserType().equals(clubName));
+        return true;
+    }
+
 
     /**
      * used to get all clubs with a keyword
@@ -213,17 +277,15 @@ public class Presenter {
         return PostInformationModel.checkAscii(str);
     }
 
-    public void userData(String major, String grad, String userType) {
-        LoginView log = new LoginView();
-
-        String email = log.getmEmail();
-
-        String name = log.getmFullName();
-
-        UserInformationModel User = new UserInformationModel(name, major, email, grad, userType);
-
-
-    }
-
+    /**
+     * Sets a variable to the current user's email logged in when a user logs in
+     * @param userEmail
+     */
+//    public void setCurUser(String userEmail) {this.curUser = userEmail;}
+    /**
+     * Gets the email of the current user logged in
+     * @return curUser
+     */
+//    public String getCurUser(){return curUser;    }
 
 }

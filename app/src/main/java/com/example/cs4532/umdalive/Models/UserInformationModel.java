@@ -37,21 +37,21 @@ public class UserInformationModel extends AppCompatActivity {
     }
 
     public UserInformationModel(String name, String major, String email, String gradDate, String userType, ArrayList<ClubInformationModel> tempClubsSubscribed) {
-        this.name = name;
-        this.email = email;
-        this.major = major;
-        this.gradDate = gradDate;
-        this.userType = userType;
+        UserInformationModel.name = name;
+        UserInformationModel.email = email;
+        UserInformationModel.major = major;
+        UserInformationModel.gradDate = gradDate;
+        UserInformationModel.userType = userType;
         localPostsSubscribed = new ArrayList<String>();
         localClubsSubscribed = tempClubsSubscribed;
     }
 
     public UserInformationModel(String name, String major, String email, String gradDate,String userType) {
-        this.name = name;
-        this.email = email;
-        this.major = major;
-        this.gradDate = gradDate;
-        this.userType = userType;
+        UserInformationModel.name = name;
+        UserInformationModel.email = email;
+        UserInformationModel.major = major;
+        UserInformationModel.gradDate = gradDate;
+        UserInformationModel.userType = userType;
     }
 
     /*
@@ -91,7 +91,7 @@ public class UserInformationModel extends AppCompatActivity {
      * @param name name be be set
      */
     public void setName(String name) {
-        this.name = name;
+        UserInformationModel.name = name;
     }
 
     /**
@@ -109,7 +109,7 @@ public class UserInformationModel extends AppCompatActivity {
      * @param email to be set
      */
     public void setEmail(String email) {
-        this.email = email;
+        UserInformationModel.email = email;
     }
 
     /**
@@ -127,7 +127,7 @@ public class UserInformationModel extends AppCompatActivity {
      * @param major to be set
      */
     public void setMajor(String major) {
-        this.major = major;
+        UserInformationModel.major = major;
     }
 
     /**
@@ -145,7 +145,7 @@ public class UserInformationModel extends AppCompatActivity {
      * @param gradDate to be set
      */
     public void setGradDate(String gradDate) {
-        this.gradDate = gradDate;
+        UserInformationModel.gradDate = gradDate;
     }
 
     /**
@@ -159,7 +159,8 @@ public class UserInformationModel extends AppCompatActivity {
      * setter for userType
      * @param userType to be set
      */
-    public void setUserType(String userType){this.userType = userType;}
+    public void setUserType(String userType){
+        UserInformationModel.userType = userType;}
 
     /**
      * Function to create a JSON object of a UserInformation
@@ -167,15 +168,16 @@ public class UserInformationModel extends AppCompatActivity {
      *
      * @return jsonString string form of JSON object UserInformation
      */
-    public static String jsonStringify(String name, String email, String major, String gradDate, ArrayList<String> interests) {
+    public static String jsonStringify(String name, String email, String major, String gradDate,String userType, ArrayList<String> interests) {
         JSONObject jsonString = null;
         try {
             //Create JSONObject here
             jsonString = new JSONObject();
             jsonString.put("name", name);
-            jsonString.put("email", email);
             jsonString.put("major", major);
+            jsonString.put("email", email);
             jsonString.put("gradDate", gradDate);
+            jsonString.put("userType", userType);
             jsonString.put("Interests", interests);
         } catch (JSONException e) {
             e.printStackTrace();

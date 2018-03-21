@@ -37,7 +37,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     String Major = "";
     String gradDate = "";
     private Presenter presenter;
-    private static UserInformationModel thisUser;
+//    private static UserInformationModel thisUser;     *possibly remove this or use MainView for ghost variable
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private ArrayList<PostInformationModel> posts;
@@ -49,7 +49,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new Presenter(this);
-        thisUser = new UserInformationModel();
+//        thisUser = new UserInformationModel();
         layoutManager = new LinearLayoutManager(this);
         setContentView(R.layout.activity_main);
         Log.d("DEBUG: ", "Setting up view");
@@ -90,7 +90,7 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
         Major = bb.getString("NUM", "");
         gradDate = bb.getString("gradDate", "");
 
-        presenter.putUser(name, value, Major, gradDate);
+//        presenter.putUser(name, value, Major, gradDate);
 
 
     }
@@ -135,6 +135,53 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
         startActivity(intent);
     }
 
+    /**
+     * starts DeleteClubView
+     */
+    public void deleteClub(){
+        Intent intent = new Intent (this, DeleteClubView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes to UserDataView
+     */
+    public void goSaveData(){
+        Intent intent = new Intent (this, UserDataView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes back to the home screen
+     */
+    public void backToHome(){
+        Intent intent = new Intent (this, DisplayClubView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes back to the home from the owner view
+     */
+    public void ownerBackToHome(){
+        Intent intent = new Intent(this, DisplayClubOwnerView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes to the editable view
+     */
+    public void goEdit(){
+        Intent intent = new Intent(this, DisplayClubOwnerView.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Saves the information from editable view and goes back to the displayClubOwnerView
+     */
+    public void goSave(){
+        Intent intent = new Intent(this, EditableView.class);
+        startActivity(intent);
+    }
     /**
      * Makes it so pressing back when drawer is open will take the user back to the main screen
      */
@@ -185,8 +232,8 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
      */
     public void setUser() {
         //will probably use the second parameter in the future for specific users..
-        String userData = presenter.restGet("getUserData", "");
-        thisUser = presenter.getMainUser(userData);
+//        String userData = presenter.restGet("getUserEmail", );
+//        thisUser = presenter.getMainUser(userData);
     }
 
     /**
@@ -218,6 +265,8 @@ public class MainView extends AppCompatActivity implements NavigationView.OnNavi
             searchClub();
         } else if (id == R.id.new_club) {
             makeNewClub();
+        } else if (id == R.id.delete_club){
+            deleteClub();
         } else if (id == R.id.nav_club1) {
 
         } else if (id == R.id.nav_club2) {

@@ -19,8 +19,9 @@ public class CreateClubView extends AppCompatActivity {
     private Object keywordItem = new Object();
     private Presenter presenter;
     private EditText newName;
-    private EditText admin;
+    private TextView admin;
     private EditText description;
+    private TextView ownerEmail;
     private TextView invalidInput;
     private String errorMessage;
 
@@ -35,6 +36,15 @@ public class CreateClubView extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         //dealing with the selected option of the spinner
+
+        admin = (TextView) findViewById(R.id.admin_of_club);
+        //admin.setText(presenter.getUserName());
+        admin.setText("Meggie Jo");
+
+        ownerEmail = (TextView) findViewById(R.id.admin_email);
+        //ownerEmail.setText(presenter.getMainUser(presenter.restGet("getUserData","")).getEmail());
+        ownerEmail.setText("effin012@d.umn.edu");
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 keywordItem = parent.getItemAtPosition(pos);
@@ -46,7 +56,7 @@ public class CreateClubView extends AppCompatActivity {
     }
 
     /**
-     * o
+     *
      *
      * @param view passing view
      */
@@ -54,12 +64,11 @@ public class CreateClubView extends AppCompatActivity {
         Intent intent = new Intent(this, MainView.class);
         invalidInput = (TextView) findViewById(R.id.invalid_input);
         newName = (EditText) findViewById(R.id.name_title_enter);
-        admin = (EditText) findViewById(R.id.admin_of_club);
         description = (EditText) findViewById(R.id.description_of_club);
 
         if (!checkStrings()) {
-            String jsonString = presenter.makeClub(newName.getText().toString(), admin.getText().toString(),
-                    (String) keywordItem, description.getText().toString());
+            String jsonString = presenter.makeClub(newName.getText().toString(),
+                    (String) keywordItem, ownerEmail.getText().toString(), description.getText().toString());
             startActivity(intent);
             presenter.restPut("putNewClub", jsonString);
         } else invalidInput.setText(errorMessage);

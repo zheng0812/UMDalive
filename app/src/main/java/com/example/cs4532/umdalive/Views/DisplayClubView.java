@@ -1,8 +1,10 @@
 package com.example.cs4532.umdalive.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.cs4532.umdalive.Presenters.Presenter;
@@ -12,8 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * This class is supposed to display the club that is selected from all clubs but the previous group never did that so it's just
- * blank spaces.
+ * This class displays the club that is selected from all clubs and the information that goes along with it.
  */
 public class DisplayClubView extends AppCompatActivity {
 
@@ -21,11 +22,13 @@ public class DisplayClubView extends AppCompatActivity {
     private String clubName;
     private String description;
     private String keywords;
-    private String administrator;
+    private String clubOwner;
+    private String ownerEmail;
     private TextView clubNameSetText;
     private TextView descriptionSetText;
     private TextView keywordSetText;
-    private TextView administratorSetText;
+    private TextView clubOwnerSetText;
+    private TextView ownerEmailSetText;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,26 +42,40 @@ public class DisplayClubView extends AppCompatActivity {
      */
     private void setView() {
         try {
-            clubName = getIntent().getStringExtra(AllClubsView.CLUB_NAME);
+            clubName = getIntent().getStringExtra("NAME_OF_CLUB");
             String jsonResponse = presenter.restGet("getClub", clubName);
             Log.d("DisplayClub response: ", jsonResponse);
             JSONObject clubObject = new JSONObject(jsonResponse);
+
             description = clubObject.get("description").toString();
             keywords = clubObject.get("keywords").toString();
-            administrator = clubObject.get("username").toString();
+            ownerEmail = clubObject.get("ownerEmail").toString();
+            clubOwner = clubObject.get("clubOwner").toString();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         clubNameSetText = (TextView) findViewById(R.id.display_club_name);
         descriptionSetText = (TextView) findViewById(R.id.display_club_description);
+        ownerEmailSetText = (TextView) findViewById(R.id.display_club_email);
         keywordSetText = (TextView) findViewById(R.id.display_clubs_keyword);
-        administratorSetText = (TextView) findViewById(R.id.display_clubs_administrator);
+        clubOwnerSetText = (TextView) findViewById(R.id.display_club_username);
 
         clubNameSetText.setText(clubName);
-        clubNameSetText.setTextSize(45);
+        clubNameSetText.setTextSize(45); //displayed larger as it's the title
         descriptionSetText.setText(description);
+        ownerEmailSetText.setText(ownerEmail);
         keywordSetText.setText(keywords);
-        administratorSetText.setText(administrator);
+        clubOwnerSetText.setText(clubOwner);
     }
+
+    /**
+     * Goes back to the home screen
+     */
+        public void clickGoHome(View view){
+            Intent intent = new Intent(this, MainView.class);
+            startActivity(intent);
+        }
+
 }

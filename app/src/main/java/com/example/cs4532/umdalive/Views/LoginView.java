@@ -3,6 +3,7 @@ package com.example.cs4532.umdalive.Views;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -89,6 +90,7 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
 
+
     }
 
 
@@ -120,24 +122,40 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
             GoogleSignInAccount acct = result.getSignInAccount();
             mFullName = acct.getDisplayName();
             mEmail = acct.getEmail();
-            Uri personPhoto = acct.getPhotoUrl();
+            if(presenter.restGet("getUserEmail",mEmail).equals(mEmail)){
+                String hello = presenter.restGet("getUserEmail",mEmail);
+//                //login
+                Intent intent = new Intent(this, MainView.class);
 
+                intent.putExtra("Email", mEmail);
+                intent.putExtra("Name", mFullName);
+                presenter.setThisUser(mEmail);
+
+                //intent.putExtra("pic", personPhoto.toString());
+
+
+                // intent.setData(personPhoto);
+
+                startActivity(intent);
+            }
+            else{
+
+                presenter.setThisUser(mEmail);
+                Intent intent = new Intent(this,NewUserDataView.class);
+                intent.putExtra("Email", mEmail);
+                intent.putExtra("Name", mFullName);
+                startActivity(intent);
+                //put in a new
+
+            }
+//            Uri personPhoto = acct.getPhotoUrl();
+            //if(rest.findUser(acct.getEmail())){put user in database and setCurUser to acct.getEmail(); }
+           // presenter.restPut("putNewUser",acct.getDisplayName()+ "/" + acct.getEmail());
 
             Log.d("presenters", "planning to user data to server");
 
 
-            Intent intent = new Intent(this, MainView.class);
 
-            intent.putExtra("Email", mEmail);
-            intent.putExtra("Name", mFullName);
-
-
-            //intent.putExtra("pic", personPhoto.toString());
-
-
-            intent.setData(personPhoto);
-
-            startActivity(intent);
 
             updateUI(true);
         } else {
@@ -177,12 +195,13 @@ public class LoginView extends AppCompatActivity implements GoogleApiClient.OnCo
     // [START signIn]
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signIn]
 
     // [START signOut]
-    private void signOut() {
+    private void signOut() {//possibly make public and call when want to logout
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override

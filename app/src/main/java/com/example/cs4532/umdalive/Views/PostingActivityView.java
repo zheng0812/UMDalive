@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cs4532.umdalive.Models.ClubInformationModel;
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
 import com.vansuita.pickimage.bean.PickResult;
@@ -30,6 +32,7 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
     private EditText addInfo;
     private TextView inputError;
     private String clubName;
+    private String clubOwner;
     private ImageView displayImage;
     private String errorMessage;
     private String imageString;
@@ -47,6 +50,9 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
         displayImage = (ImageView) findViewById(R.id.result_image);
         inputError = (TextView) findViewById(R.id.invalid_input);
         imageSetup();
+
+        clubOwner = "Jack Daniels";
+
     }
 
     /**
@@ -56,13 +62,17 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
      */
     public void sendPost(View view) {
         boolean isError = checkStrings();
-        //;
         Log.d("Club posting: " + clubName, "New post: " + title.getText().toString());
-        if (!isError) {
-            presenter.putPost(clubName, title.getText().toString(), time.getText().toString(), date.getText().toString()
-                    , location.getText().toString(), addInfo.getText().toString(), imageString);
-            Intent intent = new Intent(this, MainView.class);
-            startActivity(intent);
+        if (!isError)
+        {
+            if (presenter.checkIfClubOwner(clubName)) {
+                presenter.putPost(clubName, title.getText().toString(), time.getText().toString(), date.getText().toString()
+                        , location.getText().toString(), addInfo.getText().toString(), imageString, clubOwner);
+                Intent intent = new Intent(this, MainView.class);
+                startActivity(intent);
+            }
+            else  Toast.makeText(getApplicationContext(), "You are not the owner of this club", Toast.LENGTH_LONG).show();
+
         } else inputError.setText(errorMessage);
     }
 
@@ -76,6 +86,11 @@ public class PostingActivityView extends AppCompatActivity implements IPickResul
         errorMessage = "";
         if (title.getText().toString().matches("") || presenter.isPostInfoValid(title.getText().toString())) {
             errorMessage = "You must enter a valid title.";
+            isError = true;
+        }
+        //not sure what's happening with clubOwner here
+        if (clubOwner.matches("") || presenter.isPostInfoValid(clubOwner)) {
+            errorMessage = "You must enter a valid user name.";
             isError = true;
         }
         if (time.getText().toString().matches("") || presenter.isPostInfoValid(time.getText().toString())) {

@@ -18,6 +18,7 @@ public class PostInformationModel {
     private String location;
     private String description;
     private String image;
+    private String clubOwner;
 
     /**
      * constructor initialized by a JSONObject
@@ -33,6 +34,7 @@ public class PostInformationModel {
             location = postInfo.get("location").toString();
             description = postInfo.get("description").toString();
             image = postInfo.get("image").toString();
+            clubOwner = postInfo.get("clubOwner").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -48,13 +50,14 @@ public class PostInformationModel {
      * @param location    of event
      * @param description of event
      */
-    public PostInformationModel(String club, String title, String time, String date, String location, String description) {
+    public PostInformationModel(String club, String title, String time, String date, String location, String description, String clubOwner) {
         this.club = club;
         this.title = title;
         this.time = time;
         this.date = date;
         this.location = location;
         this.description = description;
+        this.clubOwner = clubOwner;
     }
 
     /*
@@ -88,6 +91,8 @@ public class PostInformationModel {
         return image;
     }
 
+    public String getClubOwner() {return clubOwner;}
+
     public void setClub(String club) {
         this.club = club;
     }
@@ -116,6 +121,8 @@ public class PostInformationModel {
         this.image = image;
     }
 
+    public void setClubOwner(String clubOwner) {this.clubOwner = clubOwner;}
+
     /**
      * Function to create a JSON object of a post
      * JSON object is then made into a string and returned
@@ -134,6 +141,7 @@ public class PostInformationModel {
             jsonString.put("date", date);
             jsonString.put("location", location);
             jsonString.put("description", description);
+            jsonString.put("clubOwner", clubOwner);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -147,7 +155,7 @@ public class PostInformationModel {
      *
      * @return jsonString string form of JSON object Club
      */
-    public static String jsonStringify(String club, String title, String time, String date, String location, String description, String image) {
+    public static String jsonStringify(String club, String title, String time, String date, String location, String description, String image, String clubOwner) {
         JSONObject jsonString = null;
         try {
             jsonString = new JSONObject();
@@ -158,6 +166,7 @@ public class PostInformationModel {
             jsonString.put("location", location);
             jsonString.put("description", description);
             jsonString.put("image", image);
+            jsonString.put("clubOwner", clubOwner);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -187,6 +196,8 @@ public class PostInformationModel {
         else if (!this.location.equals(rightHand.location))
             isEqual = false;
         else if (!this.description.equals(rightHand.description))
+            isEqual = false;
+        else if (!this.clubOwner.equals(rightHand.clubOwner))
             isEqual = false;
 
         return isEqual;

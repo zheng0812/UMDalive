@@ -16,23 +16,27 @@ import org.json.JSONObject;
 @SuppressWarnings("unused")
 public class ClubInformationModel {
     private String clubName;
-    private String userName;
     private String keyWords;
+    private String ownerEmail;
     private String description;
+    private String clubOwner;
 
     /**
      * constructor
      *
      * @param clubName    name of club
-     * @param userName    user creating club
+     * @param clubOwner    user creating club
      * @param keyWords    keywords to id club
+     * @param ownerEmail  club owner email
      * @param description of club
      */
 
-    public ClubInformationModel(String clubName, String userName, String keyWords, String description) {
+    public ClubInformationModel(String clubName, String clubOwner, String ownerEmail, String keyWords, String description) {
         this.clubName = clubName;
-        this.userName = userName;
+        this.clubOwner = clubOwner; //when a club is created, the clubOwner is automatically set
+        //as the user creating the club
         this.keyWords = keyWords;
+        this.ownerEmail = ownerEmail;
         this.description = description;
     }
 
@@ -62,7 +66,7 @@ public class ClubInformationModel {
      * @param userName String of userName
      */
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.clubOwner = userName;
     }
 
     /**
@@ -71,7 +75,24 @@ public class ClubInformationModel {
      * @return userName
      */
     public String getUserName() {
-        return userName;
+        return clubOwner;
+    }
+
+    /**
+     * setter for clubOwner
+     * <p>
+     *
+     * @param clubOwner String of userName
+     */
+    public void setClubOwner(String clubOwner){this.clubOwner = clubOwner;}
+
+    /**
+     * getter for clubNOwner
+     *
+     * @return clubOwner
+     */
+    public String getClubOwner() {
+        return clubOwner;
     }
 
     /**
@@ -90,6 +111,24 @@ public class ClubInformationModel {
      */
     public String getKeyWords() {
         return keyWords;
+    }
+
+    /**
+     * setter for email
+     *
+     * @param email
+     */
+    public void setOwnerEmail(String email) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    /**
+     * getter for email
+     *
+     * @return email
+     */
+    public String getOwnerEmail() {
+        return ownerEmail;
     }
 
     /**
@@ -121,7 +160,8 @@ public class ClubInformationModel {
         try {
             jsonString = new JSONObject();
             jsonString.put("clubName", clubName);
-            jsonString.put("username", userName);
+            jsonString.put("clubOwner", clubOwner);
+            jsonString.put("ownerEmail", ownerEmail);
             jsonString.put("keywords", keyWords);
             jsonString.put("description", description);
             //jsonString.put("post", post);

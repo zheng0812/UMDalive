@@ -8,7 +8,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 <application
     android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@drawable/alive_tree"
     android:label="@string/app_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
@@ -31,15 +31,19 @@
         <activity android:name="com.example.cs4532.umdalive.Views.PostForClubActivityView" />
         <activity android:name="com.example.cs4532.umdalive.Views.PostingActivityView" />
         <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.DisplayClubOwnerView" />
+        <activity android:name="com.example.cs4532.umdalive.Views.DeleteClubView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.DeletingPostView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.EditableView" />
+    <activity android:name="com.example.cs4532.umdalive.Views.SearchClubsView"/>
+    <activity android:name=".Views.NewUserDataView"/>
 
+    <activity android:name="com.example.cs4532.umdalive.Views.UserDataView"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.example.cs4532.umdalive.Views.SearchClubsView"/>
 
-
-        <activity android:name="com.example.cs4532.umdalive.Views.UserDataView"/>
 
     <provider
         android:name="android.support.v4.content.FileProvider"

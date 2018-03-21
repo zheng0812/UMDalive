@@ -29,7 +29,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
-
+    //changes to be made
     private String mFullName;
     private String mEmail;
 
@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     }
-
     private Button signedOutButton;
     private SignInButton signInButton;
     private RelativeLayout Rlayout;

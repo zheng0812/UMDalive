@@ -7,21 +7,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.cs4532.umdalive.Models.UserInformationModel;
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
 
 import java.util.ArrayList;
+/**
+ * Created by Gator on 11/29/2017.
+ */
 
-
-public class UserDataView extends AppCompatActivity {
-
+public class NewUserDataView extends AppCompatActivity {
     Presenter presenter;
     Spinner major;
     Spinner gradDate;
@@ -31,6 +32,8 @@ public class UserDataView extends AppCompatActivity {
     Object graduationItem;
     Object majorItem;
     ArrayList mSelectedItems;
+    String email;
+    String name;
     Button save;
 
     @Override
@@ -38,9 +41,11 @@ public class UserDataView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         presenter = new Presenter();
         setContentView(R.layout.activity_userdata);
-        save = (Button) findViewById(R.id.save_button);
+        email = getIntent().getStringExtra("Email");
+        name = getIntent().getStringExtra("Name");
         major = (Spinner) findViewById(R.id.spinnermajor);
         gradDate = (Spinner) findViewById(R.id.spinnergrad);
+        save = (Button) findViewById(R.id.save_button);
 
         interestList = getResources().getStringArray(R.array.list_of_interests);
         ArrayAdapter<CharSequence> gradAdapter = ArrayAdapter.createFromResource(this, R.array.graduation_date, android.R.layout.simple_spinner_item);
@@ -71,17 +76,17 @@ public class UserDataView extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickSaveData(v);
+                onFinishProfile(v);
             }
         });
-
-
         convertToStrings();
         SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
         edit.putString("major", Major);
         edit.putString("gradDate", graduationDate);
         edit.apply();
+        presenter.putUser(name,Major,email,graduationDate);
+        edit.putString("email", email);
     }
 
     public void convertToStrings() {
@@ -135,13 +140,10 @@ public class UserDataView extends AppCompatActivity {
 
         return builder.create();
     }
-
-    /**
-     * Saves user data when save button is pressed
-     * @return
-     */
-    public void clickSaveData(View view){
-        Intent intent = new Intent(view.getContext(), MainView.class);   //need to better implement so info is saved
+    public void onFinishProfile(View view){
+        Intent intent = new Intent(this, MainView.class);
+        intent.putExtra("Email", presenter.getThisUser());
+        intent.putExtra("Name", name);
         startActivity(intent);
     }
 
@@ -173,3 +175,4 @@ public class UserDataView extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 }
+

@@ -3,6 +3,7 @@ package com.example.cs4532.umdalive.Views;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 import com.example.cs4532.umdalive.Presenters.Presenter;
 import com.example.cs4532.umdalive.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-;
 
 /**
  * Created by Andrew Miller 3/21/2017
@@ -25,8 +28,11 @@ public class AllClubsView extends Activity {
 
     ListView listView;
     Presenter presenter;
+    private String description;
+    private String clubOwner;
+    private String keywords;
+    private String ownerEmail;
 
-    public static final String CLUB_NAME = "com.example.kevin.umdalive.MESSAGE";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +55,41 @@ public class AllClubsView extends Activity {
      */
     private void setView() {
         ArrayList<String> clubNames = presenter.getClubNames();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clubNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.all_clubs_list_items, clubNames);
+        //Try making a new xml for a better looking all clubs view
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) listView.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Position :" + position + "  ListItem : " + itemValue, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
-                intent.putExtra(CLUB_NAME, itemValue);
-                startActivity(intent);
+                //have to find how to get these
+
+                try {
+                    String jsonResponse = presenter.restGet("getClub", itemValue);
+                    Log.d("DisplayClub response: ", jsonResponse);
+                    JSONObject clubObject = new JSONObject(jsonResponse);
+                    description = clubObject.get("description").toString();
+                    keywords = clubObject.get("keywords").toString();
+                    ownerEmail = clubObject.get("ownerEmail").toString();
+                    clubOwner = clubObject.get("clubOwner").toString();
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //Toast.makeText(getApplicationContext(), "Position :" + position + "  List Item : " + itemValue, Toast.LENGTH_LONG).show();
+                //if club owner, set intent to DisplayClubOwnerView.class
+                if(presenter.checkIfClubOwner(itemValue)){
+                    Intent intent = new Intent (AllClubsView.this, DisplayClubOwnerView.class);
+                    intent.putExtra("NAME_OF_CLUB", itemValue);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(AllClubsView.this, DisplayClubView.class);
+                    intent.putExtra("NAME_OF_CLUB", itemValue);
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="20dp">
 
     <TextView
-        android:id="@+id/display_club_name"
+        android:id="@+id/display_club_owner_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/edit_button"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignRight="@+id/edit_button"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="center_horizontal"
@@ -24,21 +20,16 @@
         android:text="Club Name"
         android:textAllCaps="true"
         android:textColor="@color/machinery"
-        android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="25dp" />
 
     <TextView
-        android:id="@+id/display_club_username_title"
+        android:id="@+id/display_club_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_name"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_below="@+id/display_club_owner_name"
+        android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
         android:clickable="false"
         android:ems="10"
@@ -46,140 +37,117 @@
         android:text="Club Owner:"
         android:textColor="@color/machinery"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_name"
         tools:inputType="none" />
 
     <TextView
-        android:id="@+id/display_club_username"
+        android:id="@+id/display_club_owner"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_username_title"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/display_club_owner_title"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:textColor="@color/machinery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_username_title" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
-        android:id="@+id/display_club_email_title"
+        android:id="@+id/display_club_email_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_username"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_below="@+id/display_club_owner"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:text="Contact Email:"
         android:textColor="@color/machinery"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_description" />
+        />
 
     <TextView
-        android:id="@+id/display_club_email"
+        android:id="@+id/display_club_email_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_email_title"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/display_club_email_owner_title"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:textColor="@color/machinery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_email_title" />
+        />
 
     <TextView
-        android:id="@+id/display_club_description_title"
+        android:id="@+id/display_club_description_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_email"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/display_club_email_owner"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:text="Description:"
         android:textColor="@color/machinery"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_username" />
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/display_club_description"
+        android:id="@+id/display_club_owner_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_description_title"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/display_club_description_owner_title"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
-        android:textColor="@color/machinery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_description_title" />
+        android:textColor="@color/machinery" />
 
     <TextView
-        android:id="@+id/display_club_keywords_title"
+        android:id="@+id/display_club_keywords_owner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/display_club_description_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/display_club_description_title"
-        android:layout_below="@+id/display_club_description"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_below="@+id/display_club_owner_description"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:text="Keywords"
         android:textColor="@color/machinery"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_email" />
+        android:layout_alignRight="@+id/display_club_description_owner_title"
+        android:layout_alignEnd="@+id/display_club_description_owner_title" />
 
     <TextView
-        android:id="@+id/display_clubs_keyword"
+        android:id="@+id/display_clubs_owner_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/display_club_keywords_title"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="21dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:textColor="@color/machinery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_club_keywords_title" />
+        android:layout_below="@+id/display_club_keywords_owner_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
     <!--  <TextView
@@ -195,26 +163,36 @@
           android:layout_alignParentRight="true"
           android:layout_alignParentEnd="true"
           android:background="@android:color/transparent"/>-->
+
     <Button
-        android:id="@+id/home_button"
+        android:id="@+id/edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignBaseline="@+id/owner_home_button"
+        android:layout_alignBottom="@+id/owner_home_button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
         android:background="@color/bearGrey"
-        android:onClick="clickGoHome"
+        android:onClick="clickToEdit"
+        android:text="Edit"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="16dp" />
+
+    <Button
         android:text="Home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/owner_home_button"
+        android:onClick="clickOwnerGoHome"
+        android:background="@color/bearGrey"
         android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:textColor="@color/colorAccent"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_clubs_keyword"
-        app:layout_constraintVertical_bias="0.956" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="18dp"/>
 
-</android.support.constraint.ConstraintLayout>
-
+</RelativeLayout>

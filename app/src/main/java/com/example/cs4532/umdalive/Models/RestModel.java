@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -25,8 +26,11 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class RestModel {
-    public final String serverAddress = "http://10.0.2.2:5000"; //Emulator Tunnel
+    public final String serverAddress = "http://10.0.2.2:5000";//Possible personal debugging
+//    public final String serverAddress = "http://131.212.41.37:65000"; //Ellie's Mongo
+    //10.0.2.2:5000
     //public final String serverAddress = "http://131.212.41.37:5004"; //Permanent IP
+    ArrayList<PostInformationModel> myPostArray;
 
     private Context context;
 
@@ -37,6 +41,7 @@ public class RestModel {
      */
     public RestModel(Context context) {
         this.context = context;
+        myPostArray = new ArrayList<PostInformationModel>();
     }
 
     /**
@@ -73,6 +78,8 @@ public class RestModel {
                 return getRecentPosts();
             case "getUserData":
                 return getUserData();
+            case "getUserEmail":
+                return getUserEmail(data);
             default:
                 return null;
         }
@@ -113,8 +120,20 @@ public class RestModel {
      * @param data         to delete
      * @return null
      */
-    public String restDelete(String deleteString, String data) {
-        return null;
+    public boolean restDelete(String deleteString, String data) {
+
+        boolean didRequest = false;
+        switch (deleteString) {
+            case "deleteClub":
+                didRequest = deleteRequest(data);
+                break;
+            case "deleteUser":
+                didRequest = deleteUser(data);
+                break;
+            case "deletePost":
+                didRequest = deletePost(data);
+        }
+        return didRequest;
     }
 
     /**
@@ -185,6 +204,7 @@ public class RestModel {
             mostRecentPosts = new HTTPAsyncTask().execute(serverAddress + "/posts", "GET").get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            System.out.println("Caught in getRecentPosts");
         }
         return mostRecentPosts;
     }
@@ -204,6 +224,21 @@ public class RestModel {
         }
         return userData;
     }
+
+    /**
+     *
+     */
+    private String getUserEmail(String data){
+        try {
+        data = data.replace("/", "_");
+        Log.d(data, data);
+        return new HTTPAsyncTask().execute(serverAddress + "/users/" + data, "GET").get();
+    } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
+    }
+        return null;
+}
+
 
     /**
      * Taken from Club.java
@@ -229,7 +264,98 @@ public class RestModel {
      * @param data user
      */
     private void putNewUser(String data) {
+        //jsonStringify(data); possibly get
         new HTTPAsyncTask().execute(serverAddress + "/userData", "PUT", data);
+    }
+
+    /**
+     * Deletes a club from the collection of clubs
+     *
+     * @param data the delete to be made
+     * @return foundClub    if the club was successfully deleted
+     */
+    public boolean deleteRequest(String data) {
+        boolean foundClub = false;
+        AllClubs listOfClubs = new AllClubs();
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("clubName" , data);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        ArrayList<String> myList = AllClubs.getClubNames(this.getAllClubs());
+        for (String s: myList)
+        {
+            try {
+                if (s.equals(json.getString("clubName").toString())) {
+                    new HTTPAsyncTask().execute(serverAddress + "/delete", "DELETE", json.toString());
+                    foundClub = true;
+                }
+            }
+            catch(JSONException je){
+                Log.d("JSONException: ", je.toString());
+            }
+        }
+        return foundClub;
+    }
+
+    /**
+     * Deletes a post from the collection of posts
+     *
+     * @param data the delete to be made
+     * @return foundPost    if the post was successfully deleted
+     */
+    public boolean deletePost(String data){
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("title" , data);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        for (PostInformationModel myPost: myPostArray) {
+
+            if (myPost.getTitle().equals(data)) {
+                new HTTPAsyncTask().execute(serverAddress + "/deletePost", "DELETE", json.toString());
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Deletes a user from the collection of users
+     * Currently, this function is not implemented. deleteUser will always return false, but
+     * the deleteUser commands work in index.js and mongoDBFunctions.js, so a user could be
+     * deleted using Postman if necessary.
+     *
+     * @param data the delete to be made
+     * @return foundUser    if the user was successfully deleted
+     */
+    public boolean deleteUser(String data){
+        boolean foundUser = false;
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("userName" , data);
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        new HTTPAsyncTask().execute(serverAddress + "/deleteUser", "DELETE", data.toString());
+        return foundUser;
+    }
+
+    public void setPostArray(ArrayList<PostInformationModel> posts)
+    {
+        myPostArray = posts;
     }
 
     private class HTTPAsyncTask extends AsyncTask<String, Integer, String> {
@@ -260,8 +386,20 @@ public class RestModel {
                         out.close();
                     }
                 }
+                if (params[1].equals("DELETE")) {
+                    Log.d("DEBUG DELETE:", "In delete: params[0]=" + params[0] + ", params[1]=" + params[1] + ", params[2]=" + params[2]);
 
-                int responseCode = serverConnection.getResponseCode();
+                    serverConnection.setDoOutput(true);
+                    serverConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+                    serverConnection.setRequestProperty("Content-Length", "" +
+                            Integer.toString(params[2].getBytes().length));
+                    DataOutputStream out = new DataOutputStream(serverConnection.getOutputStream());
+                    out.writeBytes(params[2]);
+                    out.flush();
+                    out.close();
+                }
+
+                int responseCode = serverConnection.getResponseCode(); //the connection is failing here
                 Log.d("Debug:", "\nSending " + params[1] + " request to URL : " + params[0]);
                 Log.d("Debug: ", "Response Code : " + responseCode);
                 is = serverConnection.getInputStream();
@@ -273,15 +411,19 @@ public class RestModel {
                     while ((line = br.readLine()) != null) {
                         sb.append(line);
                     }
+
                     try {
                         JSONObject jsonData = new JSONObject(sb.toString());
                         return jsonData.toString();
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        System.out.println("JSONException was caught");
+
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("An IOException was caught");
             } finally {
                 assert serverConnection != null;
                 serverConnection.disconnect();

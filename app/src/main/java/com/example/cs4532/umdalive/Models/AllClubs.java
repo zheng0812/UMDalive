@@ -14,6 +14,7 @@ import java.util.Collections;
  */
 
 public class AllClubs {
+    public static ArrayList<String> clubList = new ArrayList<>();
     /**
      * This is used to convert a JSON response into a list of strings containing the names of the clubs.
      *
@@ -21,14 +22,14 @@ public class AllClubs {
      * @return ArrayList of all club names
      */
     public static ArrayList<String> getClubNames(String jsonResponse) {
-
-        ArrayList<String> clubList = new ArrayList<>();
+        //ArrayList<String> clubList = new ArrayList<>();
         Log.d("clubs: ", jsonResponse);
         try {
             JSONObject object = new JSONObject(jsonResponse);
             JSONArray jsonArray = object.getJSONArray("items");
             if (jsonArray != null) {
                 int len = jsonArray.length();
+                clubList.clear();
                 for (int i = 0; i < len; i++) {
                     clubList.add(jsonArray.get(i).toString());
                     Log.d(jsonArray.get(i).toString(), jsonArray.get(i).toString());
@@ -41,4 +42,5 @@ public class AllClubs {
         }
         return clubList;
     }
+
 }

@@ -4,11 +4,11 @@
   "description": "server to run umd alive app",
   "main": "index.js",
   "dependencies": {
-    "body-parser": "^1.16.1",
-    "express": "^4.14.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
     "forever": "^0.15.3",
     "mongodb": "^2.2.11",
-    "mongojs": "^2.4.0"
+    "mongojs": "^2.4.1"
   },
   "devDependencies": {
     "module-js": "^5.15.0"

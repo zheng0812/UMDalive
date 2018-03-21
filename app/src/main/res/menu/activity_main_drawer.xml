@@ -35,6 +35,11 @@
             android:icon="@drawable/ic_add"
             android:title="@string/make_a_new_club" />
 
+        <item
+            android:id="@+id/delete_club"
+            android:icon="@drawable/ic_subtract"
+            android:title="Delete a Club" />
+
     </group>
     <item android:title="My Clubs">
         <menu android:id="@+id/clubMenu">

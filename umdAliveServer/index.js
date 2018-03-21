@@ -1,28 +1,30 @@
 var express = require('express');
-var bodyParser = require('body-parser');
+var queryParser = require('body-parser');
 
 // Initialize main instanced class
 var app = express();
 
 // Set the port
-app.set("port", 5000);
+app.set("port", 5000);//REAL ONE
+//app.set("port",60000);
 
 // Support encoded bodies
-app.use(bodyParser.urlencoded({
+app.use(queryParser.urlencoded({
     extended: true
 }));
 
 // Support JSON-encoded bodies
-app.use(bodyParser.json());
+app.use(queryParser.json());
 //loads the mongo functions in this file
 var mongodb = require('./mongoDBFunctions.js');
 console.log(mongodb);
 
 var dummyUser1 = {
-    name: "Billy Joe",
+    name: "Meggie Jo",
     email: "umdAlive1@gmail.com",
-    graduationDate: "2018",
+    graduationDate: "2019",
     major: "computer science",
+    userType: "club member",
     clubs: []
 
 };
@@ -30,6 +32,51 @@ var dummyUser1 = {
 /*///////////////////////////
  *   End of dummy users/clubs
  *////////////////////////////
+
+/*
+ ***********************
+ * DELETE ROUTE SECTION
+ ***********************
+ */
+
+app.delete("/delete", function(req, res){
+    if (!req.body)
+        return res.sendStatus(400);
+
+    console.log("GIMME DATA" + req.body.clubName);	
+    mongodb.delete(req.body.clubName);
+
+    
+    console.log("Club has been deleted: " + req.body.clubName);
+
+    res.sendStatus(200);
+}
+);
+
+app.delete("/deleteUser", function(req, res){
+	if (!req.body)
+		return res.sendStatus(400);
+
+	mongodb.deleteUser(req.body.userName);
+
+	res.sendStatus(200);
+
+	console.log("User has been deleted: " + req.body.userName);
+}
+);
+
+app.delete("/deletePost", function(req, res){
+	if (!req.body)
+		return res.sendStatus(400);
+
+	mongodb.deletePost(req.body.title);
+	
+	res.sendStatus(200);
+
+	console.log("Post has been deleted: " + req.body.title);
+	
+}
+);
 
 /*
  ************************
@@ -41,14 +88,15 @@ app.put('/clubs', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
     if (!req.body)
         return res.sendStatus(400);
-
-    //console.log(req.body);
+	
+    //console.log(req.body);	
     // Takes data from request and makes a new object
     var clubData = {
         clubName: req.body.clubName,
-        username: req.body.username,
+        clubOwner: req.body.clubOwner,
+	ownerEmail : req.body.ownerEmail,
         keywords: req.body.keywords,
-        description: req.body.description,
+        description: req.body.description
     };
 
 	//console.log(clubData);
@@ -93,18 +141,21 @@ app.put('/userData', function (req, res) {
 
     var userData = {
         name: req.body.name,
-        email: req.body.emailAddress,
-        graduation_date: req.body.graduationDate,
         major: req.body.major,
+        email: req.body.email,
+        graduation_date: req.body.graduationDate,
+        userType: req.body.userType,
         users_clubs: [],
     };
 
     mongodb.insertUser(userData);
+    console.log("Creating user" + req.body.name);
 
     var jsonResponse = {
         id: '123', status: 'updated'
     };
     res.json(jsonResponse);
+    //res.json(userData);
 });
 
 /*
@@ -146,8 +197,8 @@ app.get('/clubs/:clubName', function (req,res) {
     mongodb.findClub(req.params.clubName, function(result){
         var club = result[0];
         console.log("Found club.");
-        res.body = JSON.stringify(club.clubData);
-        res.send(res.body);
+        res.query = JSON.stringify(club.clubData);
+        res.send(res.query);
     });
 });
 
@@ -180,15 +231,60 @@ app.get('/clubSearch/:keyword', function (req,res) {
             res.send(stringArray);
     });
 });
-
+//should return userEmail
 //Only returns dummy
-app.get('/userData/:user', function (req, res) {
-    res.send(JSON.stringify(dummyUser1));
+app.get('/users/:email', function (req, res) {
+var user;
+    console.log("Looking for " + req.params.email);
+
+    mongodb.findUser(req.params.email, function(result){
+    
+        if(result.length > 0){
+            var user = result[0];
+            console.log(user);
+            console.log("Found user.");
+            //console.log(res.body);
+            res.query = JSON.stringify(user.userData);//was user.userData
+            console.log("-------------------")
+            res.send(res.query);
+        } else {
+            res.send(404);
+        }
+    });
+//    res.send(JSON.stringify(dummyUser1));
 });
 
+//returns an array of all users
 //Only returns dummy
 app.get('/userData/', function (req, res) {
-    res.send(JSON.stringify(dummyUser1));
+ //array to which each club will be stored
+    var userEmails = {
+        userItems: []
+    };
+    mongodb.getCollection('users', function(result){
+            var usersData = {
+                jsonArray: []
+            };
+
+            result.forEach(function(users){
+                usersData.jsonArray.push(users);
+            });
+
+
+            for(var i = 0; i < usersData.jsonArray.length; i++){
+                var curUser = usersData.jsonArray[i];
+
+                userEmails.userItems[i] = curUser.userData.email;
+            }
+
+            var stringArray = JSON.stringify(userEmails);
+
+            console.log("users being sent to client: " + stringArray);
+            res.send(stringArray);
+
+    });
+
+
 });
 
 app.get('/posts', function (req, res) {
@@ -223,3 +319,5 @@ app.listen(app.get("port"), function () {
     console.log('CS4531 UMDAlive app listening on port: ', app.get("port"));
 
 });
+
+
