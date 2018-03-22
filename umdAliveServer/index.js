@@ -86,8 +86,9 @@ app.delete("/deletePost", function(req, res){
 app.put('/clubs', function (req, res) {
 
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.body)
-        return res.sendStatus(400);
+    if (!req.body){
+          return res.sendStatus(400);
+    }
 
     //console.log(req.body);
     // Takes data from request and makes a new object
@@ -113,7 +114,9 @@ app.put('/clubs', function (req, res) {
 
 app.put('/posts', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.body) return res.sendStatus(400);
+    if (!req.body){
+       return res.sendStatus(400);
+    }
 
     var postData = {
         clubName: req.body.clubName,
@@ -137,7 +140,9 @@ app.put('/posts', function (req, res) {
 
 app.put('/userData', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
-    if (!req.body) return res.sendStatus(400);
+    if (!req.body){
+       return res.sendStatus(400);
+    }
 
     var userData = {
         name: req.body.name,
@@ -223,7 +228,7 @@ app.get('/clubSearch/:keyword', function (req,res) {
                 if(req.params.keyword === curClub.clubData.keywords) {
                     clubNames.items[x] = curClub.clubData.clubName;
                     x++;
-                    }
+                }
             }
 
             var stringArray = JSON.stringify(clubNames);
@@ -281,10 +286,7 @@ app.get('/userData/', function (req, res) {
 
             console.log("users being sent to client: " + stringArray);
             res.send(stringArray);
-
     });
-
-
 });
 
 app.get('/posts', function (req, res) {
