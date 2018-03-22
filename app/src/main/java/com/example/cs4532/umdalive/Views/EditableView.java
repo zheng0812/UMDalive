@@ -128,7 +128,7 @@ public class EditableView extends AppCompatActivity{
      *
      * @param view
      */
-    public void clickToSaveClubInfo(View view){
+    public void clickToSave(View view){
             Intent intent = new Intent (this, DisplayClubOwnerView.class);
 
             invalidInput = (TextView) findViewById(R.id.edit_invalid_input);
