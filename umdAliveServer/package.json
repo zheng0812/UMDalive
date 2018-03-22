@@ -14,7 +14,7 @@
     "module-js": "^5.15.0"
   },
   "scripts": {
-    "prestart": "mongod --confg mongod.conf",
+    "prestart": "mongod --config mongod.conf &",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "forever start -al forever.log -o forever_output.log -e forever_error.log index.js",
     "stop": "forever stop index.js"
