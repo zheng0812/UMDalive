@@ -1,15 +1,17 @@
 //loads the MongoDB package
 var mongojs = require("mongojs");
 
-var url = 'mongodb://127.0.0.1:32893/umdAliveDatabase';
+var url = 'mongodb://ukko.d.umn.edu:32893/umdAliveDatabase';
 
 //array of collections we will use
 var collections = ['clubs', 'users', 'posts'];
 
+//clubs: name, pictures, description, events, members
+//users: name, picture, major
+
 var assert = require('assert');
 
 var mongoDBRef = mongojs(url, collections);
-console.log("MongoDB is active.")
 
 //the following are anonymous functions that wil be used in index.js
 
