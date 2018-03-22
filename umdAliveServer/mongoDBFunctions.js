@@ -1,7 +1,7 @@
 //loads the MongoDB package
 var mongojs = require("mongojs");
 
-var url = 'mongodb://127.0.0.1:27017/umdAliveDatabase';
+var url = 'mongodb://127.0.0.1:32893/umdAliveDatabase';
 
 //array of collections we will use
 var collections = ['clubs', 'users', 'posts'];
@@ -21,7 +21,7 @@ console.log("MongoDB is active.")
 module.exports.insertClub = function(clubData) {
 
     //console.log(clubData);
-	
+
 	var temp = clubData.clubName;
 
     var title = temp.split('/').join('_');

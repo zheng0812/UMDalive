@@ -5,7 +5,7 @@ var queryParser = require('body-parser');
 var app = express();
 
 // Set the port
-app.set("port", 5000);//REAL ONE
+app.set("port", 32892);//REAL ONE
 //app.set("port",60000);
 
 // Support encoded bodies
@@ -43,10 +43,10 @@ app.delete("/delete", function(req, res){
     if (!req.body)
         return res.sendStatus(400);
 
-    console.log("GIMME DATA" + req.body.clubName);	
+    console.log("GIMME DATA" + req.body.clubName);
     mongodb.delete(req.body.clubName);
 
-    
+
     console.log("Club has been deleted: " + req.body.clubName);
 
     res.sendStatus(200);
@@ -70,11 +70,11 @@ app.delete("/deletePost", function(req, res){
 		return res.sendStatus(400);
 
 	mongodb.deletePost(req.body.title);
-	
+
 	res.sendStatus(200);
 
 	console.log("Post has been deleted: " + req.body.title);
-	
+
 }
 );
 
@@ -88,8 +88,8 @@ app.put('/clubs', function (req, res) {
     // If for some reason the JSON isn't parsed, return HTTP error 400
     if (!req.body)
         return res.sendStatus(400);
-	
-    //console.log(req.body);	
+
+    //console.log(req.body);
     // Takes data from request and makes a new object
     var clubData = {
         clubName: req.body.clubName,
@@ -238,7 +238,7 @@ var user;
     console.log("Looking for " + req.params.email);
 
     mongodb.findUser(req.params.email, function(result){
-    
+
         if(result.length > 0){
             var user = result[0];
             console.log(user);
@@ -319,5 +319,3 @@ app.listen(app.get("port"), function () {
     console.log('CS4531 UMDAlive app listening on port: ', app.get("port"));
 
 });
-
-
