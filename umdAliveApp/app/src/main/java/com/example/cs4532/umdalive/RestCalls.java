@@ -18,9 +18,6 @@ public class RestCalls {
         queue = Volley.newRequestQueue(context);
     }
 
-    public void testFunc(View v) {
-
-    }
 /*
 
 GetUser(userID)
