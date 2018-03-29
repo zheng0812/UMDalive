@@ -40,7 +40,7 @@ app.post('/getClub', function (req, res) {
     return res.sendStatus(400);
   }
   dataBase.getClub(req.body.clubName, function (docs){
-    res.send(docs);
+    res.send(docs[0]);
   });
 });
 

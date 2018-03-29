@@ -47,7 +47,7 @@ module.exports.getClub = function(clubName, callback) {
 		} else {
 			console.log("Found the following records");
 			console.log(docs);
-			callback(docs[0]);
+			callback(docs);
 		}
 	});
 };
