@@ -16,7 +16,7 @@ public class AllClubs implements View.OnClickListener{
         context = c;
         activity = a;
 
-        clubList = a.findViewById(R.id.ClubList);
+        clubList = activity.findViewById(R.id.ClubList);
     }
 
     public void Generate () {
