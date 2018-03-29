@@ -35,11 +35,9 @@ app.put('/createClub', function (req, res) {
   console.log(req.body.name + " has been created.");
 });
 
-app.post('/getClub', function (req, res) {
-  if (!req.body){
-    return res.sendStatus(400);
-  }
-  dataBase.getClub(req.body.clubName, function (docs){
+app.get('/getClub/:clubName', function (req, res) {
+  dataBase.getClub(req.params.clubName, function (docs) {
+    console.log(req.params.clubName);
     res.send(docs[0]);
   });
 });
