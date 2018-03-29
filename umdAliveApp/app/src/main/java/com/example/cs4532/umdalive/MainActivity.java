@@ -35,32 +35,24 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    //Google Sign in
+    //App Page Classes
+    Club clubPage;
+
+    //Google Sign In
     GoogleSignInClient mGoogleSignInClient;
     static final int RC_SIGN_IN = 9001;
 
-    //App Pages
-    Club clubPage;
-
-    //Nav_Header components
-    ImageView userImage = (ImageView) findViewById(R.id.user_image);
-    TextView userName = (TextView) findViewById(R.id.user_name);
-    TextView userEmail = (TextView) findViewById(R.id.user_email);
+    //Nav Header Components
+    TextView userName;
+    TextView userEmail;
+    ImageView userImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Google Sign in
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-
         //Initialize pages
         clubPage = new Club(this, this);
-
-
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -85,6 +77,17 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_profile);
+
+        //Google Sign in
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        //Set Nav Header Comps
+        View headerView = navigationView.getHeaderView(0);
+        userName = headerView.findViewById(R.id.user_name);
+        userEmail = headerView.findViewById(R.id.user_email);
+        userImage = headerView.findViewById(R.id.user_image);
     }
 
     @Override
@@ -187,30 +190,25 @@ public class MainActivity extends AppCompatActivity
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            try {
-                updateUI(account);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            updateUI(account);
+            
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-
             try {
                 updateUI(null);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void updateUI(GoogleSignInAccount account) throws IOException {
-        URL url = new URL(account.getPhotoUrl().toString());
-        Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        userImage.setImageBitmap(bmp);
+        findViewById(R.id.Login).setVisibility(View.GONE);
+        findViewById(R.id.appBarLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.profileView).setVisibility(View.VISIBLE);
 
-        userName.setText(account.getDisplayName().toString());
-
-        userEmail.setText(account.getEmail().toString());
+        userName.setText(account.getDisplayName());
+        userEmail.setText((account.getEmail()));
     }
 }
