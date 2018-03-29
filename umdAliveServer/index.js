@@ -26,9 +26,9 @@ app.put('/createClub', function (req, res) {
 
   var clubData = {
     "name" : req.body.name,
-    "description" : req.body.description
-    "members" : req.body.memebers
-    "events" : req.body.events;
+    "description" : req.body.description,
+    "members" : req.body.memebers,
+    "events" : req.body.events
   };
 
   dataBase.createClub(clubData);
@@ -39,7 +39,7 @@ app.post('/getClub', function (req, res) {
   if (!req.body){
     return res.sendStatus(400);
   }
-  dataBase.getClub(req.body.clubID, function (docs){
+  dataBase.getClub(req.body.clubName, function (docs){
     res.send(docs);
   });
 });
