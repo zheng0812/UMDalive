@@ -20,6 +20,8 @@ funtions required :
     createUser
 		getUser
 	events:
+    createEvent
+    getEvent
 		allEvents (by date)
 */
 
@@ -85,4 +87,28 @@ module.exports.getUser = function(userEmail, callback) {
 			callback(docs[0]);
 		}
 	});
+};
+
+//Event Calls
+module.exports.createEvent = function(eventData){
+  DBRef.collection('events').save(eventData, function(err, result){
+    if(err || !result){
+      console.log("Event failed to save in database.");
+    } else {
+      console.log("createEvent event called. Following event was added to the events collection:");
+      console.log(eventData);
+    }
+  });
+};
+
+module.exports.getEvent = function(club, callback){
+  DBref.collection('events').find().toArray(function(err, docs){
+    if(err){
+      console.log("Search failed");
+    } else {
+      console.log("getEvent called. returning the folling record:");
+      console.log(docs[0]);
+      callback(docs[0]);
+    }
+  });
 };
