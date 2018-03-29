@@ -8,29 +8,21 @@ import android.widget.Button;
 
 public class AllClubs implements View.OnClickListener{
 
-    private Context context;
     private Activity activity;
-    private CardView clubList;
 
-    public AllClubs (Context c, Activity a){
-        context = c;
+    private Context context;
+
+    public AllClubs (Activity a, Context c){
         activity = a;
-
-        clubList = activity.findViewById(R.id.ClubList);
+        context = c;
     }
 
     public void buildPage () {
 
-        Button test = new Button(context);
-
-        clubList.addView(test);
-
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-
+    public void onClick(View v) {
 
     }
 }
