@@ -66,6 +66,31 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if (id == R.id.nav_profile) {
+            findViewById(R.id.profileView).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
+            findViewById(R.id.allClubsView).setVisibility(View.GONE);
+            findViewById(R.id.clubView).setVisibility(View.GONE);
+            findViewById(R.id.eventView).setVisibility(View.GONE);
+        } else if (id == R.id.nav_events) {
+            findViewById(R.id.upcomingEventsView).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.allClubsView).setVisibility(View.GONE);
+            findViewById(R.id.profileView).setVisibility(View.GONE);
+            findViewById(R.id.clubView).setVisibility(View.GONE);
+            findViewById(R.id.eventView).setVisibility(View.GONE);
+        } else if (id == R.id.nav_my_clubs) {
+
+        } else if (id == R.id.nav_all_clubs) {
+            findViewById(R.id.allClubsView).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
+            findViewById(R.id.profileView).setVisibility(View.GONE);
+            findViewById(R.id.clubView).setVisibility(View.GONE);
+            findViewById(R.id.eventView).setVisibility(View.GONE);
+        }
 /*
         if (id == R.id.nav_camera) {
             // Handle the camera action
