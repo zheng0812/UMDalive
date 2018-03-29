@@ -20,25 +20,33 @@ public class RestCalls {
 
     RequestQueue queue;
 
+    JSONObject serverResponse;
+
     public RestCalls(Context context) {
         queue = Volley.newRequestQueue(context);
     }
 
     public JSONObject getClub (String clubID){
-        JSONObject serverResponse;
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("clubID", clubID)
+
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put("clubID", clubID);
+
+        JSONObject parameters = new JSONObject(params);
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, url + "/getUser", map, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, url + "/getUser", parameters, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        serverResponse  = response;
+                        serverResponse = response;
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
                     }
                 });
+
         return serverResponse;
     }
 /*
