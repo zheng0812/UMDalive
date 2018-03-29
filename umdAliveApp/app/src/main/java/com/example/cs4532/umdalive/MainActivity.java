@@ -14,12 +14,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewStub;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Club clubPage;
+    JSONObject serverResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Initialize pages
+        clubPage = new Club(this, this);
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,7 +108,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_my_clubs) {
             findViewById(R.id.clubView).setVisibility(View.VISIBLE);
-            
+
+            try {
+                clubPage.buildPage("test");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             findViewById(R.id.allClubsView).setVisibility(View.GONE);
             findViewById(R.id.profileView).setVisibility(View.GONE);
             findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);

@@ -5,6 +5,13 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,26 +21,49 @@ public class Club implements View.OnClickListener{
 
     private Context context;
 
-    private RestCalls rest;
-
     private TextView clubName;
 
     private TextView clubDescription;
 
-    private JSONObject blowjob;
+    private final String url = "http://ukko.d.umn.edu:32892/getClub/";
 
-    public Club (Activity a, Context c) throws JSONException {
+    private RequestQueue queue;
+
+    private JSONObject clubData;
+
+    public Club (Activity a, Context c) {
         activity = a;
         context = c;
-        rest = new RestCalls(context);
+
         clubName = (TextView) activity.findViewById(R.id.ClubNameView);
         clubDescription = (TextView) activity.findViewById(R.id.DescriptionView);
-        blowjob = rest.getClub("Test");
-        clubName.setText(blowjob.getString("name"));
-        clubDescription.setText(blowjob.getString("description"));
+
+        queue = Volley.newRequestQueue(context);
     }
 
-    public void buildPage () {
+    public void buildPage (String clubId)  throws JSONException {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + clubId,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            clubData = new JSONObject(response);
+
+                            clubName.setText(clubData.getString("name"));
+                            clubDescription.setText(clubData.getString("description"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+
+        queue.add(stringRequest);
+
     }
 
     @Override
