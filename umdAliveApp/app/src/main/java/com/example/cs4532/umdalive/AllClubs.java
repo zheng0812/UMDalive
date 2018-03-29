@@ -19,7 +19,7 @@ public class AllClubs implements View.OnClickListener{
         clubList = activity.findViewById(R.id.ClubList);
     }
 
-    public void Generate () {
+    public void buildPage () {
 
         Button test = new Button(context);
 
