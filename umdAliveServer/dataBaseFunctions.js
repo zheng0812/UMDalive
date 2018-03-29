@@ -40,14 +40,14 @@ module.exports.createClub = function(clubData) {
     });
 };
 
-module.exports.getClub = function(clubID, callback) {
-	DBRef.collection('clubs').find({"_id": mongojs.ObjectId(clubID)}).toArray(function(err, docs) {
+module.exports.getClub = function(clubName, callback) {
+	DBRef.collection('clubs').find({"name": clubName}).toArray(function(err, docs) {
 		if(err){
 			console.log("Search failed.")
 		} else {
 			console.log("Found the following records");
 			console.log(docs);
-			callback(docs[0]);
+			callback(docs);
 		}
 	});
 };
@@ -59,13 +59,13 @@ module.exports.getAllClubs = function(callback) {
 		} else {
 			console.log("Found the following records");
 			console.log(docs);
-			callback(docs[]);
+			callback(docs);
 		}
 	});
 };
 
 //User Calls
-module.exprots.createUser = function(userData){
+module.exports.createUser = function(userData){
   DBRef.collection('users').save(userData, function(err, result){
     if(err || !result){
        console.log("User failed to save in database.");

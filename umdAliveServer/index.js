@@ -26,21 +26,19 @@ app.put('/createClub', function (req, res) {
 
   var clubData = {
     "name" : req.body.name,
-    "description" : req.body.description
-    "members" : req.body.memebers
-    "events" : req.body.events;
+    "description" : req.body.description,
+    "members" : req.body.memebers,
+    "events" : req.body.events
   };
 
   dataBase.createClub(clubData);
   console.log(req.body.name + " has been created.");
 });
 
-app.post('/getClub', function (req, res) {
-  if (!req.body){
-    return res.sendStatus(400);
-  }
-  dataBase.getClub(req.body.clubID, function (docs){
-    res.send(docs);
+app.get('/getClub/:clubName', function (req, res) {
+  dataBase.getClub(req.params.clubName, function (docs) {
+    console.log(req.params.clubName);
+    res.send(docs[0]);
   });
 });
 
