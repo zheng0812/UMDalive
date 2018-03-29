@@ -1,0 +1,88 @@
+//loads the MongoDB package
+var mongojs = require("mongojs");
+
+var url = 'mongodb://ukko.d.umn.edu:32893/umdAliveDatabase';
+
+//array of collections we will use
+var collections = ['clubs', 'users', 'events'];
+
+//clubs: name, pictures, description, events, members
+//users: name, picture, major
+
+/*
+funtions required :
+	clubs:
+    createClub
+		getAllClubs
+		getClub
+		deleteClub
+	users:
+    createUser
+		getUser
+	events:
+		allEvents (by date)
+*/
+
+var assert = require('assert');
+
+var DBRef = mongojs(url, collections);
+
+//the following are anonymous functions that wil be used in index.js
+
+//Club Calls
+module.exports.createClub = function(clubData) {
+    DBRef.collection('clubs').save(clubData, function(err, result){
+        if(err || !result){
+					 console.log("Club failed to save in database.");
+				} else {
+					console.log("Club inserted into clubs collection on umdAliveDatabase.");
+				}
+    });
+};
+
+module.exports.getClub = function(clubID, callback) {
+	DBRef.collection('clubs').find({"_id": mongojs.ObjectId(clubID)}).toArray(function(err, docs) {
+		if(err){
+			console.log("Search failed.")
+		} else {
+			console.log("Found the following records");
+			console.log(docs);
+			callback(docs[0]);
+		}
+	});
+};
+
+module.exports.getAllClubs = function(callback) {
+	DBRef.collection('clubs').find({}).toArray(function(err, docs) {
+		if(err){
+			console.log("Search failed.")
+		} else {
+			console.log("Found the following records");
+			console.log(docs);
+			callback(docs[]);
+		}
+	});
+};
+
+//User Calls
+module.exprots.createUser = function(userData){
+  DBRef.collection('users').save(userData, function(err, result){
+    if(err || !result){
+       console.log("User failed to save in database.");
+    } else {
+      console.log("Club inserted into clubs collection on umdAliveDatabase.");
+    }
+  });
+};
+
+module.exports.getUser = function(userEmail, callback) {
+	DBRef.collection('user').find({"email": userEmail}).toArray(function(err, docs) {
+		if(err){
+			console.log("Search failed.")
+		} else {
+			console.log("Found the following records");
+			console.log(docs);
+			callback(docs[0]);
+		}
+	});
+};

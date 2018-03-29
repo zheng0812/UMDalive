@@ -6,10 +6,6 @@ import android.view.View;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by Devin on 3/25/2018.
- */
-
 public class RestCalls {
 
     RequestQueue queue;
