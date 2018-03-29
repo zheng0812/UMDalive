@@ -12,9 +12,12 @@ public class AllClubs implements View.OnClickListener{
 
     private Context context;
 
+    private RestCalls rest;
+
     public AllClubs (Activity a, Context c){
         activity = a;
         context = c;
+        rest = new RestCalls(context);
     }
 
     public void buildPage () {
