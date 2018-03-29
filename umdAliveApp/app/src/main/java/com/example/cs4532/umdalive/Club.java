@@ -5,6 +5,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Club implements View.OnClickListener{
 
     private Activity activity;
@@ -15,16 +18,19 @@ public class Club implements View.OnClickListener{
 
     private TextView clubName;
 
-    private TextView description;
+    private TextView clubDescription;
 
-    public Club (Activity a, Context c) {
+    private JSONObject blowjob;
+
+    public Club (Activity a, Context c) throws JSONException {
         activity = a;
         context = c;
         rest = new RestCalls(context);
         clubName = (TextView) activity.findViewById(R.id.ClubNameView);
-        description = (TextView) activity.findViewById(R.id.DescriptionView);
-        //rest.getClub("")
-        clubName.setText("aids");
+        clubDescription = (TextView) activity.findViewById(R.id.DescriptionView);
+        blowjob = rest.getClub("Test");
+        clubName.setText(blowjob.getString("name"));
+        clubDescription.setText(blowjob.getString("description"));
     }
 
     public void buildPage () {
