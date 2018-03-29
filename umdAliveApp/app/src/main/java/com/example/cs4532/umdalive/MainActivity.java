@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity
             findViewById(R.id.clubView).setVisibility(View.GONE);
             findViewById(R.id.eventView).setVisibility(View.GONE);
         } else if (id == R.id.nav_my_clubs) {
+            findViewById(R.id.clubView).setVisibility(View.VISIBLE);
+            findViewById(R.id.allClubsView).setVisibility(View.GONE);
+            findViewById(R.id.profileView).setVisibility(View.GONE);
+            findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
+            findViewById(R.id.eventView).setVisibility(View.GONE);
 
         } else if (id == R.id.nav_all_clubs) {
             findViewById(R.id.allClubsView).setVisibility(View.VISIBLE);
