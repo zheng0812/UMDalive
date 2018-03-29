@@ -30,7 +30,7 @@ app.put('/createClub', function (req, res) {
     "members" : req.body.memebers
     "events" : req.body.events;
   };
-  
+
   dataBase.createClub(clubData);
   console.log(req.body.name + " has been created.");
 });
@@ -69,6 +69,15 @@ app.put('/createUser', function (req, res){
 
   dataBase.createUser(userData);
   console.log(req.body.name + " has been created");
+});
+
+app.get('/getUser', function (req, res){
+    if (!req.body){
+      return res.sendStatus(400);
+    }
+    dataBase.getUser(req.body.userEmail, function (docs){
+      res.send(docs);
+    });
 });
 
 app.listen(app.get("port"), function () {
