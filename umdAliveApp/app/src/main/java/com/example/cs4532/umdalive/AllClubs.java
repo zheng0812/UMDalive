@@ -4,6 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AllClubs implements View.OnClickListener{
 
     private Activity activity;
@@ -17,7 +25,27 @@ public class AllClubs implements View.OnClickListener{
     }
 
     public void buildPage () {
-
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + clubId,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            clubData = new JSONObject(response);
+//
+//                            clubName.setText(clubData.getString("name"));
+//                            clubDescription.setText(clubData.getString("description"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                System.out.println(error);
+//            }
+//        });
+//
+//        queue.add(stringRequest);
     }
 
     @Override
