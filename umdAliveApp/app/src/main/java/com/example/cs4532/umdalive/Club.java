@@ -2,6 +2,7 @@ package com.example.cs4532.umdalive;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -53,12 +54,14 @@ public class Club implements View.OnClickListener{
     }
 
     public void buildPage (String clubId)  throws JSONException {
+        Log.d("test", "eat my ass");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url + clubId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             clubData = new JSONObject(response);
+                            Log.d("server test",clubData.getString("name"));
                             clubName.setText(clubData.getString("name"));
                             clubDescription.setText(clubData.getString("description"));
                             JSONObject memberJson = clubData.getJSONObject("members");

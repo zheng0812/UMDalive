@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             findViewById(R.id.clubView).setVisibility(View.VISIBLE);
 
             try {
-                clubPage.buildPage("Josh-kun's test club");
+                clubPage.buildPage("test");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
