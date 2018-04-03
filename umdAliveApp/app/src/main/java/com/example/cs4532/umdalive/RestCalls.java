@@ -60,7 +60,7 @@ GetUser(userEmail)
 
 GetClub(clubID)
 
-JoinClub(userEmial, clubID)
+JoinClub(userEmail, clubID)
 
 createClub(clubObject)
 
