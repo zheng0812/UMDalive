@@ -3,6 +3,8 @@ package com.example.cs4532.umdalive;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -12,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,9 +24,14 @@ public class Club implements View.OnClickListener{
 
     private Context context;
 
+
     private TextView clubName;
 
     private TextView clubDescription;
+
+    private LinearLayout members;
+
+    private LinearLayout events;
 
     private final String url = "http://ukko.d.umn.edu:32892/getClub/";
 
@@ -37,6 +45,7 @@ public class Club implements View.OnClickListener{
 
         clubName = (TextView) activity.findViewById(R.id.ClubNameView);
         clubDescription = (TextView) activity.findViewById(R.id.DescriptionView);
+        members = (LinearLayout) activity.findViewById(R.id.MembersText);
 
         queue = Volley.newRequestQueue(context);
     }
@@ -51,6 +60,15 @@ public class Club implements View.OnClickListener{
 
                             clubName.setText(clubData.getString("name"));
                             clubDescription.setText(clubData.getString("description"));
+                            JSONArray memberJson = clubData.getJSONArray("members");
+                            for (int i=0;i<memberJson.length();i++){
+                                String name = memberJson.getString(i);
+                                Button memberName = new Button(context);
+                                members.addView(memberName);
+                                memberName.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+                                memberName.setHeight(10);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
