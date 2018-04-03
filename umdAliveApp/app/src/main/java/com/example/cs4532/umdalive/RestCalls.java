@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.concurrent.Callable;
 
 public class RestCalls {
 
@@ -30,7 +31,7 @@ public class RestCalls {
         queue = Volley.newRequestQueue(context);
     }
 
-    public JSONObject getClub (String clubID) throws JSONException {
+    public JSONObject getClub (String clubID, final Callable<Void> callBack) throws JSONException {
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -40,6 +41,8 @@ public class RestCalls {
                         try {
                             serverResponse = new JSONObject(response);
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
