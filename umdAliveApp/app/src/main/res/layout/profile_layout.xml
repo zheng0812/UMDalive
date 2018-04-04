@@ -89,3 +89,5 @@
         app:layout_constraintTop_toBottomOf="@+id/profileMajor" />
 
 </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
