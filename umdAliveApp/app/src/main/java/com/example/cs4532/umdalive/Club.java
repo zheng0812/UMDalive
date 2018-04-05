@@ -27,6 +27,8 @@ public class Club implements View.OnClickListener{
 
     private Context context;
 
+    private RestCalls rest;
+
 
     private TextView clubName;
 
@@ -36,11 +38,6 @@ public class Club implements View.OnClickListener{
 
     private LinearLayout events;
 
-    private final String url = "http://ukko.d.umn.edu:32892/getClub/";
-
-    private RequestQueue queue;
-
-    private JSONObject clubData;
 
     public Club (Activity a, Context c) {
         activity = a;
@@ -50,48 +47,36 @@ public class Club implements View.OnClickListener{
         clubDescription = (TextView) activity.findViewById(R.id.DescriptionView);
         members = (LinearLayout) activity.findViewById(R.id.MembersText);
 
-        queue = Volley.newRequestQueue(context);
+        rest = new RestCalls(context);
     }
 
     public void buildPage (String clubId)  throws JSONException {
-        Log.d("test", "eat my ass");
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + clubId,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            clubData = new JSONObject(response);
-                            Log.d("server test",clubData.getString("name"));
-                            clubName.setText(clubData.getString("name"));
-                            clubDescription.setText(clubData.getString("description"));
-                            JSONObject memberJson = clubData.getJSONObject("members");
-                            JSONArray regulars = memberJson.getJSONArray("regular");
-                            JSONArray admins = memberJson.getJSONArray("admin");
-                            for (int i=0;i<admins.length();i++){
-                                String name = admins.getString(i);
-                                Button memberName = new Button(context);
-                                memberName.setText(name);
-                                members.addView(memberName);
-                            }
-                            for (int i=0;i<regulars.length();i++){
-                                String name = regulars.getString(i);
-                                Button memberName = new Button(context);
-                                memberName.setText(name);
-                                members.addView(memberName);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        rest.getClub(clubId, new CallBack() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+            public void callBack(JSONObject serverResponse) throws JSONException {
+                updateUI(serverResponse);
             }
         });
+    }
 
-        queue.add(stringRequest);
-
+    private void updateUI(JSONObject clubData) throws JSONException {
+        clubName.setText(clubData.getString("name"));
+        clubDescription.setText(clubData.getString("description"));
+        JSONObject memberJson = clubData.getJSONObject("members");
+        JSONArray regulars = memberJson.getJSONArray("regular");
+        JSONArray admins = memberJson.getJSONArray("admin");
+        for (int i=0;i<admins.length();i++){
+            String name = admins.getString(i);
+            Button memberName = new Button(context);
+            memberName.setText(name);
+            members.addView(memberName);
+        }
+        for (int i=0;i<regulars.length();i++){
+            String name = regulars.getString(i);
+            Button memberName = new Button(context);
+            memberName.setText(name);
+            members.addView(memberName);
+        }
     }
 
     @Override
