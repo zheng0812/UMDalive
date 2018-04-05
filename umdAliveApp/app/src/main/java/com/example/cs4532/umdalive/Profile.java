@@ -30,20 +30,12 @@ public class Profile implements View.OnClickListener{
 
     private RestCalls profileRest;
 
-    private final String url = "http://ukko.d.umn.edu:32892/getUser/";
-
-    private RequestQueue queue;
-
-    private JSONObject profileData;
-
     public Profile(Activity a, Context c) {
         activity = a;
         context = c;
 
         profileName = (TextView) activity.findViewById(R.id.profileName);
         profileMajor = (TextView) activity.findViewById(R.id.profileMajor);
-
-        queue = Volley.newRequestQueue(context);
     }
 
         public void buildPage (String profileId)  throws JSONException {
