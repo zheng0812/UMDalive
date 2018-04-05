@@ -33,7 +33,7 @@ public class RestCalls {
     }
 
 
-    public JSONObject getClub(String clubID, final CallBack callBack) throws JSONException {
+    public void getClub(String clubID, final CallBack callBack) throws JSONException {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -53,9 +53,6 @@ public class RestCalls {
         });
 
         queue.add(stringRequest);
-        while (serverResponse == null) {
-        }
-        return serverResponse;
     }
 }
 /*
