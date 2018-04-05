@@ -22,7 +22,7 @@ import java.util.function.Function;
 
 public class RestCalls {
 
-    String url = "http://ukko.d.umn.edu:32892/getClub/test";
+    String url = "http://ukko.d.umn.edu:32892/";
 
     RequestQueue queue;
 
@@ -34,7 +34,29 @@ public class RestCalls {
 
 
     public void getClub(String clubID, final CallBack callBack) throws JSONException {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getClub/" + clubID,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            serverResponse = new JSONObject(response);
+                            callBack.callBack(serverResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    public void getProfile(String userID, final CallBack callBack) throws JSONException {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getUser/" + userID,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
