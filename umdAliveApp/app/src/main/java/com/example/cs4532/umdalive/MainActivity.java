@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     //App Page Classes
+    Profile profilePage;
     Club clubPage;
+    AllClubs allClubsPage;
+
 
     //Google Sign In
     GoogleSignInClient mGoogleSignInClient;
@@ -50,9 +53,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Initialize pages
-        clubPage = new Club(this, this);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_profile);
+
+        //Initialize pages
+        clubPage = new Club(this, this);
+        profilePage = new Profile(this,this);
 
         //Google Sign in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -115,6 +119,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             findViewById(R.id.profileView).setVisibility(View.VISIBLE);
+
+            try {
+                profilePage.buildPage("57");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
             findViewById(R.id.allClubsView).setVisibility(View.GONE);
