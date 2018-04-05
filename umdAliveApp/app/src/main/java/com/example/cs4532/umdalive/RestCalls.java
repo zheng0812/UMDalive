@@ -55,8 +55,30 @@ public class RestCalls {
         queue.add(stringRequest);
     }
 
-    public void getProfile(String userID, final CallBack callBack) throws JSONException {
+    public void getUser(String userID, final CallBack callBack) throws JSONException {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getUser/" + userID,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            serverResponse = new JSONObject(response);
+                            callBack.callBack(serverResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    public void getAllClubs(String userID, final CallBack callBack) throws JSONException {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getAllClubs/" + userID,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
