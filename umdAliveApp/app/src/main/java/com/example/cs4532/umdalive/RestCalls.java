@@ -78,7 +78,7 @@ public class RestCalls {
     }
 
     public void getAllClubs(String userID, final CallBack callBack) throws JSONException {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getAllClubs/" + userID,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getAllClubs",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
