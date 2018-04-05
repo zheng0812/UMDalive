@@ -3,6 +3,7 @@ package com.example.cs4532.umdalive;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,6 +18,8 @@ public class AllClubs implements View.OnClickListener{
     private Activity activity;
     private Context context;
     private RestCalls rest;
+
+    private TextView clubName;
 
     public AllClubs (Activity a, Context c){
         activity = a;
