@@ -28,6 +28,8 @@ public class Profile implements View.OnClickListener{
 
     private TextView profileMajor;
 
+    private RestCalls profileRest;
+
     private final String url = "http://ukko.d.umn.edu:32892/getUser/";
 
     private RequestQueue queue;
@@ -44,28 +46,19 @@ public class Profile implements View.OnClickListener{
         queue = Volley.newRequestQueue(context);
     }
 
-    public void buildPage (String clubId)  throws JSONException {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + clubId,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            profileData = new JSONObject(response);
+        public void buildPage (String profileId)  throws JSONException {
+            profileRest.getUser(profileId, new CallBack() {
+                @Override
+                public void callBack(JSONObject serverResponse) throws JSONException {
+                    updateUI(serverResponse);
+                }
+            });
+    }
 
-                            profileName.setText(profileData.getString("name"));
-                            profileMajor.setText(profileData.getString("description"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
-            }
-        });
+    private void updateUI(JSONObject profileData) throws JSONException{
 
-        queue.add(stringRequest);
+        profileName.setText(profileData.getString("name"));
+        profileMajor.setText(profileData.getString("description"));
 
     }
 
