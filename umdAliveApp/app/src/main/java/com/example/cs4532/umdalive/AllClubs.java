@@ -3,6 +3,7 @@ package com.example.cs4532.umdalive;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,37 +20,32 @@ public class AllClubs implements View.OnClickListener{
     private Context context;
     private RestCalls rest;
 
-    private TextView clubName;
+    private TextView clubNames;
+
+    private LinearLayout clubs;
 
     public AllClubs (Activity a, Context c){
         activity = a;
         context = c;
+
+        clubNames = (TextView) activity.findViewById(R.id.clubNamesView);
         rest = new RestCalls(context);
     }
 
     public void buildPage () {
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + clubId,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//                            clubData = new JSONObject(response);
-//
-//                            clubName.setText(clubData.getString("name"));
-//                            clubDescription.setText(clubData.getString("description"));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                System.out.println(error);
-//            }
-//        });
-//
-//        queue.add(stringRequest);
+
     }
+    public void buildPage (String clubId)  throws JSONException {
+        rest.getClub(clubId, new CallBack() {
+            @Override
+            public void callBack(JSONObject serverResponse) throws JSONException {
+                updateUI(serverResponse);
+            }
+        });
+    }
+
+    private void updateUI(JSONObject clubData){}
+
 
     @Override
     public void onClick(View v) {
