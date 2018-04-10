@@ -77,7 +77,7 @@ public class RestCalls {
         queue.add(stringRequest);
     }
 
-    public void getAllClubs(String userID, final CallBack callBack) throws JSONException {
+    public void getAllClubs(String clubID, final CallBack callBack) throws JSONException {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getAllClubs",
                 new Response.Listener<String>() {
                     @Override
