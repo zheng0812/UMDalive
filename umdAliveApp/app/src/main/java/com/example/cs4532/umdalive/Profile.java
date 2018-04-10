@@ -38,6 +38,7 @@ public class Profile implements View.OnClickListener{
 
         profileName = (TextView) activity.findViewById(R.id.profileName);
         profileMajor = (TextView) activity.findViewById(R.id.profileMajor);
+        profileAbout = (TextView) activity.findViewById(R.id.profileAbout);
     }
 
         public void buildPage (String profileId)  throws JSONException {
@@ -52,7 +53,8 @@ public class Profile implements View.OnClickListener{
     private void updateUI(JSONObject profileData) throws JSONException{
 
         profileName.setText(profileData.getString("name"));
-        profileMajor.setText(profileData.getString("description"));
+        profileMajor.setText(profileData.getString("major"));
+        profileAbout.setText(profileData.getString("about"));
 
     }
 
