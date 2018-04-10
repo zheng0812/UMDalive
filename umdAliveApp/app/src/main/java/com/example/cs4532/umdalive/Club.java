@@ -2,6 +2,7 @@ package com.example.cs4532.umdalive;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class Club implements View.OnClickListener{
 
         clubName = (TextView) activity.findViewById(R.id.ClubNameView);
         clubDescription = (TextView) activity.findViewById(R.id.DescriptionView);
-        members = (LinearLayout) activity.findViewById(R.id.MembersText);
+        members = (LinearLayout) activity.findViewById(R.id.MembersLayout);
 
         rest = new RestCalls(context);
     }
@@ -67,9 +68,15 @@ public class Club implements View.OnClickListener{
         JSONArray admins = memberJson.getJSONArray("admin");
         for (int i=0;i<admins.length();i++){
             String name = admins.getString(i);
-            Button memberName = new Button(context);
+            CardView memberCard = new CardView(context);
+            Button memberButton = new Button(context);
+            TextView memberName = new TextView(context);
             memberName.setText(name);
-            members.addView(memberName);
+            //memberButton.setVisibility(View.INVISIBLE);
+            memberButton.setOnClickListener(this);
+            memberCard.addView(memberButton);
+            memberCard.addView(memberName);
+            members.addView(memberCard);
         }
         for (int i=0;i<regulars.length();i++){
             String name = regulars.getString(i);
