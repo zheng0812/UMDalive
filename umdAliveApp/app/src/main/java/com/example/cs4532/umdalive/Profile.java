@@ -30,6 +30,8 @@ public class Profile implements View.OnClickListener{
 
     private RestCalls profileRest;
 
+    private TextView profileAbout;
+
     public Profile(Activity a, Context c) {
         activity = a;
         context = c;
