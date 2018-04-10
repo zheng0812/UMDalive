@@ -156,7 +156,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_all_clubs) {
             findViewById(R.id.allClubsView).setVisibility(View.VISIBLE);
-            allClubsPage.buildPage();
+            try {
+                allClubsPage.buildPage();
+            } catch (JSONException e) {
+                    e.printStackTrace();
+            }
 
 
             findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
