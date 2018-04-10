@@ -2,11 +2,14 @@ package com.example.cs4532.umdalive;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.constraint.solver.widgets.ConstraintHorizontalLayout;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -67,27 +70,35 @@ public class Club implements View.OnClickListener{
         JSONArray regulars = memberJson.getJSONArray("regular");
         JSONArray admins = memberJson.getJSONArray("admin");
         for (int i=0;i<admins.length();i++){
+            LinearLayout hl = new LinearLayout(context);
+            hl.setOrientation(LinearLayout.HORIZONTAL);
             String name = admins.getString(i);
-            CardView memberCard = new CardView(context);
-            Button memberButton = new Button(context);
-            TextView memberName = new TextView(context);
-            memberName.setText(name);
-            //memberButton.setVisibility(View.INVISIBLE);
-            memberButton.setOnClickListener(this);
-            memberCard.addView(memberButton);
-            memberCard.addView(memberName);
-            members.addView(memberCard);
+            TextView member = new TextView(context);
+            TextView admin = new TextView(context);
+            admin.setText("admin");
+            admin.setTextSize(16);
+            admin.setGravity(Gravity.RIGHT);
+            admin.setWidth(members.getWidth()/2);
+            member.setText(name);
+            member.setTextSize(16);
+            member.setWidth(members.getWidth()/2);
+            member.setOnClickListener(this);
+            hl.addView(member);
+            hl.addView(admin);
+            members.addView(hl);
         }
         for (int i=0;i<regulars.length();i++){
             String name = regulars.getString(i);
-            Button memberName = new Button(context);
-            memberName.setText(name);
-            members.addView(memberName);
+            TextView member = new TextView(context);
+            member.setText(name);
+            member.setTextSize(16);
+            member.setOnClickListener(this);
+            members.addView(member);
         }
     }
 
     @Override
     public void onClick(View v) {
-
+        System.out.println("clicked");
     }
 }
