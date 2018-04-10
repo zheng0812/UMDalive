@@ -77,14 +77,13 @@ public class RestCalls {
         queue.add(stringRequest);
     }
 
-    public void getAllClubs(String userID, final CallBack callBack) throws JSONException {
+    public void getAllClubs(final CallBack callBack) throws JSONException {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "getAllClubs",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             serverResponse = new JSONObject(response);
-                            callBack.callBack(serverResponse);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

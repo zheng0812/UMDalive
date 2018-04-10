@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         //Initialize pages
         clubPage = new Club(this, this);
         profilePage = new Profile(this,this);
+        allClubsPage = new AllClubs(this,this);
 
         //Google Sign in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity
             findViewById(R.id.profileView).setVisibility(View.VISIBLE);
 
             try {
-                profilePage.buildPage("57");
+                profilePage.buildPage("12345");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -155,6 +156,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_all_clubs) {
             findViewById(R.id.allClubsView).setVisibility(View.VISIBLE);
+            try {
+                allClubsPage.buildPage();
+            } catch (JSONException e) {
+                    e.printStackTrace();
+            }
+
 
             findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
             findViewById(R.id.profileView).setVisibility(View.GONE);
