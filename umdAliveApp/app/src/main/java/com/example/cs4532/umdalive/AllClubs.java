@@ -34,13 +34,14 @@ public class AllClubs implements View.OnClickListener{
         rest = new RestCalls(context);
     }
 
-    public void buildPage(){}  //throws JSONException
-//        rest.getAllClubs(new CallBack() {
-//            @Override
-//            public void callBack(JSONObject serverResponse) throws JSONException {
-//                updateUI(serverResponse);
-//            }
-//        });
+    public void buildPage()  throws JSONException {
+        rest.getAllClubs(new CallBack() {
+            @Override
+            public void callBack(JSONObject serverResponse) throws JSONException {
+                updateUI(serverResponse);
+            }
+        });
+    }
 
 
     private void updateUI(JSONObject clubData) throws JSONException {
