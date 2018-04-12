@@ -51,8 +51,10 @@ public class AllClubs implements View.OnClickListener{
             String name = allClubs.getJSONObject(i).getString("name");
             TextView clubName = new TextView(context);
             clubName.setText(name);
+            clubName.setTextSize(36);
             clubName.setOnClickListener(this);
             AllClubs.addView(clubName);
+
         }
     }
 
