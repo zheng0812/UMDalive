@@ -2,8 +2,7 @@ package com.example.cs4532.umdalive;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.constraint.solver.widgets.ConstraintHorizontalLayout;
-import android.support.v7.widget.CardView;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -33,6 +32,7 @@ public class Club implements View.OnClickListener{
 
     private RestCalls rest;
 
+    private boolean membersGenerated;
 
     private TextView clubName;
 
@@ -51,6 +51,8 @@ public class Club implements View.OnClickListener{
         clubDescription = (TextView) activity.findViewById(R.id.DescriptionView);
         members = (LinearLayout) activity.findViewById(R.id.MembersLayout);
 
+        membersGenerated=false;
+
         rest = new RestCalls(context);
     }
 
@@ -64,36 +66,46 @@ public class Club implements View.OnClickListener{
     }
 
     private void updateUI(JSONObject clubData) throws JSONException {
+
         clubName.setText(clubData.getString("name"));
-        clubDescription.setText(clubData.getString("description"));
+        if(clubData.getString("description")!=null)
+            clubDescription.setText(clubData.getString("description"));
+        else
+            clubDescription.setVisibility(View.INVISIBLE);
         JSONObject memberJson = clubData.getJSONObject("members");
         JSONArray regulars = memberJson.getJSONArray("regular");
         JSONArray admins = memberJson.getJSONArray("admin");
-        for (int i=0;i<admins.length();i++){
-            LinearLayout hl = new LinearLayout(context);
-            hl.setOrientation(LinearLayout.HORIZONTAL);
-            String name = admins.getString(i);
-            TextView member = new TextView(context);
-            TextView admin = new TextView(context);
-            admin.setText("admin");
-            admin.setTextSize(16);
-            admin.setGravity(Gravity.RIGHT);
-            admin.setWidth(members.getWidth()/2);
-            member.setText(name);
-            member.setTextSize(16);
-            member.setWidth(members.getWidth()/2);
-            member.setOnClickListener(this);
-            hl.addView(member);
-            hl.addView(admin);
-            members.addView(hl);
-        }
-        for (int i=0;i<regulars.length();i++){
-            String name = regulars.getString(i);
-            TextView member = new TextView(context);
-            member.setText(name);
-            member.setTextSize(16);
-            member.setOnClickListener(this);
-            members.addView(member);
+        if(membersGenerated==false) {
+            for (int i = 0; i < admins.length(); i++) {
+                LinearLayout hl = new LinearLayout(context);
+                hl.setOrientation(LinearLayout.HORIZONTAL);
+                String name = admins.getString(i);
+                TextView member = new TextView(context);
+                TextView admin = new TextView(context);
+                admin.setText("admin");
+                admin.setTextSize(18);
+                admin.setGravity(Gravity.RIGHT);
+                admin.setWidth(members.getWidth() / 2);
+                member.setText(name);
+                member.setTextSize(18);
+                member.setTextColor(Color.BLACK);
+                member.setWidth(members.getWidth() / 2);
+                member.setOnClickListener(this);
+                hl.addView(member);
+                hl.addView(admin);
+                members.addView(hl);
+            }
+            for (int i = 0; i < regulars.length(); i++) {
+                String name = regulars.getString(i);
+                TextView member = new TextView(context);
+                member.setText(name);
+                member.setTextSize(
+                        8);
+                member.setTextColor(Color.BLACK);
+                member.setOnClickListener(this);
+                members.addView(member);
+            }
+            membersGenerated=true;
         }
     }
 
