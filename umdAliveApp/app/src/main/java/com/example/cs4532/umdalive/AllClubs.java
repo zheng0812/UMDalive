@@ -23,14 +23,14 @@ public class AllClubs implements View.OnClickListener{
     private RestCalls rest;
 
     private TextView clubNames;
-
-    private LinearLayout clubs;
+    private boolean generated;
+    private LinearLayout AllClubs;
 
     public AllClubs (Activity a, Context c){
         activity = a;
         context = c;
-
-        clubNames = (TextView) activity.findViewById(R.id.clubNamesView);
+        generated = false;
+        AllClubs = (LinearLayout) activity.findViewById(R.id.AllClubsLayout);
         rest = new RestCalls(context);
     }
 
@@ -45,14 +45,17 @@ public class AllClubs implements View.OnClickListener{
 
 
     private void updateUI(JSONObject clubData) throws JSONException {
-        clubNames.setText(clubData.getString("name"));
-        JSONObject allClubsJSON = clubData.getJSONObject("All Clubs");
-        JSONArray allClubs = allClubsJSON.getJSONArray("clubs");
-        for (int i=0;i<allClubs.length();i++){
-            String name = allClubs.getString(i);
-            Button clubName = new Button(context);
-            clubName.setText(name);
-            clubs.addView(clubName);
+        JSONArray allClubs = clubData.getJSONArray("clubs");
+        if(generated==false){
+            for (int i=0;i<allClubs.length();i++) {
+                String name = allClubs.getJSONObject(i).getString("name");
+                TextView clubName = new TextView(context);
+                clubName.setText(name);
+                clubName.setTextSize(36);
+                clubName.setOnClickListener(this);
+                AllClubs.addView(clubName);
+            }
+            generated = true;
         }
     }
 

@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
             findViewById(R.id.clubView).setVisibility(View.VISIBLE);
 
             try {
-                clubPage.buildPage("Josh-kun's test club");
+                clubPage.buildPage("5ac2d120620c5ac671b035be");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
