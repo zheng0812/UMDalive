@@ -39,10 +39,11 @@ public class Profile implements View.OnClickListener{
         profileName = (TextView) activity.findViewById(R.id.profileName);
         profileMajor = (TextView) activity.findViewById(R.id.profileMajor);
         profileAbout = (TextView) activity.findViewById(R.id.profileAbout);
+        profileRest = RestCalls(c);
     }
 
         public void buildPage (String profileId)  throws JSONException {
-            profileRest.getUser(profileId, new CallBack() {
+        profileRest.getUser(profileId, new CallBack() {
                 @Override
                 public void callBack(JSONObject serverResponse) throws JSONException {
                     updateUI(serverResponse);
