@@ -99,8 +99,7 @@ public class Club implements View.OnClickListener{
                 String name = regulars.getString(i);
                 TextView member = new TextView(context);
                 member.setText(name);
-                member.setTextSize(
-                        8);
+                member.setTextSize(18);
                 member.setTextColor(Color.BLACK);
                 member.setOnClickListener(this);
                 members.addView(member);
