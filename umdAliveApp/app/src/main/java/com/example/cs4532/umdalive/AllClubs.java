@@ -23,13 +23,11 @@ public class AllClubs implements View.OnClickListener{
     private RestCalls rest;
 
     private TextView clubNames;
-    private boolean generated;
     private LinearLayout AllClubs;
 
     public AllClubs (Activity a, Context c){
         activity = a;
         context = c;
-        generated = false;
         AllClubs = (LinearLayout) activity.findViewById(R.id.AllClubsLayout);
         rest = new RestCalls(context);
     }
@@ -46,7 +44,7 @@ public class AllClubs implements View.OnClickListener{
 
     private void updateUI(JSONObject clubData) throws JSONException {
         JSONArray allClubs = clubData.getJSONArray("clubs");
-        if(generated==false){
+        AllClubs.removeAllViews();
             for (int i=0;i<allClubs.length();i++) {
                 String name = allClubs.getJSONObject(i).getString("name");
                 TextView clubName = new TextView(context);
@@ -55,8 +53,6 @@ public class AllClubs implements View.OnClickListener{
                 clubName.setOnClickListener(this);
                 AllClubs.addView(clubName);
             }
-            generated = true;
-        }
     }
 
 
