@@ -2,6 +2,7 @@ package com.example.cs4532.umdalive;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,15 +23,15 @@ public class AllClubs implements View.OnClickListener{
     private Context context;
     private RestCalls rest;
 
-    private TextView clubNames;
+    private LinearLayout AllClubs;
 
-    private LinearLayout clubs;
 
     public AllClubs (Activity a, Context c){
         activity = a;
         context = c;
 
-        clubNames = (TextView) activity.findViewById(R.id.clubNamesView);
+        AllClubs = (LinearLayout) activity.findViewById(R.id.AllClubsLayout);
+
         rest = new RestCalls(context);
     }
 
@@ -45,14 +46,13 @@ public class AllClubs implements View.OnClickListener{
 
 
     private void updateUI(JSONObject clubData) throws JSONException {
-        clubNames.setText(clubData.getString("name"));
-        JSONObject allClubsJSON = clubData.getJSONObject("All Clubs");
-        JSONArray allClubs = allClubsJSON.getJSONArray("clubs");
+        JSONArray allClubs = clubData.getJSONArray("clubs");
         for (int i=0;i<allClubs.length();i++){
-            String name = allClubs.getString(i);
-            Button clubName = new Button(context);
+            String name = allClubs.getJSONObject(i).getString("name");
+            TextView clubName = new TextView(context);
             clubName.setText(name);
-            clubs.addView(clubName);
+            clubName.setOnClickListener(this);
+            AllClubs.addView(clubName);
         }
     }
 
