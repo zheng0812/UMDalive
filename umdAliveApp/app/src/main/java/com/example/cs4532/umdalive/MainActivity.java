@@ -1,12 +1,7 @@
 package com.example.cs4532.umdalive;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,9 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cs4532.umdalive.fragments.AllClubsFrag;
+import com.example.cs4532.umdalive.fragments.ClubFrag;
+import com.example.cs4532.umdalive.fragments.ProfileFrag;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,17 +25,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import org.json.JSONException;
-
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    //App Page Classes
-    Club clubPage;
+    //Fragment
+    FrameLayout fragContainer;
 
     //Google Sign In
     GoogleSignInClient mGoogleSignInClient;
@@ -51,23 +46,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Initialize pages
-        clubPage = new Club(this, this);
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -77,6 +59,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_profile);
+
+        //Frag Holder
+        fragContainer = findViewById(R.id.fragment_container);
+
+        //Add Profile Fragment
+        ProfileFrag frag = new ProfileFrag();
+        Bundle data = new Bundle();
+        data.putString("userID", "12345");
+        frag.setArguments(data);
+        getSupportFragmentManager().beginTransaction().add(fragContainer.getId(),frag).commit();
 
         //Google Sign in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -114,42 +106,27 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            findViewById(R.id.profileView).setVisibility(View.VISIBLE);
-
-            findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
-            findViewById(R.id.allClubsView).setVisibility(View.GONE);
-            findViewById(R.id.clubView).setVisibility(View.GONE);
-            findViewById(R.id.eventView).setVisibility(View.GONE);
-
+            //Add Profile Fragment
+            ProfileFrag frag = new ProfileFrag();
+            Bundle data = new Bundle();
+            data.putString("userID", "12345");
+            frag.setArguments(data);
+            getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_events) {
-            findViewById(R.id.upcomingEventsView).setVisibility(View.VISIBLE);
-
-            findViewById(R.id.allClubsView).setVisibility(View.GONE);
-            findViewById(R.id.profileView).setVisibility(View.GONE);
-            findViewById(R.id.clubView).setVisibility(View.GONE);
-            findViewById(R.id.eventView).setVisibility(View.GONE);
 
         } else if (id == R.id.nav_my_clubs) {
-            findViewById(R.id.clubView).setVisibility(View.VISIBLE);
-
-            try {
-                clubPage.buildPage("test");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            findViewById(R.id.allClubsView).setVisibility(View.GONE);
-            findViewById(R.id.profileView).setVisibility(View.GONE);
-            findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
-            findViewById(R.id.eventView).setVisibility(View.GONE);
-
+            //Add Club Fragment
+            ClubFrag frag = new ClubFrag();
+            Bundle data = new Bundle();
+            data.putString("clubID", "5acf6feaa2e8862b20ca6dbe");
+            frag.setArguments(data);
+            getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_all_clubs) {
-            findViewById(R.id.allClubsView).setVisibility(View.VISIBLE);
-
-            findViewById(R.id.upcomingEventsView).setVisibility(View.GONE);
-            findViewById(R.id.profileView).setVisibility(View.GONE);
-            findViewById(R.id.clubView).setVisibility(View.GONE);
-            findViewById(R.id.eventView).setVisibility(View.GONE);
+            //Add All Clubs Fragment
+            AllClubsFrag frag = new AllClubsFrag();
+            Bundle data = new Bundle();
+            frag.setArguments(data);
+            getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -206,7 +183,6 @@ public class MainActivity extends AppCompatActivity
     private void updateUI(GoogleSignInAccount account) throws IOException {
         findViewById(R.id.Login).setVisibility(View.GONE);
         findViewById(R.id.appBarLayout).setVisibility(View.VISIBLE);
-        findViewById(R.id.profileView).setVisibility(View.VISIBLE);
 
         userName.setText(account.getDisplayName());
         userEmail.setText((account.getEmail()));

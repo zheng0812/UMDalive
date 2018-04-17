@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,35 +24,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/profileView"
-        layout="@layout/profile_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/allClubsView"
-        layout="@layout/all_club_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/clubView"
-        layout="@layout/club_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/upcomingEventsView"
-        layout="@layout/upcoming_events_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/eventView"
-        layout="@layout/event_layout"
-        android:visibility="gone" />
+        android:id="@+id/Content"
+        layout="@layout/content_main" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView2"
