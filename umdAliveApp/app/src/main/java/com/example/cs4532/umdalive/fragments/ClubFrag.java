@@ -47,6 +47,7 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
 
         //Use Volley Singleton to Update Page UI
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+        System.out.println(restSingleton.getUrl() + "getClub/" + getArguments().getString("clubID"));
         StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getClub/" + getArguments().getString("clubID"),
                 new Response.Listener<String>() {
                     @Override
@@ -71,7 +72,7 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,).commit();
     }
 
     private void getLayoutComponents() {
@@ -81,6 +82,7 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
     }
 
     private void updateUI(JSONObject res) throws JSONException{
+        Log.d("clubtest",res.toString());
         clubName.setText(res.getString("name"));
         clubDescription.setText(res.getString("description"));
         JSONObject memberJson = res.getJSONObject("members");
