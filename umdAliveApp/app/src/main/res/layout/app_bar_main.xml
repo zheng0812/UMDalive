@@ -24,29 +24,8 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/profileView"
-        layout="@layout/profile_layout"
-        android:visibility="visible" />
-
-    <include
-        android:id="@+id/allClubsView"
-        layout="@layout/all_club_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/clubView"
-        layout="@layout/club_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/upcomingEventsView"
-        layout="@layout/upcoming_events_layout"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/eventView"
-        layout="@layout/event_layout"
-        android:visibility="gone" />
+        android:id="@+id/Content"
+        layout="@layout/content_main" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/Login"

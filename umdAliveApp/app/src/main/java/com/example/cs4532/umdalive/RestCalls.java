@@ -21,8 +21,8 @@ import java.util.concurrent.Callable;
 import java.util.function.Function;
 
 public class RestCalls {
-
     String url = "http://ukko.d.umn.edu:32892/";
+
 
     RequestQueue queue;
 
@@ -99,20 +99,5 @@ public class RestCalls {
         queue.add(stringRequest);
     }
 }
-/*
 
-GetUser(userEmail)
-
-GetClub(clubID)
-
-JoinClub(userEmail, clubID)
-
-createClub(clubObject)
-
-GetEvent(eventId)
-
-CreateEvent(eventData)
-
-
- */
 
