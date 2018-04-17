@@ -1,3 +1,6 @@
+//start server npm run script
+//check processes ps aux \ grep userName
+
 var express = require('express');
 var queryParser = require('body-parser');
 
@@ -32,13 +35,11 @@ app.put('/createClub', function (req, res) {
   };
 
   dataBase.createClub(clubData);
-  console.log(req.body.name + " has been created.");
 });
 
-app.get('/getClub/:clubName', function (req, res) {
-  dataBase.getClub(req.params.clubName, function (docs) {
-    console.log(req.params.clubName);
-    res.send(docs[0]);
+app.get('/getClub/:clubID', function (req, res) {
+  dataBase.getClub(req.params.clubID, function (docs) {
+    res.send(docs);
   });
 });
 
@@ -61,7 +62,7 @@ app.put('/createUser', function (req, res){
     "name" : req.body.name,
     "email" : req.body.email,
     "major" : req.body.major,
-    "about" : req.body.about,
+    "description" : req.body.description,
     "clubs" : req.body.clubs
   };
 
@@ -69,13 +70,39 @@ app.put('/createUser', function (req, res){
   console.log(req.body.name + " has been created");
 });
 
-app.get('/getUser', function (req, res){
-    if (!req.body){
-      return res.sendStatus(400);
-    }
-    dataBase.getUser(req.body.userEmail, function (docs){
+app.get('/getUser/:userID', function (req, res){
+    dataBase.getUser(req.params.userID, function (docs){
       res.send(docs);
     });
+});
+
+app.put('/createEvent', function (req, res){
+  if (!req.body){
+    return res.sendStatus(400);
+  }
+
+  var eventData = {
+    "name" : req.body.name,
+    "description" : req.body.description,
+    "time" : req.body.time,
+    "club" : req.body.club,
+    "eventID" : req.body.eventID
+  };
+
+  dataBase.createEvent(eventData);
+  console.log(req.body.name + " has been created");
+});
+
+app.get('/getEvent/:eventID', function (req, res){
+  dataBase.getEvent(req.params.eventID, function(docs){
+    res.send(docs);
+  });
+});
+
+app.get('/getAllEvents', function (req, res){
+  dataBase.getAllClubs(function (docs){
+    res.send(docs);
+  });
 });
 
 app.listen(app.get("port"), function () {
