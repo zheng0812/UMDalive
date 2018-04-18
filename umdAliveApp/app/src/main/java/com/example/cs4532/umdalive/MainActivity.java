@@ -50,16 +50,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -76,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         //Add Profile Fragment
         ProfileFrag frag = new ProfileFrag();
         Bundle data = new Bundle();
-        data.putString("userId", "57");
+        data.putString("userID", "12345");
         frag.setArguments(data);
         getSupportFragmentManager().beginTransaction().add(fragContainer.getId(),frag).commit();
 
@@ -119,21 +109,19 @@ public class MainActivity extends AppCompatActivity
             //Add Profile Fragment
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
-            data.putString("userId", "57");
+            data.putString("userID", "12345");
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_events) {
 
         } else if (id == R.id.nav_my_clubs) {
-            System.out.println("SWITCHING TO CLUB");
             //Add Club Fragment
             ClubFrag frag = new ClubFrag();
             Bundle data = new Bundle();
-            data.putString("clubId", "57");
+            data.putString("clubID", "5acf6feaa2e8862b20ca6dbe");
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_all_clubs) {
-            System.out.println("SWITCHING TO ALL CLUBS");
             //Add All Clubs Fragment
             AllClubsFrag frag = new AllClubsFrag();
             Bundle data = new Bundle();

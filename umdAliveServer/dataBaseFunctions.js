@@ -20,6 +20,8 @@ funtions required :
     createUser
 		getUser
 	events:
+    createEvent
+    getEvent
 		allEvents (by date)
 */
 
@@ -40,14 +42,14 @@ module.exports.createClub = function(clubData) {
     });
 };
 
-module.exports.getClub = function(clubName, callback) {
-	DBRef.collection('clubs').find({"name": clubName}).toArray(function(err, docs) {
+module.exports.getClub = function(clubID, callback) {
+	DBRef.collection('clubs').find({"_id": mongojs.ObjectId(clubName)}).toArray(function(err, docs) {
 		if(err){
 			console.log("Search failed.")
 		} else {
 			console.log("Found the following records");
 			console.log(docs);
-			callback(docs);
+			callback(docs[0]);
 		}
 	});
 };
@@ -55,11 +57,13 @@ module.exports.getClub = function(clubName, callback) {
 module.exports.getAllClubs = function(callback) {
 	DBRef.collection('clubs').find({}).toArray(function(err, docs) {
 		if(err){
-			console.log("Search failed.")
+			console.log("allClubs failed.")
 		} else {
-			console.log("Found the following records");
-			console.log(docs);
-			callback(docs);
+      console.log("-getAllClubs function called. status : Successfuss")
+      var allClubsObject = {
+        "clubs" : docs
+      };
+			callback(allClubsObject);
 		}
 	});
 };
@@ -75,14 +79,47 @@ module.exports.createUser = function(userData){
   });
 };
 
-module.exports.getUser = function(userEmail, callback) {
-	DBRef.collection('user').find({"email": userEmail}).toArray(function(err, docs) {
+module.exports.getUser = function(userID, callback) {
+	DBRef.collection('users').find({"userID": userID}).toArray(function(err, docs) {
 		if(err){
 			console.log("Search failed.")
 		} else {
-			console.log("Found the following records");
-			console.log(docs);
 			callback(docs[0]);
 		}
 	});
+};
+
+//Event Calls
+module.exports.createEvent = function(eventData){
+  DBRef.collection('events').save(eventData, function(err, result){
+    if(err || !result){
+      console.log("Event failed to save in database.");
+    } else {
+      console.log("createEvent event called. Following event was added to the events collection:");
+      console.log(eventData);
+    }
+  });
+};
+
+module.exports.getEvent = function (eventID, callback){
+  DBRef.collection('events').find({"_id": mongojs.ObjectId(eventID)}).toArray(function(err, docs){
+    if (err){
+      console.log("Search failed");
+    } else {
+      callback.log(docs[0]);
+    }
+  });
+};
+
+module.exports.getAllEvents = function(callback){
+  DBref.collection('events').find().toArray(function(err, docs){
+    if(err){
+      console.log("Search failed");
+    } else {
+        var allEventsObject = {
+          "events" : docs
+        }
+      callback(allEventsObject);
+    }
+  });
 };
