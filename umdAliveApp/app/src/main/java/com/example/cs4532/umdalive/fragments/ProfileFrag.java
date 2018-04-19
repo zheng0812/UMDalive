@@ -79,8 +79,10 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
 
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
+        getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
         profileAbout.setText(res.getString("about"));
+
     }
 }
