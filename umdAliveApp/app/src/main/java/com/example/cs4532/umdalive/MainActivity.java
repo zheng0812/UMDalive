@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity
         //Frag Holder
         fragContainer = findViewById(R.id.fragment_container);
 
+        //Show loading bar
+        findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
         //Add Profile Fragment
         ProfileFrag frag = new ProfileFrag();
         Bundle data = new Bundle();
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+            //Show loading bar
+            findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
             //Add Profile Fragment
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
@@ -115,6 +119,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_events) {
 
         } else if (id == R.id.nav_my_clubs) {
+            //Show loading bar
+            findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
             //Add Club Fragment
             ClubFrag frag = new ClubFrag();
             Bundle data = new Bundle();
@@ -122,6 +128,8 @@ public class MainActivity extends AppCompatActivity
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_all_clubs) {
+            //Show loading bar
+            findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
             //Add All Clubs Fragment
             AllClubsFrag frag = new AllClubsFrag();
             Bundle data = new Bundle();
