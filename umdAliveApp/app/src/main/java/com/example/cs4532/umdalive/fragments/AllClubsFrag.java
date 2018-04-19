@@ -72,6 +72,7 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
     }
 
     private void updateUI(JSONObject res) throws JSONException {
+        getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         JSONArray allClubs = res.getJSONArray("clubs");
         for (int i=0;i<allClubs.length();i++) {
             String name = allClubs.getJSONObject(i).getString("name");
