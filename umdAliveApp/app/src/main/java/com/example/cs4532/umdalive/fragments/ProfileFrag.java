@@ -70,12 +70,14 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
 
     }
 
+    //Sets the Text views of the profile layout
     private void getLayoutComponents() {
         profileName = (TextView) view.findViewById(R.id.profileName);
         profileMajor = (TextView) view.findViewById(R.id.profileMajor);
         profileAbout = (TextView) view.findViewById(R.id.profileAbout);
     }
 
+    //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
