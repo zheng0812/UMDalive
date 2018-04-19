@@ -34,7 +34,7 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
     private TextView clubName;
     private TextView clubDescription;
     private LinearLayout members;
-    private LinearLayout events;
+    private LinearLayout eventsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
 
         //Use Volley Singleton to Update Page UI
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-        System.out.println(restSingleton.getUrl() + "getClub/" + getArguments().getString("clubID"));
         StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getClub/" + getArguments().getString("clubID"),
                 new Response.Listener<String>() {
                     @Override
@@ -79,15 +78,18 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
         clubName = (TextView) view.findViewById(R.id.ClubNameView);
         clubDescription = (TextView) view.findViewById(R.id.DescriptionView);
         members = (LinearLayout) view.findViewById(R.id.MembersLayout);
+        eventsList = (LinearLayout) view.findViewById(R.id.EventsLayout);
     }
 
     private void updateUI(JSONObject res) throws JSONException{
+        getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         Log.d("clubtest",res.toString());
         clubName.setText(res.getString("name"));
         clubDescription.setText(res.getString("description"));
         JSONObject memberJson = res.getJSONObject("members");
         JSONArray regulars = memberJson.getJSONArray("regular");
         JSONArray admins = memberJson.getJSONArray("admin");
+        JSONArray events = res.getJSONArray("events");
         for (int i=0;i<admins.length();i++){
             LinearLayout hl = new LinearLayout(view.getContext());
             hl.setOrientation(LinearLayout.HORIZONTAL);
@@ -107,12 +109,37 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
             members.addView(hl);
         }
         for (int i=0;i<regulars.length();i++){
-            String name = regulars.getString(i);
+            String name = regulars.getJSONObject(i).getString("name");
+            //String id = regulars.getJSONObject(i).getString("id");
+            //Log.d("nametest",id);
             TextView member = new TextView(view.getContext());
             member.setText(name);
             member.setTextSize(16);
             member.setOnClickListener(this);
             members.addView(member);
+        }
+        if(events != null) {
+            eventsList.setVisibility(View.VISIBLE);
+            for (int i = 0; i < events.length(); i++) {
+                LinearLayout hl = new LinearLayout(view.getContext());
+                hl.setOrientation(LinearLayout.HORIZONTAL);
+                String name = events.getJSONObject(i).getString("name");
+                String day = events.getJSONObject(i).getString("date");
+                //String id = events.getJSONObject(i).getString("id");
+                TextView event = new TextView(view.getContext());
+                TextView date = new TextView(view.getContext());
+                date.setText(day);
+                date.setTextSize(16);
+                date.setGravity(Gravity.RIGHT);
+                date.setWidth(members.getWidth()/2);
+                event.setText(name);
+                event.setTextSize(16);
+                event.setWidth(members.getWidth()/2);
+                event.setOnClickListener(this);
+                hl.addView(event);
+                hl.addView(date);
+                eventsList.addView(hl);
+            }
         }
     }
 }
