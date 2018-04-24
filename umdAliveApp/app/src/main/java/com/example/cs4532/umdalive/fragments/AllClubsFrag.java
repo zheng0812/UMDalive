@@ -22,6 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * @author Paul Sipper
+ *
+ * 4/26/2018
+ * Version 1.0
+ *
  * Class that creates the All Clubs Page
  */
 public class AllClubsFrag extends Fragment implements View.OnClickListener {
@@ -78,7 +83,13 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onClick(View clickedView) {
-
+        String TAG = (String) clickedView.getTag();
+        if(clickedView.getParent() == allClubsLinearLayout) {
+            ClubFrag frag = new ClubFrag();
+            Bundle data = new Bundle();
+            data.putString("clubID", TAG);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+        }
     }
 
     /**
