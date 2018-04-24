@@ -21,6 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Class that creates the All Clubs Page
+ */
 public class AllClubsFrag extends Fragment implements View.OnClickListener {
 
     //View
@@ -29,6 +32,13 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
     //Layout Components
     private LinearLayout allClubsLinearLayout;
 
+    /**
+     * Creates the page whenever All Clubs is clicked in the app
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return The view of All Clubs
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -62,15 +72,30 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    /**
+     * Allows a user to click on a club name to go to that club's page
+     * @param clickedView The club name clicked
+     */
     @Override
     public void onClick(View clickedView) {
 
     }
 
+    /**
+     * Retrieves all layout components from all_club_layout.xml
+     * @return nothing
+     */
     private void getLayoutComponents () {
         allClubsLinearLayout = (LinearLayout) view.findViewById(R.id.AllClubsLayout);
     }
 
+    /**
+     * Adds club names stored in the database
+     * @param res The response from the database
+     * @return nothing
+     * @exception JSONException Error in JSON processing
+     * @see JSONException
+     */
     private void updateUI(JSONObject res) throws JSONException {
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         JSONArray allClubs = res.getJSONArray("clubs");
