@@ -6,17 +6,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Requires argument with key of userID to be passed into it before it is added to the frame layout
@@ -31,6 +35,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
     private TextView profileName;
     private TextView profileMajor;
     private TextView profileAbout;
+    private ImageView profileImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +80,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         profileName = (TextView) view.findViewById(R.id.profileName);
         profileMajor = (TextView) view.findViewById(R.id.profileMajor);
         profileAbout = (TextView) view.findViewById(R.id.profileAbout);
+        profileImage = (ImageView) view.findViewById(R.id.profileImage);
     }
 
     //Updates the layout so current information is visible
@@ -83,6 +89,10 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
         profileAbout.setText(res.getString("about"));
+        Glide.with(getContext())
+                .load(res.getString("profileUrl"))
+                .bitmapTransform(new CropCircleTransformation(getContext()))
+                .into(profileImage);
 
     }
 }
