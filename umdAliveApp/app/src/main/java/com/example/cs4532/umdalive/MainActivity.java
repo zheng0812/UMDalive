@@ -189,6 +189,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void updateUI(GoogleSignInAccount account) throws IOException {
+        UserSingleton us = UserSingleton.getInstance();
+        us.setUserID(account);
+
         findViewById(R.id.Login).setVisibility(View.GONE);
         findViewById(R.id.appBarLayout).setVisibility(View.VISIBLE);
 
