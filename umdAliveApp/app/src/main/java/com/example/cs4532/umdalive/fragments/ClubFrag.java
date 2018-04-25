@@ -1,13 +1,16 @@
 package com.example.cs4532.umdalive.fragments;
 
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,6 +43,8 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
     private TextView clubDescription;
     private LinearLayout members;
     private LinearLayout eventsList;
+    private Button LeaveJoin;
+    private FloatingActionButton editClub;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,20 +83,24 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         String TAG = (String) v.getTag();
         Log.d("test",TAG);
-
-        if(v.getParent()==members){
+        if(v.getId()==R.id.MembersLayout){
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
             data.putString("userID", TAG);
             frag.setArguments(data);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-        }else if(true){
+        }else if(v.getId()==R.id.EventsLayout){
             EventFrag frag = new EventFrag();
             Bundle data = new Bundle();
             data.putString("eventID", TAG);
             frag.setArguments(data);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-            //v.getParent()==eventsList
+        }else if(TAG=="JOIN"){
+            EditClubFrag frag = new EditClubFrag();
+            Bundle data = new Bundle();
+            data.putString("clubID", clubName.getTag().toString());
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
         }
     }
 
@@ -100,17 +109,22 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
         clubDescription = (TextView) view.findViewById(R.id.DescriptionView);
         members = (LinearLayout) view.findViewById(R.id.MembersLayout);
         eventsList = (LinearLayout) view.findViewById(R.id.EventsLayout);
+        LeaveJoin = (Button) view.findViewById(R.id.ClubJoin);
+        editClub = (FloatingActionButton) view.findViewById(R.id.EditClub);
     }
 
     private void updateUI(JSONObject res) throws JSONException{
+        view.findViewById(R.id.ClubJoin).setTag("JOIN");
+        view.findViewById(R.id.ClubJoin).setOnClickListener(this);
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         clubName.setText(res.getString("name"));
+        clubName.setTag(res.getString("_id"));
         clubDescription.setText(res.getString("description"));
         JSONObject memberJson = res.getJSONObject("members");
         JSONArray regulars = memberJson.getJSONArray("regular");
         JSONArray admins = memberJson.getJSONArray("admin");
         JSONArray events = res.getJSONArray("events");
-        /**GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+        /*GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
          if (acct != null) {
          String personName = acct.getDisplayName();
          String personGivenName = acct.getGivenName();
