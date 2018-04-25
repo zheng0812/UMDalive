@@ -30,6 +30,8 @@ import org.json.JSONObject;
 
 public class ClubFrag extends Fragment implements View.OnClickListener{
 
+
+
     //View
     View view;
 
@@ -81,11 +83,13 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
             data.putString("userID", TAG);
+            frag.setArguments(data);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
         }else if(true){
             EventFrag frag = new EventFrag();
             Bundle data = new Bundle();
             data.putString("eventID", TAG);
+            frag.setArguments(data);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
             //v.getParent()==eventsList
         }
@@ -100,7 +104,6 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
 
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
-        Log.d("clubtest",res.toString());
         clubName.setText(res.getString("name"));
         clubDescription.setText(res.getString("description"));
         JSONObject memberJson = res.getJSONObject("members");

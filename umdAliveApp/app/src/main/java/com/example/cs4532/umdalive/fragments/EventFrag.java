@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,12 +34,13 @@ public class EventFrag extends Fragment implements View.OnClickListener{
     private TextView eventDescription;
     private TextView eventDate;
     private TextView eventTime;
+    private Button goTo;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Create View
-        view = inflater.inflate(R.layout.club_layout, container, false);
+        view = inflater.inflate(R.layout.event_layout, container, false);
 
         //Get Layout Components
         getLayoutComponents();
@@ -70,6 +72,12 @@ public class EventFrag extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        String TAG = (String) goTo.getTag();
+        ClubFrag frag = new ClubFrag();
+        Bundle data = new Bundle();
+        data.putString("clubID", TAG);
+        frag.setArguments(data);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
 
     }
 
@@ -78,13 +86,17 @@ public class EventFrag extends Fragment implements View.OnClickListener{
         eventDate=view.findViewById(R.id.EventDateView);
         eventDescription=view.findViewById(R.id.EventDescriptionView);
         eventTime=view.findViewById(R.id.EventTimeView);
+        goTo=view.findViewById(R.id.GoToClub);
+        goTo.setOnClickListener(this);
     }
 
     private void updateUI(JSONObject res) throws JSONException{
+        getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         eventName.setText(res.getString("name"));
         eventDate.setText(res.getString("date"));
         eventDescription.setText(res.getString("description"));
         eventTime.setText(res.getString("time"));
+        goTo.setTag(res.getString("club").toString());
     }
 
 }
