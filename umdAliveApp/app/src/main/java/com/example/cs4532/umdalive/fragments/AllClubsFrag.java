@@ -113,10 +113,12 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
         JSONArray allClubs = res.getJSONArray("clubs");
         for (int i=0;i<allClubs.length();i++) {
             String name = allClubs.getJSONObject(i).getString("name");
+            String id = allClubs.getJSONObject(i).getString("_id").toString();
             TextView clubName = new TextView(view.getContext());
             clubName.setText(name);
             clubName.setTextSize(36);
             clubName.setOnClickListener(this);
+            clubName.setTag(id);
             allClubsLinearLayout.addView(clubName);
         }
     }
