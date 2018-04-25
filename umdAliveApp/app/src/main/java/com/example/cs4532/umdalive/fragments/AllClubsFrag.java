@@ -84,12 +84,13 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View clickedView) {
         String TAG = (String) clickedView.getTag();
-        if(clickedView.getParent() == allClubsLinearLayout) {
-            ClubFrag frag = new ClubFrag();
-            Bundle data = new Bundle();
-            data.putString("clubID", TAG);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-        }
+
+        ClubFrag frag = new ClubFrag();
+        Bundle data = new Bundle();
+        data.putString("clubID", TAG);
+        frag.setArguments(data);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+
     }
 
     /**

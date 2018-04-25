@@ -75,16 +75,19 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         String TAG = (String) v.getTag();
+        Log.d("test",TAG);
+
         if(v.getParent()==members){
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
             data.putString("userID", TAG);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-        }else if(v.getParent()==eventsList){
+        }else if(true){
             EventFrag frag = new EventFrag();
             Bundle data = new Bundle();
             data.putString("eventID", TAG);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            //v.getParent()==eventsList
         }
     }
 
