@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         //Add Profile Fragment
         ProfileFrag frag = new ProfileFrag();
         Bundle data = new Bundle();
-        data.putString("userID", "12345");
+        data.putString("userID", "5accd44fb22f6712f23cf18b");
         frag.setArguments(data);
         getSupportFragmentManager().beginTransaction().add(fragContainer.getId(),frag).commit();
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
             //Add Profile Fragment
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
-            data.putString("userID", "12345");
+            data.putString("userID", "5accd44fb22f6712f23cf18b");
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_events) {

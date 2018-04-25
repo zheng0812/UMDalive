@@ -33,7 +33,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_menu_profile" />
+                app:srcCompat="@drawable/alive_tree" />
 
             <TextView
                 android:id="@+id/profileName"
@@ -55,6 +55,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="24sp"
@@ -62,6 +63,20 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileName" />
+
+            <TextView
+                android:id="@+id/staticAboutMe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/aboutMe"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileMajor" />
 
             <TextView
                 android:id="@+id/profileAbout"
@@ -75,18 +90,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/staticAboutMe" />
 
-            <TextView
-                android:id="@+id/staticAboutMe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/profileClubs"
+                android:layout_width="364dp"
+                android:layout_height="107dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/aboutMe"
-                android:textSize="18sp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileMajor" />
+                app:layout_constraintTop_toBottomOf="@+id/profileAbout"></LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
