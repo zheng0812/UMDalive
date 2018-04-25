@@ -1,5 +1,6 @@
 package com.example.cs4532.umdalive.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +29,8 @@ import org.json.JSONObject;
  */
 
 public class ClubFrag extends Fragment implements View.OnClickListener{
+
+
 
     //View
     View view;
@@ -71,7 +76,23 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,).commit();
+        String TAG = (String) v.getTag();
+        Log.d("test",TAG);
+
+        if(v.getParent()==members){
+            ProfileFrag frag = new ProfileFrag();
+            Bundle data = new Bundle();
+            data.putString("userID", TAG);
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+        }else if(true){
+            EventFrag frag = new EventFrag();
+            Bundle data = new Bundle();
+            data.putString("eventID", TAG);
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            //v.getParent()==eventsList
+        }
     }
 
     private void getLayoutComponents() {
@@ -83,13 +104,22 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
 
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
-        Log.d("clubtest",res.toString());
         clubName.setText(res.getString("name"));
         clubDescription.setText(res.getString("description"));
         JSONObject memberJson = res.getJSONObject("members");
         JSONArray regulars = memberJson.getJSONArray("regular");
         JSONArray admins = memberJson.getJSONArray("admin");
         JSONArray events = res.getJSONArray("events");
+        /**GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+         if (acct != null) {
+         String personName = acct.getDisplayName();
+         String personGivenName = acct.getGivenName();
+         String personFamilyName = acct.getFamilyName();
+         String personEmail = acct.getEmail();
+         String personId = acct.getId();
+         Uri personPhoto = acct.getPhotoUrl();
+         Log.d("loginInfoTest", personName);
+         }*/
         for (int i=0;i<admins.length();i++){
             LinearLayout hl = new LinearLayout(view.getContext());
             hl.setOrientation(LinearLayout.HORIZONTAL);
@@ -110,8 +140,6 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
         }
         for (int i=0;i<regulars.length();i++){
             String name = regulars.getJSONObject(i).getString("name");
-            //String id = regulars.getJSONObject(i).getString("id");
-            //Log.d("nametest",id);
             TextView member = new TextView(view.getContext());
             member.setText(name);
             member.setTextSize(16);
@@ -125,7 +153,7 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
                 hl.setOrientation(LinearLayout.HORIZONTAL);
                 String name = events.getJSONObject(i).getString("name");
                 String day = events.getJSONObject(i).getString("date");
-                //String id = events.getJSONObject(i).getString("id");
+                String id = events.getJSONObject(i).getString("eventID").toString();
                 TextView event = new TextView(view.getContext());
                 TextView date = new TextView(view.getContext());
                 date.setText(day);
@@ -136,6 +164,7 @@ public class ClubFrag extends Fragment implements View.OnClickListener{
                 event.setTextSize(16);
                 event.setWidth(members.getWidth()/2);
                 event.setOnClickListener(this);
+                event.setTag(id);
                 hl.addView(event);
                 hl.addView(date);
                 eventsList.addView(hl);

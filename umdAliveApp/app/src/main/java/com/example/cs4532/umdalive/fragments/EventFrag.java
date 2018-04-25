@@ -1,12 +1,12 @@
 package com.example.cs4532.umdalive.fragments;
 
-import android.os.Debug;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,45 +17,37 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * @author Paul Sipper
- *
- * 4/26/2018
- * Version 1.0
- *
- * Class that creates the All Clubs Page
+ * Created by Josh on 4/24/2018.
  */
-public class AllClubsFrag extends Fragment implements View.OnClickListener {
+
+public class EventFrag extends Fragment implements View.OnClickListener{
 
     //View
     View view;
 
     //Layout Components
-    private LinearLayout allClubsLinearLayout;
+    private TextView eventName;
+    private TextView eventDescription;
+    private TextView eventDate;
+    private TextView eventTime;
+    private Button goTo;
 
-    /**
-     * Creates the page whenever All Clubs is clicked in the app
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return The view of All Clubs
-     */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         //Create View
-        view =  inflater.inflate(R.layout.all_club_layout, container, false);
+        view = inflater.inflate(R.layout.event_layout, container, false);
 
         //Get Layout Components
         getLayoutComponents();
 
         //Use Volley Singleton to Update Page UI
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getAllClubs",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getEvent/" + getArguments().getString("eventID"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -73,18 +65,14 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
         });
         restSingleton.addToRequestQueue(stringRequest);
 
-        //Return the View
+        //Return View
         return view;
+
     }
 
-    /**
-     * Allows a user to click on a club name to go to that club's page
-     * @param clickedView The club name clicked
-     */
     @Override
-    public void onClick(View clickedView) {
-        String TAG = (String) clickedView.getTag();
-
+    public void onClick(View v) {
+        String TAG = (String) goTo.getTag();
         ClubFrag frag = new ClubFrag();
         Bundle data = new Bundle();
         data.putString("clubID", TAG);
@@ -93,34 +81,22 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
 
     }
 
-    /**
-     * Retrieves all layout components from all_club_layout.xml
-     * @return nothing
-     */
-    private void getLayoutComponents () {
-        allClubsLinearLayout = (LinearLayout) view.findViewById(R.id.AllClubsLayout);
+    private void getLayoutComponents() {
+        eventName=view.findViewById(R.id.EventNameView);
+        eventDate=view.findViewById(R.id.EventDateView);
+        eventDescription=view.findViewById(R.id.EventDescriptionView);
+        eventTime=view.findViewById(R.id.EventTimeView);
+        goTo=view.findViewById(R.id.GoToClub);
+        goTo.setOnClickListener(this);
     }
 
-    /**
-     * Adds club names stored in the database
-     * @param res The response from the database
-     * @return nothing
-     * @exception JSONException Error in JSON processing
-     * @see JSONException
-     */
-    private void updateUI(JSONObject res) throws JSONException {
+    private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
-        JSONArray allClubs = res.getJSONArray("clubs");
-        for (int i=0;i<allClubs.length();i++) {
-            String name = allClubs.getJSONObject(i).getString("name");
-            String id = allClubs.getJSONObject(i).getString("_id").toString();
-            TextView clubName = new TextView(view.getContext());
-            clubName.setText(name);
-            clubName.setTextSize(36);
-            clubName.setOnClickListener(this);
-            clubName.setTag(id);
-            allClubsLinearLayout.addView(clubName);
-        }
+        eventName.setText(res.getString("name"));
+        eventDate.setText(res.getString("date"));
+        eventDescription.setText(res.getString("description"));
+        eventTime.setText(res.getString("time"));
+        goTo.setTag(res.getString("club").toString());
     }
 
 }
