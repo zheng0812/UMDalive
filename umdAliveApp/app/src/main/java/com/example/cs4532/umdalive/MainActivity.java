@@ -2,6 +2,7 @@ package com.example.cs4532.umdalive;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         //Add Profile Fragment
         ProfileFrag frag = new ProfileFrag();
         Bundle data = new Bundle();
-        data.putString("userID", "12345");
+        data.putString("userID", "5accd44fb22f6712f23cf18b");
         frag.setArguments(data);
         getSupportFragmentManager().beginTransaction().add(fragContainer.getId(),frag).commit();
 
@@ -82,6 +84,20 @@ public class MainActivity extends AppCompatActivity
         userName = headerView.findViewById(R.id.user_name);
         userEmail = headerView.findViewById(R.id.user_email);
         userImage = headerView.findViewById(R.id.user_image);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            try {
+                updateUI(account);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
@@ -113,7 +129,7 @@ public class MainActivity extends AppCompatActivity
             //Add Profile Fragment
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
-            data.putString("userID", "12345");
+            data.putString("userID", "5accd44fb22f6712f23cf18b");
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
         } else if (id == R.id.nav_events) {
@@ -135,6 +151,8 @@ public class MainActivity extends AppCompatActivity
             Bundle data = new Bundle();
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
+        } else if (id == R.id.nav_sign_out) {
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -155,6 +173,19 @@ public class MainActivity extends AppCompatActivity
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
+    }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        findViewById(R.id.Login).setVisibility(View.VISIBLE);
+                        findViewById(R.id.appBarLayout).setVisibility(View.GONE);
+                        findViewById(R.id.Content).setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
@@ -194,6 +225,7 @@ public class MainActivity extends AppCompatActivity
 
         findViewById(R.id.Login).setVisibility(View.GONE);
         findViewById(R.id.appBarLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.Content).setVisibility(View.GONE);
 
         userName.setText(account.getDisplayName());
         userEmail.setText((account.getEmail()));

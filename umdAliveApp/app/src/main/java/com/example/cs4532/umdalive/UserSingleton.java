@@ -4,7 +4,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class UserSingleton {
 
-    private String userID;
+    private GoogleSignInAccount account;
     private static UserSingleton instance;
 
     private UserSingleton (){}
@@ -17,11 +17,19 @@ public class UserSingleton {
         }
     }
 
-    public void setUserID(GoogleSignInAccount account) {
-        userID = account.getId();
+    public void setUserID(GoogleSignInAccount a) {
+        account = a;
     }
 
     public String getUserID() {
-        return userID;
+        return account.getId();
+    }
+
+    public String getName() {
+        return account.getDisplayName();
+    }
+
+    public String getProfileUrl() {
+        return account.getPhotoUrl().toString();
     }
 }
