@@ -284,7 +284,6 @@ public class ClubFrag extends Fragment{
                 eventsList.addView(hl);
             }
         }
-        Log.d("found",found.toString());
         if(found == true){
             Join.setVisibility(View.GONE);
         }else{
@@ -292,6 +291,8 @@ public class ClubFrag extends Fragment{
         }
         leaveJoinData.put("userID",userID);
         leaveJoinData.put("clubID",res.getString("_id"));
+        Log.d("USERID",userID);
+        Log.d("CLUBID",res.getString("_id"));
 
     }
 }
