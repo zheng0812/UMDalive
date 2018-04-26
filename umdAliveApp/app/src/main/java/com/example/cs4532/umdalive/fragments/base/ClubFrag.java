@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
 import com.example.cs4532.umdalive.UserSingleton;
+import com.example.cs4532.umdalive.fragments.create.CreateEventFrag;
 import com.example.cs4532.umdalive.fragments.edit.EditClubFrag;
 
 import org.json.JSONArray;
@@ -176,6 +177,17 @@ public class ClubFrag extends Fragment{
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
             }
         });
+        addEvent = (FloatingActionButton) view.findViewById(R.id.AddEvent);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateEventFrag frag = new CreateEventFrag();
+                Bundle data = new Bundle();
+                data.putString("clubID", clubName.getTag().toString());
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            }
+        });
     }
 
     /**
@@ -201,6 +213,7 @@ public class ClubFrag extends Fragment{
         hla.setOrientation(LinearLayout.HORIZONTAL);
         if(admins.getString("userID")!=userID){
             editClub.setVisibility(View.GONE);
+            addEvent.setVisibility(view.GONE);
         }
         TextView memberAdmin = new TextView(view.getContext());
         TextView admin = new TextView(view.getContext());

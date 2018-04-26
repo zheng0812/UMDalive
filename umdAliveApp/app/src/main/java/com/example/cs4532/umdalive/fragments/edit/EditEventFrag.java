@@ -17,7 +17,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
-import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 import com.example.cs4532.umdalive.fragments.base.EventFrag;
 
 import org.json.JSONException;
@@ -149,10 +148,10 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
      */
     private void getLayoutComponents() {
         EditingEvent = view.findViewById(R.id.EventEditing);
-        NewEventName = view.findViewById(R.id.NewEventName);
-        NewEventDescription = view.findViewById(R.id.NewEventDescription);
-        NewEventDate = view.findViewById(R.id.NewEventDate);
-        NewEventTime = view.findViewById(R.id.NewEventTime);
+        NewEventName = view.findViewById(R.id.EventName);
+        NewEventDescription = view.findViewById(R.id.EventDescription);
+        NewEventDate = view.findViewById(R.id.EventDate);
+        NewEventTime = view.findViewById(R.id.EventTime);
         SaveButton = view.findViewById(R.id.SaveEvent);
         SaveButton.setOnClickListener(this);
     }

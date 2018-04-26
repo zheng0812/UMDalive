@@ -43,6 +43,7 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     private EditText NewClubDescription;
     private EditText NewImageURL;
     private Button SaveButton;
+    private Button DeleteButton;
 
     private JSONObject clubData;
 
@@ -93,46 +94,50 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-        if(NewClubName.getText().toString().trim().length()!=0){
-            try {
-                clubData.put("name",NewClubName.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if(NewClubDescription.getText().toString().trim().length()!=0){
-            try {
-                clubData.put("description",NewClubDescription.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if(NewImageURL.getText().toString().trim().length()!=0){
-            try{
-                clubData.put("profilePic",NewImageURL.getText().toString());
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-        RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editClub/", clubData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        if (v.getTag().toString() == "DELETE") {
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error connecting", String.valueOf(error));
+        } else {
+            if (NewClubName.getText().toString().trim().length() != 0) {
+                try {
+                    clubData.put("name", NewClubName.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        });
-        restSingleton.addToRequestQueue(jsonObjectRequest);
-        ClubFrag frag = new ClubFrag();
-        Bundle data = new Bundle();
-        data.putString("clubID", EditingClub.getTag().toString());
-        frag.setArguments(data);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            if (NewClubDescription.getText().toString().trim().length() != 0) {
+                try {
+                    clubData.put("description", NewClubDescription.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (NewImageURL.getText().toString().trim().length() != 0) {
+                try {
+                    clubData.put("profilePic", NewImageURL.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editClub/", clubData,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("Error connecting", String.valueOf(error));
+                }
+            });
+            restSingleton.addToRequestQueue(jsonObjectRequest);
+            ClubFrag frag = new ClubFrag();
+            Bundle data = new Bundle();
+            data.putString("clubID", EditingClub.getTag().toString());
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+        }
     }
 
     /**
@@ -146,6 +151,7 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         NewImageURL = view.findViewById(R.id.NewImageURL);
         SaveButton = view.findViewById(R.id.SaveClub);
         SaveButton.setOnClickListener(this);
+        DeleteButton = view.findViewById(R.id.DeleteClub);
     }
 
     /**
@@ -157,10 +163,10 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     private void updateUI(JSONObject res) throws JSONException {
         EditingClub.setText("Editing Club:\n" + res.getString("name"));
         EditingClub.setTag(res.getString("_id"));
+        DeleteButton.setTag("DELETE");
         NewClubName.setText(res.getString("name"));
         NewClubDescription.setText(res.getString("description"));
         NewImageURL.setText(res.getString("profilePic"));
         clubData = res;
-
     }
 }
