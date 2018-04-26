@@ -55,7 +55,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response == "undefined"){
+                       /* if(response == "undefined"){
                             //Show loading bar
                             view.findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
                             //Add All Clubs Fragment
@@ -63,7 +63,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
                             Bundle data = new Bundle();
                             frag.setArguments(data);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                        }
+                        }*/
                         try {
                             updateUI(new JSONObject(response));
                         } catch (JSONException e) {
