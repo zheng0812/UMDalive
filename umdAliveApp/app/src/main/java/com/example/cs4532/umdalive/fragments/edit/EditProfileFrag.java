@@ -67,6 +67,16 @@ public class EditProfileFrag extends Fragment {
         loadProfileImage();
 
         name.setText(UserSingleton.getInstance().getName());
+        //Set User Data
+        try {
+            userData = new JSONObject(getArguments().getString("data"));
+
+            major.setText(userData.getString("major"));
+            about.setText(userData.getString("description"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +124,27 @@ public class EditProfileFrag extends Fragment {
     }
 
     private void editUser() throws JSONException {
+        userData.put("major", major.getText().toString());
+        userData.put("description", about.getText().toString());
+
+        System.out.println(userData);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "editUser", userData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ProfileFrag frag = new ProfileFrag();
+                        Bundle data = new Bundle();
+                        data.putString("userID", UserSingleton.getInstance().getUserID());
+                        frag.setArguments(data);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        RestSingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 

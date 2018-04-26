@@ -49,6 +49,8 @@ public class ProfileFrag extends Fragment{
     private ImageView profileImage;
     private FloatingActionButton profileEdit;
 
+    private Bundle profileData;
+
     /**
      * Creates the view of the profile when navigating to it
      *
@@ -71,14 +73,13 @@ public class ProfileFrag extends Fragment{
             profileEdit.setVisibility(View.GONE);
         }
 
+        profileData = new Bundle();
+
         profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditProfileFrag frag = new EditProfileFrag();
-                Bundle data = new Bundle();
-                data.putString("major", profileMajor.getText().toString());
-                data.putString("about", profileAbout.getText().toString());
-                frag.setArguments(data);
+                frag.setArguments(profileData);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
             }
         });
@@ -137,6 +138,8 @@ public class ProfileFrag extends Fragment{
      */
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
+        profileData.putString("data", res.toString());
+
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
 
         if (UserSingleton.getInstance().getProfileUrl() != null) {
