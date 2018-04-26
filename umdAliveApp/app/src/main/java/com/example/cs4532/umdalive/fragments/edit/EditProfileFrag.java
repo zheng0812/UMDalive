@@ -109,6 +109,11 @@ public class EditProfileFrag extends Fragment {
         save = view.findViewById(R.id.editProfileSave);
     }
 
+    /**
+     * Loads the image for the user's profile if they have one, otherwise their profile image
+     * will default to an image of a wagon
+     * @return nothing
+     */
     private void loadProfileImage() {
         if (UserSingleton.getInstance().getProfileUrl() != null) {
             Glide.with(this)
@@ -124,6 +129,12 @@ public class EditProfileFrag extends Fragment {
         }
     }
 
+    /**
+     * Enables the editing of the user page's major and description
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     * @return nothing
+     */
     private void editUser() throws JSONException {
         userData.put("major", major.getText().toString());
         userData.put("description", about.getText().toString());
