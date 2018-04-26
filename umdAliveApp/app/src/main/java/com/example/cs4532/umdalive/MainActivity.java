@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.fragments.base.AllClubsFrag;
 import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
+import com.example.cs4532.umdalive.fragments.create.CreateClubFrag;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             //Show loading bar
             findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
-
             //Add Profile Fragment
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
@@ -142,12 +142,15 @@ public class MainActivity extends AppCompatActivity
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
 
-        } else if (id == R.id.nav_events) {
+        } else if (id == R.id.nav_create_club) {
+            CreateClubFrag frag = new CreateClubFrag();
+            Bundle data = new Bundle();
+            frag.setArguments(data);
+            getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
 
         } else if (id == R.id.nav_my_clubs) {
             //Show loading bar
             findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
-
             //Add Club Fragment
             ClubFrag frag = new ClubFrag();
             Bundle data = new Bundle();
