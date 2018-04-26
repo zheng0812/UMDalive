@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class ProfileFrag extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Create View
         view = inflater.inflate(R.layout.profile_layout, container, false);
-
+        view.setVisibility(View.GONE);
         //Get Layout Components
         getLayoutComponents();
 
@@ -138,6 +139,8 @@ public class ProfileFrag extends Fragment{
      */
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
+        view.setVisibility(View.VISIBLE);
+
         profileData.putString("data", res.toString());
 
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
@@ -160,21 +163,27 @@ public class ProfileFrag extends Fragment{
 
         JSONArray clubArray = res.getJSONArray("clubs");
 
-        for(int i = 0; i<clubArray.length();i++){
-            TextView club = new TextView(view.getContext());
-            club.setText(clubArray.getString(i));
-            club.setOnClickListener(new View.OnClickListener() {
+        for(int i = 0; i < clubArray.length(); i++){
+            final JSONObject curClub = (JSONObject) clubArray.get(i);
+
+            TextView clubText = new TextView(view.getContext());
+            clubText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            clubText.setText(curClub.get("name").toString());
+            clubText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String TAG = (String) v.getTag();
                     ClubFrag frag = new ClubFrag();
                     Bundle data = new Bundle();
-                    data.putString("clubID", TAG);
+                    try {
+                        data.putString("clubID", curClub.get("_id").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     frag.setArguments(data);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
                 }
             });
-            profileClubs.addView(club);
+            profileClubs.addView(clubText);
         }
 
 
