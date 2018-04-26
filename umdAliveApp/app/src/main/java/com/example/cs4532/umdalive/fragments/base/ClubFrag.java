@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.UserSingleton;
 import com.example.cs4532.umdalive.fragments.edit.EditClubFrag;
 
 import org.json.JSONArray;
@@ -40,6 +41,7 @@ public class ClubFrag extends Fragment{
     private LinearLayout eventsList;
     private Button LeaveJoin;
     private FloatingActionButton editClub;
+    private FloatingActionButton addEvent;
 
 
     @Override
@@ -116,33 +118,41 @@ public class ClubFrag extends Fragment{
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
             }
         });
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void updateUI(JSONObject res) throws JSONException{
-        //String UserName = UserSingleton.getInstance().getName();
-        //Log.d("Name Test", UserName);
+        /**String userName = UserSingleton.getInstance().getName();
+        String userID = UserSingleton.getInstance().getUserID();*/
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         clubName.setText(res.getString("name"));
         clubName.setTag(res.getString("_id"));
         clubDescription.setText(res.getString("description"));
         JSONObject memberJson = res.getJSONObject("members");
         JSONArray regulars = memberJson.getJSONArray("regular");
-        JSONArray admins = memberJson.getJSONArray("admin");
+        JSONObject admins = memberJson.getJSONObject("admin");
         JSONArray events = res.getJSONArray("events");
-        for (int i=0;i<admins.length();i++){
-            LinearLayout hl = new LinearLayout(view.getContext());
-            hl.setOrientation(LinearLayout.HORIZONTAL);
-            String name = admins.getString(i);
-            TextView member = new TextView(view.getContext());
-            TextView admin = new TextView(view.getContext());
-            admin.setText("admin");
-            admin.setTextSize(16);
-            admin.setGravity(Gravity.RIGHT);
-            admin.setWidth(members.getWidth()/2);
-            member.setText(name);
-            member.setTextSize(16);
-            member.setWidth(members.getWidth()/2);
-            member.setOnClickListener(new View.OnClickListener() {
+        LinearLayout hla = new LinearLayout(view.getContext());
+        hla.setOrientation(LinearLayout.HORIZONTAL);
+        /**if(admins.getString("userID")!=userID){
+            editClub.setVisibility(View.GONE);
+        }*/
+        TextView memberAdmin = new TextView(view.getContext());
+        TextView admin = new TextView(view.getContext());
+        admin.setText("admin");
+        admin.setTextSize(16);
+        admin.setGravity(Gravity.RIGHT);
+        admin.setWidth(members.getWidth()/2);
+        memberAdmin.setText(admins.getString("name"));
+        memberAdmin.setTextSize(16);
+        memberAdmin.setWidth(members.getWidth()/2);
+        memberAdmin.setTag(admins.getString("userID"));
+        memberAdmin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String TAG = (String) v.getTag();
@@ -153,15 +163,15 @@ public class ClubFrag extends Fragment{
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
                 }
             });
-            hl.addView(member);
-            hl.addView(admin);
-            members.addView(hl);
-        }
+        hla.addView(memberAdmin);
+        hla.addView(admin);
+        members.addView(hla);
         for (int i=0;i<regulars.length();i++){
             String name = regulars.getJSONObject(i).getString("name");
             TextView member = new TextView(view.getContext());
             member.setText(name);
             member.setTextSize(16);
+            member.setTag(regulars.getJSONObject(i).getString("userID"));
             member.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

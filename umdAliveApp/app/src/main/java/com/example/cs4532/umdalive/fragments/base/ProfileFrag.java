@@ -79,7 +79,10 @@ public class ProfileFrag extends Fragment{
             }
         });
         restSingleton.addToRequestQueue(stringRequest);
-
+        Glide.with(getContext())
+                .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
+                .apply(RequestOptions.circleCropTransform())
+                .into(profileImage);
         //Return View
         return view;
     }
@@ -107,10 +110,13 @@ public class ProfileFrag extends Fragment{
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
+
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
         profileAbout.setText(res.getString("about"));
+
         JSONArray clubArray = res.getJSONArray("clubs");
+
         for(int i = 0; i<clubArray.length();i++){
             TextView club = new TextView(view.getContext());
             club.setText(clubArray.getString(i));
@@ -127,11 +133,6 @@ public class ProfileFrag extends Fragment{
             });
             profileClubs.addView(club);
         }
-
-        Glide.with(getContext())
-                .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
-                .apply(RequestOptions.circleCropTransform())
-                .into(profileImage);
 
     }
 }
