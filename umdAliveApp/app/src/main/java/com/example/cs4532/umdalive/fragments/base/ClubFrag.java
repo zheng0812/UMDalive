@@ -29,6 +29,13 @@ import org.json.JSONObject;
  * Requires argument with key of clubID to be passed into it before it is added to the frame layout
  */
 
+/**
+ * @author Josh Senst
+ *
+ * 4/26/2018
+ *
+ * Class that creates the club page
+ */
 public class ClubFrag extends Fragment{
 
     //View
@@ -44,6 +51,13 @@ public class ClubFrag extends Fragment{
     private FloatingActionButton addEvent;
 
 
+    /**
+     * Creates the page whenever the club page is clicked on
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The view of the club page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -78,6 +92,10 @@ public class ClubFrag extends Fragment{
     }
 
 
+    /**
+     * Gets the layout components from club_layout.xml
+     * @return nothing
+     */
     private void getLayoutComponents() {
         clubName = (TextView) view.findViewById(R.id.ClubNameView);
         clubDescription = (TextView) view.findViewById(R.id.DescriptionView);
@@ -120,6 +138,13 @@ public class ClubFrag extends Fragment{
         });
     }
 
+    /**
+     * Adds the club information to the page depending on which club was clicked. Inside there are several onClicks relevant to different items in lists being
+     * clicked within the club layout.
+     * @param res The response from the database
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     */
     private void updateUI(JSONObject res) throws JSONException{
         /**String userName = UserSingleton.getInstance().getName();
         String userID = UserSingleton.getInstance().getUserID();*/
