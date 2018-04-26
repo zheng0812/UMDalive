@@ -20,6 +20,7 @@ import com.example.cs4532.umdalive.UserSingleton;
 import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,19 +90,20 @@ public class CreateClubFrag extends Fragment {
      * @return nothing
      */
     private void createClub() throws JSONException {
-        JSONObject admin = new JSONObject();
-        admin.put("name",UserSingleton.getInstance().getName());
-        admin.put("userID",UserSingleton.getInstance().getUserID());
         JSONObject members = new JSONObject();
-        String[] regulars = new String[0];
-        members.put("admin",admin);
+        JSONArray regulars = new JSONArray();
+        members.put("admin",UserSingleton.getInstance().getUserID());
         members.put("regular",regulars);
 
-        String[] events = new String[0];
+        JSONArray events = new JSONArray();
 
         JSONObject newClubData = new JSONObject();
+
         newClubData.put("name", ClubName.getText());
         newClubData.put("description", ClubDescription.getText());
+
+
+
         if(ClubImg.getText().length()>0){
             newClubData.put("profilePic", ClubImg.getText());
         } else{
@@ -118,7 +120,8 @@ public class CreateClubFrag extends Fragment {
                         ClubFrag frag = new ClubFrag();
                         Bundle data = new Bundle();
                         try {
-                            data.putString("clubID", response.getString("clubID"));
+                            data.putString("clubID", response.get("_id").toString());
+                            System.out.println(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -182,7 +182,7 @@ public class ClubFrag extends Fragment{
         JSONArray regulars = memberJson.getJSONArray("regular");
         final JSONObject admins = memberJson.getJSONObject("admin");
 
-        final JSONArray events = res.getJSONArray("events");
+        JSONArray events = res.getJSONArray("events");
 
         String userID = UserSingleton.getInstance().getUserID();
 
