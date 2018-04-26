@@ -43,7 +43,7 @@ public class CreateClubFrag extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ClubImg.getText().length() > 0 && ClubName.getText().length() > 0 && ClubDescription.getText().length() > 0) {
+                if (ClubName.getText().length() > 0 && ClubDescription.getText().length() > 0) {
                     try {
                         createClub();
                     } catch (JSONException e) {
@@ -77,7 +77,12 @@ public class CreateClubFrag extends Fragment {
         JSONObject newClubData = new JSONObject();
         newClubData.put("name", ClubName.getText());
         newClubData.put("description", ClubDescription.getText());
-        newClubData.put("profilePic", ClubImg.getText());
+        if(ClubImg.getText().length()>0){
+            newClubData.put("profilePic", ClubImg.getText());
+        } else{
+            newClubData.put("profilePic", null);
+        }
+
         newClubData.put("events", events);
         newClubData.put("members", members);
 
