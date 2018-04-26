@@ -224,7 +224,7 @@ public class ClubFrag extends Fragment{
 
 
 
-        if(admins.getString("userID")==userID){
+        if(admins.getString("userID").equals(userID)){
             editClub.setVisibility(View.VISIBLE);
             addEvent.setVisibility(view.VISIBLE);
             joinLeave.setVisibility(View.GONE);
@@ -251,12 +251,11 @@ public class ClubFrag extends Fragment{
 
         for (int i=0;i<regulars.length();i++){
             final JSONObject member = regulars.getJSONObject(i);
-
             TextView memberText = new TextView(view.getContext());
             memberText.setText(member.get("name").toString());
             memberText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            if(member.getString("userID")==userID){
+            System.out.println(member.get("userID").toString() +" : "+ userID);
+            if(member.get("userID").toString().equals(userID)){
                 joinLeave.setText("Leave Club");
                 joinLeave.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -285,7 +284,6 @@ public class ClubFrag extends Fragment{
     }
 
     private void joinClub() {
-        System.out.println("Joining Club");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "joinClub", joinLeaveObj,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -315,6 +313,23 @@ public class ClubFrag extends Fragment{
     }
 
     private void leaveClub() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "leaveClub", joinLeaveObj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ProfileFrag frag = new ProfileFrag();
+                        Bundle data = new Bundle();
+                        data.putString("userID", UserSingleton.getInstance().getUserID());
+                        frag.setArguments(data);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
 
+        RestSingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }
