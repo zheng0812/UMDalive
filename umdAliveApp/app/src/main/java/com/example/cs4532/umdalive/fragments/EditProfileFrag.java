@@ -1,5 +1,5 @@
-/*
-package com.example.cs4532.umdalive.fragments;
+
+/*package com.example.cs4532.umdalive.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,7 +25,7 @@ import com.example.cs4532.umdalive.RestSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CreateUserFrag extends Fragment implements View.OnClickListener{
+public class EditProfileFrag extends Fragment implements View.OnClickListener{
 
     View view;
 
@@ -67,9 +67,9 @@ public class CreateUserFrag extends Fragment implements View.OnClickListener{
     }
 
 
-        public void onClickSaveInfo(View view) {
+    public void onClickSaveInfo(View view) {
 
-        }
+    }
 
     private void getLayoutComponents() {
         majorEditText = (EditText) view.findViewById(R.id.majorEdit);
