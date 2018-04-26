@@ -209,7 +209,7 @@ public class ClubFrag extends Fragment{
         admin.setGravity(Gravity.RIGHT);
         admin.setWidth(members.getWidth()/2);
         memberAdmin.setText(admins.getString("name"));
-        if(admins.getString("id")==userID){
+        if(admins.getString("userID")==userID){
             found = true;
         }
         memberAdmin.setTextSize(16);

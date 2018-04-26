@@ -27,8 +27,6 @@ import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class EditProfileFrag extends Fragment {
-
 /**
  * @author Ross Schultz
  *
