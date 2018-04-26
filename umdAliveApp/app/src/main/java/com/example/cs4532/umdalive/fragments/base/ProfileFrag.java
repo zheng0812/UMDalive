@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.create.CreateProfileFrag;
 import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
 
 import org.json.JSONArray;
@@ -61,7 +62,7 @@ public class ProfileFrag extends Fragment{
                             //Show loading bar
                             view.findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
                             //Add All Clubs Fragment
-                            EditProfileFrag frag = new EditProfileFrag();
+                            CreateProfileFrag frag = new CreateProfileFrag();
                             Bundle data = new Bundle();
                             frag.setArguments(data);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
