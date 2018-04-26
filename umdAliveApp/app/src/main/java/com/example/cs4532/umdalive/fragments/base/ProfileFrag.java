@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 //import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
 
 import org.json.JSONArray;
 import org.json.JSONException;
