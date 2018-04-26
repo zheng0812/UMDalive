@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-//import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
 import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
@@ -79,7 +79,10 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
             }
         });
         restSingleton.addToRequestQueue(stringRequest);
-
+        Glide.with(getContext())
+                .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
+                .apply(RequestOptions.circleCropTransform())
+                .into(profileImage);
         //Return View
         return view;
     }
@@ -112,20 +115,21 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
+
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
         profileAbout.setText(res.getString("about"));
+
         JSONArray clubArray = res.getJSONArray("clubs");
+
         for(int i = 0; i<clubArray.length();i++){
             TextView club = new TextView(view.getContext());
             club.setText(clubArray.getString(i));
             club.setOnClickListener(this);
             profileClubs.addView(club);
         }
-        Glide.with(getContext())
-                .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
-                //.apply(RequestOptions.circleCropTransform())
-                .into(profileImage);
+
+
 
     }
 }
