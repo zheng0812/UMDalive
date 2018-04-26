@@ -1,23 +1,20 @@
 
-/*package com.example.cs4532.umdalive.fragments;
+package com.example.cs4532.umdalive.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
@@ -30,14 +27,18 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
     View view;
 
     //Layout Components
+    private TextView EditingProfile;
     private EditText majorEditText;
     private EditText aboutEditText;
+    private Button saveButton;
+
+    private JSONObject userData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //Create View
-        view = inflater.inflate(R.layout.create_user_layout, container, false);
+        view = inflater.inflate(R.layout.edit_profile_layout, container, false);
 
         //Get Layout Components
         getLayoutComponents();
@@ -49,7 +50,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
                     @Override
                     public void onResponse(String response) {
                         try {
-                            updateDB(new JSONObject(response));
+                            updateUI(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -67,18 +68,57 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
     }
 
 
-    public void onClickSaveInfo(View view) {
+    public void onClick(View view) {
+        if(majorEditText.getText().toString().trim().length()!=0){
+            try {
+                userData.put("major",majorEditText.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if(aboutEditText.getText().toString().trim().length()!=0){
+            try {
+                userData.put("about",aboutEditText.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editUser/", userData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(jsonObjectRequest);
+        ProfileFrag frag = new ProfileFrag();
+        Bundle data = new Bundle();
+        data.putString("userID", EditingProfile.getTag().toString());
+        frag.setArguments(data);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
     }
 
     private void getLayoutComponents() {
+        EditingProfile = (TextView) view.findViewById(R.id.ProfileEditing);
         majorEditText = (EditText) view.findViewById(R.id.majorEdit);
         aboutEditText = (EditText) view.findViewById(R.id.aboutMeEdit);
+        saveButton = view.findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(this);
 
     }
 
-    private void updateDB(JSONObject res) throws JSONException {
-
+    private void updateUI(JSONObject res) throws JSONException {
+        EditingProfile.setText("Editing Profile:\n" + res.getString("name"));
+        EditingProfile.setTag(res.getString("_id"));
+        majorEditText.setText(res.getString("name"));
+        aboutEditText.setText(res.getString("about"));
+        userData = res;
     }
 
-}*/
+}
