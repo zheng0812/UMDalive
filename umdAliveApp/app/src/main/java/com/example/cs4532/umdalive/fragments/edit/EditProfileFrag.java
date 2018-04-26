@@ -23,6 +23,13 @@ import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * @author Ross Schultz
+ *
+ * 4/26/2018
+ *
+ * Class that creates the Edit Profile page
+ */
 public class EditProfileFrag extends Fragment implements View.OnClickListener{
 
     View view;
@@ -35,6 +42,13 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
 
     private JSONObject userData;
 
+    /**
+     * Creates the edit profile  view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The view of the edit profile view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -68,6 +82,11 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    /**
+     * Allows the user to click ont he textViews that can be edited
+     * @param view The textView clicked
+     * @return nothing
+     */
     @Override
     public void onClick(View view) {
         if(majorEditText.getText().toString().trim().length()!=0){
@@ -105,6 +124,10 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
     }
 
+    /**
+     * Gets the layout components from edit_profile_layout.xml
+     * @return nothing
+     */
     private void getLayoutComponents() {
         EditingProfile = (TextView) view.findViewById(R.id.ProfileEditing);
         majorEditText = (EditText) view.findViewById(R.id.majorEdit);
@@ -114,6 +137,13 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
 
     }
 
+    /**
+     * Adds the textViews that can be edited, which may include
+     * previously added information
+     * @param res The response from the database
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     */
     private void updateUI(JSONObject res) throws JSONException {
         EditingProfile.setText("Editing Profile:\n" + res.getString("name"));
         EditingProfile.setTag(res.getString("_id"));
