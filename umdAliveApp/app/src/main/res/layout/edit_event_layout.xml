@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@android:color/holo_red_dark"
-        android:text="Delete Event\n(this action cannot be undone)"
+        android:text="Delete Event"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
