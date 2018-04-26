@@ -1,6 +1,7 @@
 package com.example.cs4532.umdalive.fragments.base;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,9 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+//import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +40,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
     private TextView profileAbout;
     private LinearLayout profileClubs;
     private ImageView profileImage;
+    private FloatingActionButton editProfile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                       /* if(response == "undefined"){
+                        if(response == "undefined"){
                             //Show loading bar
                             view.findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
                             //Add All Clubs Fragment
@@ -62,7 +65,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
                             Bundle data = new Bundle();
                             frag.setArguments(data);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                        }*/
+                        }
                         try {
                             updateUI(new JSONObject(response));
                         } catch (JSONException e) {
@@ -93,6 +96,17 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         profileAbout = (TextView) view.findViewById(R.id.profileAbout);
         profileImage = (ImageView) view.findViewById(R.id.profileImage);
         profileClubs = (LinearLayout) view.findViewById(R.id.profileClubs);
+        editProfile = (FloatingActionButton) view.findViewById(R.id.editProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditProfileFrag frag = new EditProfileFrag();
+                Bundle data = new Bundle();
+                data.putString("userID", getArguments().getString("userID"));
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+            }
+        });
     }
 
     //Updates the layout so current information is visible
@@ -110,7 +124,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         }
         Glide.with(getContext())
                 .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
-                .apply(RequestOptions.circleCropTransform())
+                //.apply(RequestOptions.circleCropTransform())
                 .into(profileImage);
 
     }

@@ -16,6 +16,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.fragments.base.AllClubsFrag;
 import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
@@ -220,13 +222,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void updateUI(GoogleSignInAccount account) throws IOException {
+        UserSingleton.getInstance().setAccount(account);
         UserSingleton us = UserSingleton.getInstance();
-        us.setUserID(account);
 
         findViewById(R.id.Login).setVisibility(View.GONE);
         findViewById(R.id.appBarLayout).setVisibility(View.VISIBLE);
-        findViewById(R.id.Content).setVisibility(View.GONE);
+        findViewById(R.id.Content).setVisibility(View.VISIBLE);
 
+        if (us.getProfileUrl() != null) {
+            Glide.with(this)
+                    .load(us.getProfileUrl())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(userImage);
+        } else {
+            Glide.with(this)
+                    .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(userImage);
+        }
         userName.setText(us.getName());
         userEmail.setText((us.getEmail()));
     }

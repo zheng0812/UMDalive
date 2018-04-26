@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,13 +25,14 @@
 
     <include
         android:id="@+id/Content"
-        layout="@layout/content_main" />
+        layout="@layout/content_main"
+        android:visibility="gone" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/imageView2"
