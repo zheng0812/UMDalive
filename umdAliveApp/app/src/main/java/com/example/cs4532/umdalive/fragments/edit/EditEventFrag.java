@@ -13,9 +13,12 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.base.ClubFrag;
+import com.example.cs4532.umdalive.fragments.base.EventFrag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +37,7 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     private EditText NewEventDescription;
     private Button SaveButton;
 
-    private JSONObject clubData;
+    private JSONObject eventData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,11 +83,44 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     private void updateUI(JSONObject res) throws JSONException{
         NewEventName.setText(res.getString("name"));
         NewEventDescription.setText(res.getString("description"));
-
+        eventData = res;
     }
 
     @Override
     public void onClick(View v) {
+        if(NewEventName.getText().toString().trim().length()!=0){
+            try {
+                eventData.put("name",NewEventName.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if(NewEventDescription.getText().toString().trim().length()!=0){
+            try {
+                eventData.put("description",NewEventDescription.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editClub/", eventData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(jsonObjectRequest);
+        EventFrag frag = new EventFrag();
+        Bundle data = new Bundle();
+        data.putString("eventID", EditingEvent.getTag().toString());
+        frag.setArguments(data);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
 
     }
 }

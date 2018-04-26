@@ -17,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
 import com.example.cs4532.umdalive.fragments.base.ClubFrag;
+import com.example.cs4532.umdalive.fragments.edit.EditEventFrag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
  * Created by Josh on 4/24/2018.
  */
 
-public class EventFrag extends Fragment implements View.OnClickListener{
+public class EventFrag extends Fragment{
 
     //View
     View view;
@@ -72,35 +73,41 @@ public class EventFrag extends Fragment implements View.OnClickListener{
 
     }
 
-    @Override
-    public void onClick(View v) {
-        String TAG = (String) goTo.getTag();
-        ClubFrag frag = new ClubFrag();
-        Bundle data = new Bundle();
-        data.putString("clubID", TAG);
-        frag.setArguments(data);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-    }
-
-    public void editClick(View v){
-
-
-    }
-
     private void getLayoutComponents() {
         eventName=view.findViewById(R.id.EventNameView);
         eventDate=view.findViewById(R.id.EventDateView);
         eventDescription=view.findViewById(R.id.EventDescriptionView);
         eventTime=view.findViewById(R.id.EventTimeView);
         goTo=view.findViewById(R.id.GoToClub);
-        goTo.setOnClickListener(this);
+        goTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String TAG = (String) goTo.getTag();
+                ClubFrag frag = new ClubFrag();
+                Bundle data = new Bundle();
+                data.putString("clubID", TAG);
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            }
+        });
         editEventFAB=view.findViewById(R.id.EditEventFAB);
-        editEventFAB.setOnClickListener(this);
+        editEventFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String TAG = (String) eventName.getTag();
+                EditEventFrag frag = new EditEventFrag();
+                Bundle data = new Bundle();
+                data.putString("eventID", TAG);
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            }
+        });
     }
 
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         eventName.setText(res.getString("name"));
+        eventName.setTag(res.getString("_id"));
         eventDate.setText(res.getString("date"));
         eventDescription.setText(res.getString("description"));
         eventTime.setText(res.getString("time"));
