@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity
         Bundle data = new Bundle();
         data.putString("userID", "5accd44fb22f6712f23cf18b");
         frag.setArguments(data);
-        getSupportFragmentManager().beginTransaction().add(fragContainer.getId(),frag).commit();
+        getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
 
         if (us.getProfileUrl() != null) {
             Glide.with(this)
@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity
                     .apply(RequestOptions.circleCropTransform())
                     .into(userImage);
         }
+
         userName.setText(us.getName());
         userEmail.setText((us.getEmail()));
     }
