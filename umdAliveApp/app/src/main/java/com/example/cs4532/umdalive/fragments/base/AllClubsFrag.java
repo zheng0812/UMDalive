@@ -116,7 +116,7 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
             String id = allClubs.getJSONObject(i).getString("_id").toString();
             TextView clubName = new TextView(view.getContext());
             clubName.setText(name);
-            clubName.setTextSize(36);
+            clubName.setTextSize(24);
             clubName.setOnClickListener(this);
             clubName.setTag(id);
             allClubsLinearLayout.addView(clubName);
