@@ -36,7 +36,7 @@ app.put('/createClub', function (req, res) {
     "profilePic" : req.body.profilePic
   };
   dataBase.createClub(clubData, function (doc){
-    res.send({"_id": doc});
+    res.send(doc);
   });
 });
 
@@ -57,7 +57,6 @@ app.put('/editClub', function (req, res){
 
 app.get('/getClub/:clubID', function (req, res) {
   dataBase.getClub(req.params.clubID, function (docs) {
-    console.log(docs);
     res.send(docs);
   });
 });
@@ -73,7 +72,7 @@ app.put('/joinClub', function (req, res){
     return res.sendStatus(400);
   }
   dataBase.joinClub(req.body.userID, req.body.clubID);
-  res.send("done");
+  res.send({});
 
 });
 
@@ -82,7 +81,7 @@ app.put('/leaveClub', function (req, res){
     return res.sendStatus(400);
   }
   dataBase.leaveClub(req.body.userID, req.body.clubID);
-  res.send("done");
+  res.send({});
 });
 
 app.delete('/deleteClub/:clubID', function (req, res){
@@ -106,7 +105,6 @@ app.put('/createUser', function (req, res){
     "profilePic" : req.body.profilePic
   };
   dataBase.createUser(userData);
-  console.log(req.body.name + " has been created");
   res.send({});
 });
 
@@ -124,7 +122,6 @@ app.put('/editUser', function (req, res){
     "profilePic" : req.body.profilePic
   };
   dataBase.editUser(req.body.userID, userData);
-  console.log("user edited");
   res.send({});
 });
 
@@ -147,7 +144,6 @@ app.put('/createEvent', function (req, res){
     "club" : req.body.club
   };
   dataBase.createEvent(eventData);
-  console.log(req.body.name + " has been created");
   res.send({});
 });
 
@@ -165,7 +161,6 @@ app.put('/editEvent', function (req, res){
   };
 
   dataBase.editEvent(req.body._id, eventData);
-  console.log(req.body.name + " has been updated.");
   res.send({});
 });
 

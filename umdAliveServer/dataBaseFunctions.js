@@ -18,8 +18,20 @@ module.exports.createClub = function(clubData, callback) {
     if(err){
       console.log(err)
     } else {
-      callback("hi");
-      //Completed
+      DBRef.collection('users').findOne({"userID": clubData.members.admin},function(err, doc){
+        if (err){
+          console.log(err);
+        } else {
+          doc.clubs.push(clubData._id + "");
+          DBRef.collection('users').update({"userID": clubData.members.admin}, doc, function(err, doc){
+            if (err){
+              console.log(err);
+            } else {
+              callback(result);
+            }
+          });
+        }
+      });
     }
   });
 };
@@ -139,12 +151,20 @@ module.exports.deleteClub = function (clubID){
             if (err){
               console.log(err);
             } else {
+
               //Completed
             }
           });
         }
       });
       DBRef.collection('events').remove({"club": clubID}, false, function (err, result){
+        if (err){
+          console.log(err);
+        } else {
+          //Completed
+        }
+      });
+      DBRef.collection('clubs').remove({"_id":mongojs.ObjectId(clubID)}, false, function (err, result){
         if (err){
           console.log(err);
         } else {
@@ -183,12 +203,16 @@ module.exports.getUser = function(userID, callback) {
       console.log(err);
     } else {
       //Completed
-      DBRef.collection('clubs').find({"members.admin": userID}).toArray(function (err, adminDocs){
-        DBRef.collection('clubs').find({"members.regular": userID}).toArray(function (err, regularDocs){
-          doc.clubs = adminDocs.concat(regularDocs);
-          callback(doc);
+      if (doc != null){
+        DBRef.collection('clubs').find({"members.admin": userID}).toArray(function (err, adminDocs){
+          DBRef.collection('clubs').find({"members.regular": userID}).toArray(function (err, regularDocs){
+            doc.clubs = adminDocs.concat(regularDocs);
+            callback(doc);
+          });
         });
-      });
+      } else {
+        callback(doc);
+      }
     }
   });
 };
@@ -199,6 +223,21 @@ module.exports.createEvent = function(eventData){
     if (err){
       console.log(err);
     } else {
+      DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(result.club)}, function (err, doc){
+        if (err){
+          console.log(err);
+        } else {
+          //Completed
+        }
+        doc.events.push(eventData._id + "");
+        DBRef.collection('clubs').update({"_id": mongojs.ObjectId(result.club)}, doc, function (err, result){
+          if (err){
+            console.log(err);
+          } else {
+            //Completed
+          }
+        });
+      });
       //Completed
     }
   });
@@ -258,6 +297,13 @@ module.exports.deleteEvent = function (eventID){
             //Completed
           }
         });
+      });
+      DBRef.collection('events').remove({"_id": mongojs.ObjectId(eventID)}, false, function (err, result){
+        if (err){
+          console.log(err);
+        } else {
+          //Completed
+        }
       });
     }
   });
