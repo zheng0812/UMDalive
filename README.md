@@ -63,6 +63,13 @@ Inside the database, there numerous queries: createClub, editClub, getClub, getA
 ## Getting Started
 UMD Alive should be able to run on most Android devices, as long as they are running Android Ice Cream Sandwich 4.0.3.
 
+**Google OAuth Steps**
+
+Since the project utilizes Google OAuth, you must follow these steps to get the project working:
+
+1. Head to this link: https://developers.google.com/identity/sign-in/android/start-integrating
+2. Follows steps in the configuration of a Google API Console Project
+
 ## Prerequisites and Installation
 
 **Software Information:**

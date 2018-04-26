@@ -26,6 +26,13 @@ import org.json.JSONObject;
  * Created by Josh on 4/25/2018.
  */
 
+/**
+ * @author Josh Senst
+ *
+ * 4/26/2018
+ *
+ * Class that creates the Edit Club Page
+ */
 public class EditClubFrag extends Fragment implements View.OnClickListener {
     //View
     View view;
@@ -38,6 +45,13 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
 
     private JSONObject clubData;
 
+    /**
+     * Creates the page whenever the button for editing a club is pressed
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The view of the edit club page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -71,6 +85,11 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    /**
+     * Allows the clicking of the editText boxes
+     * @param v The text editing area that has been clicked
+     * @return nothing
+     */
     @Override
     public void onClick(View v) {
         if(NewClubName.getText().toString().trim().length()!=0){
@@ -108,6 +127,10 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
     }
 
+    /**
+     * Gets the layout components from edit_club_layou.xml
+     * @return nothing
+     */
     private void getLayoutComponents() {
         EditingClub = view.findViewById(R.id.ClubEditing);
         NewClubName = view.findViewById(R.id.NewClubName);
@@ -116,6 +139,12 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         SaveButton.setOnClickListener(this);
     }
 
+    /**
+     * Adds the layout components and sets them in editTexts
+     * @param res The response from the database
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     */
     private void updateUI(JSONObject res) throws JSONException {
         EditingClub.setText("Editing Club:\n" + res.getString("name"));
         EditingClub.setTag(res.getString("_id"));
