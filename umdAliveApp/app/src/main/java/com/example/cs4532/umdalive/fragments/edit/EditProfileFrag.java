@@ -27,9 +27,8 @@ import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-<<<<<<< HEAD
 public class EditProfileFrag extends Fragment {
-=======
+
 /**
  * @author Ross Schultz
  *
@@ -37,8 +36,7 @@ public class EditProfileFrag extends Fragment {
  *
  * Class that creates the Edit Profile page
  */
-public class EditProfileFrag extends Fragment implements View.OnClickListener{
->>>>>>> d3a9e8bb8742267486294a21a384a9b8c8a0523e
+public class EditProfileFrag extends Fragment {
 
     View view;
 
@@ -53,6 +51,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
 
     /**
      * Creates the edit profile  view
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -88,7 +87,11 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
         return view;
     }
 
-<<<<<<< HEAD
+    /**
+     * Gets the layout components from edit_profile_layout.xml
+     *
+     * @return nothing
+     */
     private void getLayoutComponents() {
         image = view.findViewById(R.id.editProfileImage);
         name = view.findViewById(R.id.editProfileName);
@@ -97,7 +100,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
         save = view.findViewById(R.id.editProfileSave);
     }
 
-    private void loadProfileImage () {
+    private void loadProfileImage() {
         if (UserSingleton.getInstance().getProfileUrl() != null) {
             Glide.with(this)
                     .load(UserSingleton.getInstance().getProfileUrl())
@@ -109,73 +112,11 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
                     .apply(RequestOptions.circleCropTransform())
                     .into(image);
 
+        }
+    }
 
     private void editUser() throws JSONException {
-        JSONObject newUserData = new JSONObject();
-        newUserData.put("name", UserSingleton.getInstance().getName());
-        newUserData.put("email", UserSingleton.getInstance().getEmail());
-        newUserData.put("major", major.getText());
-        newUserData.put("description", about.getText());
-        newUserData.put("profilePic", UserSingleton.getInstance().getProfileUrl());
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "editUser", newUserData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        ProfileFrag frag = new ProfileFrag();
-                        Bundle data = new Bundle();
-                        data.putString("userID", UserSingleton.getInstance().getUserID());
-                        frag.setArguments(data);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error connecting", String.valueOf(error));
-            }
-        });
-<<<<<<< HEAD
-=======
-        restSingleton.addToRequestQueue(jsonObjectRequest);
-        ProfileFrag frag = new ProfileFrag();
-        Bundle data = new Bundle();
-        data.putString("userID", EditingProfile.getTag().toString());
-        frag.setArguments(data);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
     }
 
-    /**
-     * Gets the layout components from edit_profile_layout.xml
-     * @return nothing
-     */
-    private void getLayoutComponents() {
-        EditingProfile = (TextView) view.findViewById(R.id.ProfileEditing);
-        majorEditText = (EditText) view.findViewById(R.id.majorEdit);
-        aboutEditText = (EditText) view.findViewById(R.id.aboutMeEdit);
-        saveButton = view.findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(this);
->>>>>>> d3a9e8bb8742267486294a21a384a9b8c8a0523e
-
-        RestSingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
-    }
-<<<<<<< HEAD
-}
-=======
-
-    /**
-     * Adds the textViews that can be edited, which may include
-     * previously added information
-     * @param res The response from the database
-     * @throws JSONException Error in JSON processing
-     * @see JSONException
-     */
-    private void updateUI(JSONObject res) throws JSONException {
-        EditingProfile.setText("Editing Profile:\n" + res.getString("name"));
-        EditingProfile.setTag(res.getString("_id"));
-        majorEditText.setText(res.getString("major"));
-        aboutEditText.setText(res.getString("about"));
-        userData = res;
-    }
 
 }
->>>>>>> d3a9e8bb8742267486294a21a384a9b8c8a0523e
