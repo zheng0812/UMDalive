@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.appBarLayout).setVisibility(View.VISIBLE);
         findViewById(R.id.Content).setVisibility(View.GONE);
 
-        userName.setText(account.getDisplayName());
-        userEmail.setText((account.getEmail()));
+        userName.setText(us.getName());
+        userEmail.setText((us.getEmail()));
     }
 }
