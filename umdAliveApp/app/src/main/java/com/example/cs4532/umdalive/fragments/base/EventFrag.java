@@ -23,9 +23,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Josh on 4/24/2018.
+ * @author Josh Senst
+ *
+ * 4/26/2018
+ *
+ * This class holds the page for the events
  */
-
 public class EventFrag extends Fragment{
 
     //View
@@ -40,6 +43,14 @@ public class EventFrag extends Fragment{
     private FloatingActionButton editEventFAB;
 
 
+    /**
+     * Creates the event page when navigating to it
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The view of the event page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Create View
@@ -73,6 +84,10 @@ public class EventFrag extends Fragment{
 
     }
 
+    /**
+     * Gets the layout components from event_layout.xml
+     * @return nothing
+     */
     private void getLayoutComponents() {
         eventName=view.findViewById(R.id.EventNameView);
         eventDate=view.findViewById(R.id.EventDateView);
@@ -104,6 +119,13 @@ public class EventFrag extends Fragment{
         });
     }
 
+    /**
+     * Updates the UI of the Event page depending on which event had been clicked
+     * @param res The response from the database
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     * @return nothing
+     */
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
         eventName.setText(res.getString("name"));
