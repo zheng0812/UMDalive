@@ -43,7 +43,7 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //Create View
-        view = inflater.inflate(R.layout.edit_club_layou, container, false);
+        view = inflater.inflate(R.layout.edit_event_layout, container, false);
 
         //Get Layout Components
         getLayoutComponents();
