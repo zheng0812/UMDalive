@@ -46,7 +46,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
 
         //Use Volley Singleton to Update Page UI
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getUser/" + getArguments().getString("userID"),
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "/getUser" + getArguments().getString("userID"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
