@@ -24,6 +24,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+/**
+ * A class that creates the page for creating a club
+ *
+ * @author Josh Senst
+ *
+ * 4/26/2018
+ *
+ */
 public class CreateClubFrag extends Fragment {
     View view;
 
@@ -32,6 +40,13 @@ public class CreateClubFrag extends Fragment {
     private EditText ClubDescription;
     private Button save;
 
+    /**
+     * Creates the create club page view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return The view of the create club page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -56,6 +71,10 @@ public class CreateClubFrag extends Fragment {
         return view;
     }
 
+    /**
+     * Gets the layout componenets from create_club_layout.xml
+     * @return nothing
+     */
     private void getLayoutComponents() {
         ClubName = view.findViewById(R.id.createClubName);
         ClubImg = view.findViewById(R.id.createClubImg);
@@ -63,6 +82,12 @@ public class CreateClubFrag extends Fragment {
         save = view.findViewById(R.id.createClubSave);
     }
 
+    /**
+     * Called whenever a user wishes to create a club, and makes the that user and admin
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     * @return nothing
+     */
     private void createClub() throws JSONException {
         JSONObject admin = new JSONObject();
         admin.put("name",UserSingleton.getInstance().getName());
