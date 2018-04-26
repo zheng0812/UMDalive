@@ -6,4 +6,9 @@
 
     <string name="aboutMe"><u>About Me</u></string>
     <string name="myClubs"><u>My Clubs</u></string>
+
+    <string name="upEvents"><u>Upcoming Events</u></string>
+    <string name="clubMem"><u>Members</u></string>
+
+
 </resources>

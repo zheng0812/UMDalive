@@ -13,10 +13,6 @@
             android:icon="@drawable/ic_add"
             android:title="Create Club" />
         <item
-            android:id="@+id/nav_my_clubs"
-            android:icon="@drawable/ic_menu_my_clubs"
-            android:title="My Clubs" />
-        <item
             android:id="@+id/nav_all_clubs"
             android:icon="@drawable/ic_menu_all_clubs"
             android:title="All Clubs" />

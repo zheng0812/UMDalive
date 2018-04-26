@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.UserSingleton;
 import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 import com.example.cs4532.umdalive.fragments.edit.EditEventFrag;
 
@@ -41,6 +42,8 @@ public class EventFrag extends Fragment{
     private TextView eventTime;
     private Button goTo;
     private FloatingActionButton editEventFAB;
+
+    //
 
 
     /**
@@ -117,6 +120,7 @@ public class EventFrag extends Fragment{
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
             }
         });
+
     }
 
     /**
@@ -134,6 +138,9 @@ public class EventFrag extends Fragment{
         eventDescription.setText(res.getString("description"));
         eventTime.setText(res.getString("time"));
         goTo.setTag(res.getString("club").toString());
+        if(UserSingleton.getInstance().getUserID()!=res.getJSONObject("club").getJSONObject("members").getString("admin")){
+            editEventFAB.setVisibility(View.GONE);
+        }
     }
 
 }

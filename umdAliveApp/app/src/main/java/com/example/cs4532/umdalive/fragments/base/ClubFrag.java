@@ -48,19 +48,19 @@ public class ClubFrag extends Fragment{
     View view;
 
     //Layout Components
-    private TextView clubName;
-    private TextView clubDescription;
     private ImageView clubImage;
+    private TextView clubName;
+
+    private Button joinLeave;
+    private TextView clubDescription;
+
     private LinearLayout members;
     private LinearLayout eventsList;
-    private Button Join;
-    private Button Leave;
+
     private FloatingActionButton editClub;
     private FloatingActionButton addEvent;
-    private JSONObject leaveJoinData;
-    private JSONObject clubData;
 
-
+    private JSONObject joinLeaveObj;
 
     /**
      * Creates the page whenever the club page is clicked on
@@ -72,14 +72,44 @@ public class ClubFrag extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        leaveJoinData = new JSONObject();
-
-
-        //Create View
+         //Create View
         view = inflater.inflate(R.layout.club_layout, container, false);
         view.setVisibility(View.GONE);
+
+        joinLeaveObj = new JSONObject();
+
+        try {
+            joinLeaveObj.put("clubID", getArguments().getString("clubID"));
+            joinLeaveObj.put("userID", UserSingleton.getInstance().getUserID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         //Get Layout Components
         getLayoutComponents();
+
+        //On Click
+        editClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditClubFrag frag = new EditClubFrag();
+                Bundle data = new Bundle();
+                data.putString("clubID", clubName.getTag().toString());
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            }
+        });
+
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateEventFrag frag = new CreateEventFrag();
+                Bundle data = new Bundle();
+                data.putString("clubID", clubName.getTag().toString());
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            }
+        });
 
         //Use Volley Singleton to Update Page UI
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
@@ -111,92 +141,25 @@ public class ClubFrag extends Fragment{
      * @return nothing
      */
     private void getLayoutComponents() {
+        clubImage = view.findViewById(R.id.clubImage);
         clubName = (TextView) view.findViewById(R.id.ClubNameView);
         clubDescription = (TextView) view.findViewById(R.id.DescriptionView);
-        clubImage = view.findViewById(R.id.clubImage);
-
-        members = (LinearLayout) view.findViewById(R.id.MembersLayout);
-        eventsList = (LinearLayout) view.findViewById(R.id.EventsLayout);
-        Join = (Button) view.findViewById(R.id.ClubJoin);
-        Join.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "joinClub/", leaveJoinData,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error connecting", String.valueOf(error));
-                    }
-                });
-                ClubFrag frag = new ClubFrag();
-                Bundle data = new Bundle();
-                try {
-                    data.putString("clubID", clubData.getString("_id"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                frag.setArguments(data);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-
-            }
-        });
-        Leave = (Button) view.findViewById(R.id.ClubLeave);
-        Leave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "leaveClub/", leaveJoinData,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error connecting", String.valueOf(error));
-                    }
-                });
-                ClubFrag frag = new ClubFrag();
-                Bundle data = new Bundle();
-                try {
-                    data.putString("clubID", clubData.getString("_id"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                frag.setArguments(data);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-            }
-        });
+        joinLeave= (Button) view.findViewById(R.id.ClubJoinLeave);
+        members = (LinearLayout) view.findViewById(R.id.memberList);
+        eventsList = (LinearLayout) view.findViewById(R.id.eventsList);
         editClub = (FloatingActionButton) view.findViewById(R.id.EditClub);
-        editClub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditClubFrag frag = new EditClubFrag();
-                Bundle data = new Bundle();
-                data.putString("clubID", clubName.getTag().toString());
-                frag.setArguments(data);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-            }
-        });
         addEvent = (FloatingActionButton) view.findViewById(R.id.AddEvent);
-        addEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CreateEventFrag frag = new CreateEventFrag();
-                Bundle data = new Bundle();
-                data.putString("clubID", clubName.getTag().toString());
-                frag.setArguments(data);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-            }
-        });
     }
+
+    /**
+     * {"name":"",
+     * "description":"",
+     * "members":{
+     * "admin":{"name":"","userID":""},
+     * "regular":[]
+     * },
+     * "events":[]}
+     */
 
     /**
      * Adds the club information to the page depending on which club was clicked. Inside there are several onClicks relevant to different items in lists being
@@ -209,141 +172,164 @@ public class ClubFrag extends Fragment{
         view.setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
 
-        clubData = res;
+        clubName.setText(res.getString("name"));
+        clubName.setTag(res.getString("_id"));
 
-        if (clubData.get("profilePicture") == null) {
-            Glide.with(this)
-                    .load(UserSingleton.getInstance().getProfileUrl())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(clubImage);
-        } else {
-            Glide.with(this)
-                    .load("http://cdn3.radioflyer.com/media/catalog/product/cache/1/image/800x800/9df78eab33525d08d6e5fb8d27136e95/c/l/classic-red-wagon-model-18_1_3_1.jpg")
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(clubImage);
-        }
+        clubDescription.setText(res.getString("description"));
 
-        Boolean found = false;
+        JSONObject memberJson = res.getJSONObject("members");
+
+        JSONArray regulars = memberJson.getJSONArray("regular");
+        final JSONObject admins = memberJson.getJSONObject("admin");
+
+        JSONArray events = res.getJSONArray("events");
 
         String userID = UserSingleton.getInstance().getUserID();
 
-        clubName.setText(clubData.getString("name"));
-        clubName.setTag(clubData.getString("_id"));
-        clubDescription.setText(clubData.getString("description"));
 
-        JSONObject memberJson = clubData.getJSONObject("members");
-
-        JSONArray regulars = memberJson.getJSONArray("regular");
-        JSONObject admins = memberJson.getJSONObject("admin");
-
-        JSONArray events = clubData.getJSONArray("events");
-
-        LinearLayout hla = new LinearLayout(view.getContext());
-        hla.setOrientation(LinearLayout.HORIZONTAL);
-
-        if(admins.getString("userID")!=userID){
-            editClub.setVisibility(View.GONE);
-            addEvent.setVisibility(view.GONE);
-        }
-
-        TextView memberAdmin = new TextView(view.getContext());
-        TextView admin = new TextView(view.getContext());
-
-        admin.setText("admin");
-        admin.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        admin.setGravity(Gravity.RIGHT);
-        admin.setWidth(members.getWidth()/2);
-
-        memberAdmin.setText(admins.getString("name"));
-        if(admins.getString("userID")==userID){
-            found = true;
-        }
-
-        memberAdmin.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        memberAdmin.setWidth(members.getWidth()/2);
-        memberAdmin.setTag(admins.getString("userID"));
-        memberAdmin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String TAG = (String) v.getTag();
-                    ProfileFrag frag = new ProfileFrag();
-                    Bundle data = new Bundle();
-                    data.putString("userID", TAG);
-                    frag.setArguments(data);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                }
-            });
-
-        hla.addView(memberAdmin);
-        hla.addView(admin);
-
-        members.addView(hla);
-
-        for (int i=0;i<regulars.length();i++){
-            String name = regulars.getJSONObject(i).getString("name");
-
-            TextView member = new TextView(view.getContext());
-            member.setText(name);
-            member.setTextSize(16);
-            member.setTag(regulars.getJSONObject(i).getString("userID"));
-            if(regulars.getJSONObject(i).getString("userID")==userID){
-                found = true;
+        joinLeave.setText("Join CLub");
+        joinLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                joinClub();
             }
-            member.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String TAG = (String) v.getTag();
-                    ProfileFrag frag = new ProfileFrag();
-                    Bundle data = new Bundle();
-                    data.putString("userID", TAG);
-                    frag.setArguments(data);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                }
-            });
-            members.addView(member);
-        }
-        if(events != null) {
-            eventsList.setVisibility(View.VISIBLE);
+        });
+
             for (int i = 0; i < events.length(); i++) {
-                LinearLayout hl = new LinearLayout(view.getContext());
-                hl.setOrientation(LinearLayout.HORIZONTAL);
-                String name = events.getJSONObject(i).getString("name");
-                String day = events.getJSONObject(i).getString("date");
-                String id = events.getJSONObject(i).getString("_id").toString();
-                TextView event = new TextView(view.getContext());
-                TextView date = new TextView(view.getContext());
-                date.setText(day);
-                date.setTextSize(16);
-                date.setGravity(Gravity.RIGHT);
-                date.setWidth(members.getWidth()/2);
-                event.setText(name);
-                event.setTextSize(16);
-                event.setWidth(members.getWidth()/2);
-                event.setOnClickListener(new View.OnClickListener() {
+                final JSONObject event = events.getJSONObject(i);
+
+                String name = event.getString("name");
+                String day = event.getString("date");
+
+                TextView eventText = new TextView(view.getContext());
+
+                eventText.setText(name + " : " +day);
+                eventText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                eventText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String TAG = (String) v.getTag();
                         EventFrag frag = new EventFrag();
                         Bundle data = new Bundle();
-                        data.putString("eventID", TAG);
+                        try {
+                            data.putString("eventID", event.get("_id").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         frag.setArguments(data);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
                     }       });
-                event.setTag(id);
-                hl.addView(event);
-                hl.addView(date);
-                eventsList.addView(hl);
-            }
-        }
-        if(found == true){
-            Join.setVisibility(View.GONE);
-        }else{
-            Leave.setVisibility(view.GONE);
-        }
-        leaveJoinData.put("userID",userID);
-        leaveJoinData.put("clubID",res.getString("_id"));
-        Log.d("USERID",userID);
-        Log.d("CLUBID",res.getString("_id"));
 
+                eventsList.addView(eventText);
+            }
+
+
+
+        if(admins.getString("userID").equals(userID)){
+            editClub.setVisibility(View.VISIBLE);
+            addEvent.setVisibility(view.VISIBLE);
+            joinLeave.setVisibility(View.GONE);
+        }
+
+        TextView adminText = new TextView(view.getContext());
+        adminText.setText(admins.get("name").toString() + " : ADMIN");
+        adminText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        adminText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFrag frag = new ProfileFrag();
+                Bundle data = new Bundle();
+                try {
+                    data.putString("userID", admins.get("userID").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            }
+        });
+        members.addView(adminText);
+
+        for (int i=0;i<regulars.length();i++){
+            final JSONObject member = regulars.getJSONObject(i);
+            TextView memberText = new TextView(view.getContext());
+            memberText.setText(member.get("name").toString());
+            memberText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            System.out.println(member.get("userID").toString() +" : "+ userID);
+            if(member.get("userID").toString().equals(userID)){
+                joinLeave.setText("Leave Club");
+                joinLeave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        leaveClub();
+                    }
+                });
+            }
+
+            memberText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProfileFrag frag = new ProfileFrag();
+                    Bundle data = new Bundle();
+                    try {
+                        data.putString("userID", member.get("userID").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    frag.setArguments(data);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                }
+            });
+            members.addView(memberText);
+        }
+    }
+
+    private void joinClub() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "joinClub", joinLeaveObj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        joinLeave.setText("Leave Club");
+                        joinLeave.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                leaveClub();
+                            }
+                        });
+
+                        TextView userText = new TextView(view.getContext());
+                        userText.setText(UserSingleton.getInstance().getName());
+                        userText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
+                        members.addView(userText);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+
+        RestSingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void leaveClub() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "leaveClub", joinLeaveObj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ProfileFrag frag = new ProfileFrag();
+                        Bundle data = new Bundle();
+                        data.putString("userID", UserSingleton.getInstance().getUserID());
+                        frag.setArguments(data);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+
+        RestSingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }

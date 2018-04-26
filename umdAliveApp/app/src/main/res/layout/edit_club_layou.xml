@@ -87,7 +87,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/holo_red_dark"
-        android:text="Delete Club \n (This Action cannot be undone)"
+        android:text="Delete Club"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
