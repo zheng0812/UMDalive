@@ -5,33 +5,36 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 public class UserSingleton {
 
     private GoogleSignInAccount account;
-    private static UserSingleton instance;
+
+    private static final UserSingleton instance = new UserSingleton();
 
     private UserSingleton (){}
 
     public static synchronized UserSingleton getInstance() {
-        if (instance == null) {
-            return new UserSingleton();
-        } else {
-            return instance;
-        }
+        return instance;
     }
 
-    public void setUserID(GoogleSignInAccount a) {
-        account = a;
+    public void setAccount(GoogleSignInAccount a) {
+        instance.account = a;
     }
 
     public String getUserID () {
-        return account.getId();
+        return instance.account.getId();
     }
 
     public String getName () {
-        return account.getDisplayName();
+        return instance.account.getDisplayName();
     }
 
-    public String getEmail() { return account.getEmail(); }
+    public String getEmail() {
+        return instance.account.getEmail();
+    }
 
     public String getProfileUrl() {
-        return account.getPhotoUrl().toString();
+        if (instance.account.getPhotoUrl() != null) {
+            return instance.account.getPhotoUrl().toString();
+        } else {
+            return null;
+        }
     }
 }
