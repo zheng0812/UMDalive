@@ -41,6 +41,7 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     private TextView EditingClub;
     private EditText NewClubName;
     private EditText NewClubDescription;
+    private EditText NewImageURL;
     private Button SaveButton;
 
     private JSONObject clubData;
@@ -106,6 +107,13 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
+        if(NewImageURL.getText().toString().trim().length()!=0){
+            try{
+                clubData.put("profilePic",NewImageURL.getText().toString());
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editClub/", clubData,
                 new Response.Listener<JSONObject>() {
@@ -135,6 +143,7 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         EditingClub = view.findViewById(R.id.ClubEditing);
         NewClubName = view.findViewById(R.id.NewClubName);
         NewClubDescription = view.findViewById(R.id.NewClubDescription);
+        NewImageURL = view.findViewById(R.id.NewImageURL);
         SaveButton = view.findViewById(R.id.SaveClub);
         SaveButton.setOnClickListener(this);
     }
@@ -150,6 +159,7 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         EditingClub.setTag(res.getString("_id"));
         NewClubName.setText(res.getString("name"));
         NewClubDescription.setText(res.getString("description"));
+        NewImageURL.setText(res.getString("profilePic"));
         clubData = res;
 
     }

@@ -64,11 +64,27 @@ public class EditProfileFrag extends Fragment {
         //Get Layout Components
         getLayoutComponents();
 
+
+        //Use Volley Singleton to Update Page UI
+        RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "/getUser" + getArguments().getString("userID"),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            updateUI(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
         loadProfileImage();
 
         name.setText(UserSingleton.getInstance().getName());
 
         save.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (major.getText().length() > 0 && about.getText().length() > 0) {
