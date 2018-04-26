@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.base.AllClubsFrag;
 import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 
 import org.json.JSONException;
@@ -118,6 +119,10 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
             restSingleton.addToRequestQueue(stringRequest);
+            AllClubsFrag frag = new AllClubsFrag();
+            Bundle data = new Bundle();
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
         } else {
             if (NewClubName.getText().toString().trim().length() != 0) {
                 try {

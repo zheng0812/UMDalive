@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.base.ClubFrag;
 import com.example.cs4532.umdalive.fragments.base.EventFrag;
 
 import org.json.JSONException;
@@ -45,6 +46,7 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     private EditText NewEventTime;
     private EditText NewEventDate;
     private Button SaveButton;
+    private Button DeleteEvent;
 
     private JSONObject eventData;
 
@@ -95,50 +97,89 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-        if(NewEventName.getText().toString().trim().length()!=0){
+        if(v.getTag()=="DELETE"){
+            String clubid = new String();
             try {
-                eventData.put("name",NewEventName.getText().toString());
+                clubid =  eventData.getString("_id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }if(NewEventDescription.getText().toString().trim().length()!=0){
-            try {
-                eventData.put("description",NewEventDescription.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }if(NewEventDate.getText().toString().trim().length()!=0){
-            try {
-                eventData.put("date",NewEventDate.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }if(NewEventTime.getText().toString().trim().length()!=0){
-            try {
-                eventData.put("time",NewEventTime.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editEvent/", eventData,
-                new Response.Listener<JSONObject>() {
+            RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+            StringRequest stringRequest = null;
+            
+                stringRequest = new StringRequest(Request.Method.DELETE, restSingleton.getUrl() + "deleteEvent/" + clubid,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    updateUI(new JSONObject(response));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
                     @Override
-                    public void onResponse(JSONObject response) {
-
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error connecting", String.valueOf(error));
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error connecting", String.valueOf(error));
+                });
+            
+            restSingleton.addToRequestQueue(stringRequest);
+            ClubFrag frag = new ClubFrag();
+            Bundle data = new Bundle();
+            data.putString("clubID", clubid);
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            
+        }else {
+            if (NewEventName.getText().toString().trim().length() != 0) {
+                try {
+                    eventData.put("name", NewEventName.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        });
-        restSingleton.addToRequestQueue(jsonObjectRequest);
-        EventFrag frag = new EventFrag();
-        Bundle data = new Bundle();
-        data.putString("eventID", EditingEvent.getTag().toString());
-        frag.setArguments(data);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+            if (NewEventDescription.getText().toString().trim().length() != 0) {
+                try {
+                    eventData.put("description", NewEventDescription.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (NewEventDate.getText().toString().trim().length() != 0) {
+                try {
+                    eventData.put("date", NewEventDate.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (NewEventTime.getText().toString().trim().length() != 0) {
+                try {
+                    eventData.put("time", NewEventTime.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editEvent/", eventData,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("Error connecting", String.valueOf(error));
+                }
+            });
+            restSingleton.addToRequestQueue(jsonObjectRequest);
+            EventFrag frag = new EventFrag();
+            Bundle data = new Bundle();
+            data.putString("eventID", EditingEvent.getTag().toString());
+            frag.setArguments(data);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+        }
 
     }
 
@@ -154,6 +195,8 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
         NewEventTime = view.findViewById(R.id.EventTime);
         SaveButton = view.findViewById(R.id.SaveEvent);
         SaveButton.setOnClickListener(this);
+        DeleteEvent.setOnClickListener(this);
+        DeleteEvent.setTag("DELETE");
     }
 
     /**
