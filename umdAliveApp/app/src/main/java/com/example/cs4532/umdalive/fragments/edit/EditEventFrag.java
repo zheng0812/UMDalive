@@ -144,7 +144,7 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * Gets the layout compenents from edit_event_layout.xml
+     * Gets the layout components from edit_event_layout.xml
      * @return nothing
      */
     private void getLayoutComponents() {

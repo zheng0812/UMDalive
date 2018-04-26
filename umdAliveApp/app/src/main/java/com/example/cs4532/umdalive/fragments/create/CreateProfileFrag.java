@@ -27,6 +27,13 @@ import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * @author Ross Schultz
+ *
+ * 4/26/2018
+ *
+ * Class that creates the page to make a profile
+ */
 public class CreateProfileFrag extends Fragment {
 
     //View
@@ -39,6 +46,13 @@ public class CreateProfileFrag extends Fragment {
     private Button save;
 
 
+    /**
+     * Creates the create profile page view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The view of the Create profile page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -69,6 +83,10 @@ public class CreateProfileFrag extends Fragment {
         return view;
     }
 
+    /**
+     * Gets the layout components from create_profile_layout.xml
+     * @return nothing
+     */
     //Sets the Text views of the profile layout
     private void getLayoutComponents() {
         profileImage = view.findViewById(R.id.profileImage);
@@ -78,6 +96,11 @@ public class CreateProfileFrag extends Fragment {
         save = view.findViewById(R.id.save);
     }
 
+    /**
+     * Loads the image used as a profile picture for the user, which is taken from their Google profile
+     * If a user does not have a profile picture, it defaults to an image of a wagon
+     * @return nothing
+     */
     private void loadProfileImage () {
         if (UserSingleton.getInstance().getProfileUrl() != null) {
             Glide.with(this)
@@ -92,6 +115,12 @@ public class CreateProfileFrag extends Fragment {
         }
     }
 
+    /**
+     * Upon sign-in this will create the user, and put their information into one of the application's profiles.
+     * @throws JSONException Error in JSON Processing
+     * @see JSONException
+     * @return nothing
+     */
     private void createUser() throws JSONException {
         JSONObject user = new JSONObject();
         user.put("name", UserSingleton.getInstance().getName());
