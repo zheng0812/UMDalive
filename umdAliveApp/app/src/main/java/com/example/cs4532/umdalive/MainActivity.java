@@ -148,16 +148,6 @@ public class MainActivity extends AppCompatActivity
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
 
-        } else if (id == R.id.nav_my_clubs) {
-            //Show loading bar
-            findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
-            //Add Club Fragment
-            ClubFrag frag = new ClubFrag();
-            Bundle data = new Bundle();
-            data.putString("clubID", "5acf6feaa2e8862b20ca6dbe");
-            frag.setArguments(data);
-            getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
-
         } else if (id == R.id.nav_all_clubs) {
             //Show loading bar
             findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
