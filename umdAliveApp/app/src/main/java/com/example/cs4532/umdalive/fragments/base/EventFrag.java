@@ -1,6 +1,7 @@
 package com.example.cs4532.umdalive.fragments.base;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class EventFrag extends Fragment implements View.OnClickListener{
     private TextView eventDate;
     private TextView eventTime;
     private Button goTo;
+    private FloatingActionButton editEventFAB;
 
 
     @Override
@@ -78,6 +80,10 @@ public class EventFrag extends Fragment implements View.OnClickListener{
         data.putString("clubID", TAG);
         frag.setArguments(data);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+    }
+
+    public void editClick(View v){
+
 
     }
 
@@ -88,6 +94,8 @@ public class EventFrag extends Fragment implements View.OnClickListener{
         eventTime=view.findViewById(R.id.EventTimeView);
         goTo=view.findViewById(R.id.GoToClub);
         goTo.setOnClickListener(this);
+        editEventFAB=view.findViewById(R.id.EditEventFAB);
+        editEventFAB.setOnClickListener(this);
     }
 
     private void updateUI(JSONObject res) throws JSONException{
