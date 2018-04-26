@@ -45,6 +45,8 @@ public class CreateProfileFrag extends Fragment {
         //Create View
         view = inflater.inflate(R.layout.create_profile_layout, container, false);
 
+        getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
+
         getLayoutComponents();
 
         loadProfileImage();
@@ -54,7 +56,7 @@ public class CreateProfileFrag extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (major.getText() != null && about.getText() != null) {
+                if (major.getText().length() > 0 && about.getText().length() > 0) {
                     try {
                         createUser();
                     } catch (JSONException e) {
@@ -97,11 +99,15 @@ public class CreateProfileFrag extends Fragment {
         user.put("major", major.getText());
         user.put("userID", UserSingleton.getInstance().getUserID());
         user.put("description", about.getText());
+        user.put("profilePic", UserSingleton.getInstance().getProfileUrl());
+
+        System.out.println(user);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "createUser", user,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        System.out.println("Jdfhlaskdjh falksdjfha lksdjfha lksjdhflkja hefioauehf lkja sdhflkajshdfl kjaheiuahysd kvnbkjzhfldkjahf ieuasdklfjh alkjdhf ieouhf adbf lkajhdflkjyeaiou absdklfjh adkhaoi euh alkdjhflkjschve");
                         ProfileFrag frag = new ProfileFrag();
                         Bundle data = new Bundle();
                         data.putString("userID", UserSingleton.getInstance().getUserID());
