@@ -30,6 +30,11 @@ import org.json.JSONObject;
  * Requires argument with key of userID to be passed into it before it is added to the frame layout
  */
 
+/**
+ * @author Ross Schultz
+ *
+ * Class that creates the profile page
+ */
 public class ProfileFrag extends Fragment{
 
     //View
@@ -43,6 +48,14 @@ public class ProfileFrag extends Fragment{
     private ImageView profileImage;
     private FloatingActionButton editProfile;
 
+    /**
+     * Creates the view of the profile when navigating to it
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The view of the profile page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -88,6 +101,10 @@ public class ProfileFrag extends Fragment{
         return view;
     }
 
+    /**
+     * Gets the layout components from profile_layout.xml
+     * @return nothing
+     */
     //Sets the Text views of the profile layout
     private void getLayoutComponents() {
         profileName = (TextView) view.findViewById(R.id.profileName);
@@ -108,6 +125,12 @@ public class ProfileFrag extends Fragment{
         });
     }
 
+    /**
+     * Adds the name, major, and about of the profile of the member
+     * @param res The response from the database
+     * @throws JSONException error in JSON processing
+     * @see JSONException
+     */
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
