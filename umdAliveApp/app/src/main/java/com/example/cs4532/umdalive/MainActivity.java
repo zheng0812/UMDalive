@@ -16,9 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cs4532.umdalive.fragments.AllClubsFrag;
-import com.example.cs4532.umdalive.fragments.ClubFrag;
-import com.example.cs4532.umdalive.fragments.ProfileFrag;
+import com.example.cs4532.umdalive.fragments.base.AllClubsFrag;
+import com.example.cs4532.umdalive.fragments.base.ClubFrag;
+import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
