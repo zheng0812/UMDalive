@@ -1,5 +1,5 @@
 
-package com.example.cs4532.umdalive.fragments;
+package com.example.cs4532.umdalive.fragments.edit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.base.ProfileFrag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,7 +117,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
     private void updateUI(JSONObject res) throws JSONException {
         EditingProfile.setText("Editing Profile:\n" + res.getString("name"));
         EditingProfile.setTag(res.getString("_id"));
-        majorEditText.setText(res.getString("name"));
+        majorEditText.setText(res.getString("major"));
         aboutEditText.setText(res.getString("about"));
         userData = res;
     }

@@ -16,9 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-//import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
  * Requires argument with key of userID to be passed into it before it is added to the frame layout
  */
 
-public class ProfileFrag extends Fragment implements View.OnClickListener {
+public class ProfileFrag extends Fragment{
 
     //View
     View view;
@@ -83,11 +84,6 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    @Override
-    public void onClick(View clickedView) {
-
-    }
-
     //Sets the Text views of the profile layout
     private void getLayoutComponents() {
         profileName = (TextView) view.findViewById(R.id.profileName);
@@ -118,12 +114,23 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         for(int i = 0; i<clubArray.length();i++){
             TextView club = new TextView(view.getContext());
             club.setText(clubArray.getString(i));
-            club.setOnClickListener(this);
+            club.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String TAG = (String) v.getTag();
+                    ClubFrag frag = new ClubFrag();
+                    Bundle data = new Bundle();
+                    data.putString("clubID", TAG);
+                    frag.setArguments(data);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                }
+            });
             profileClubs.addView(club);
         }
+
         Glide.with(getContext())
                 .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
-                //.apply(RequestOptions.circleCropTransform())
+                .apply(RequestOptions.circleCropTransform())
                 .into(profileImage);
 
     }
