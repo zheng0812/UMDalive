@@ -1,4 +1,4 @@
-# UMD Alive
+# UMD Alive v 1.0
 
 A five-person project, the Bagel Bois branch and application of UMD Alive is an off-shoot of the main branch version that functions similarly to the original, but works logistically different. UMD Alive meant for the use on the University of Minnesota-Duluth campus, and is designed specifically in-mind to work on bringing club information to the forefront, and make it easy to join, create, and find clubs. It is a platform for all of the on-campus clubs and students so that everyone can find a fun group with similar interests to join.
 
@@ -70,6 +70,7 @@ UMD Alive should be able to run on most Android devices, as long as they are run
  - Android Studio Version last tested to work: 3.1
  - Minimum Android SDK Version: 15+ (minimum Ice Cream Sandwich 4.0.3)
  - Target SDK Version: 27
+ - Compile SDK Version: 27
  - Utilizes Google OAuth API for login
  
  To run this application, you must connect to an instance of the node server with the MongoDB. The url must be changed in the application if you are not running with the original server.
