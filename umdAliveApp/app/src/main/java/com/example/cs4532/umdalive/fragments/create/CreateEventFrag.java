@@ -1,4 +1,4 @@
-package com.example.cs4532.umdalive.fragments.edit;
+package com.example.cs4532.umdalive.fragments.create;
 
 /**
  * Created by Josh on 4/25/2018.

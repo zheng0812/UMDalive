@@ -277,14 +277,14 @@ public class ClubFrag extends Fragment{
                         data.putString("eventID", TAG);
                         frag.setArguments(data);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                    }
-                });
+                    }       });
                 event.setTag(id);
                 hl.addView(event);
                 hl.addView(date);
                 eventsList.addView(hl);
             }
         }
+        Log.d("found",found.toString());
         if(found == true){
             Join.setVisibility(View.GONE);
         }else{

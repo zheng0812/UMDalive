@@ -47,7 +47,7 @@ public class ProfileFrag extends Fragment{
     private TextView profileAbout;
     private LinearLayout profileClubs;
     private ImageView profileImage;
-    private FloatingActionButton editProfile;
+    private FloatingActionButton profileEdit;
 
     /**
      * Creates the view of the profile when navigating to it
@@ -64,6 +64,24 @@ public class ProfileFrag extends Fragment{
 
         //Get Layout Components
         getLayoutComponents();
+
+        if (getArguments().getString("userID") == UserSingleton.getInstance().getUserID()) {
+            profileEdit.setVisibility(View.VISIBLE);
+        } else {
+            profileEdit.setVisibility(View.GONE);
+        }
+
+        profileEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditProfileFrag frag = new EditProfileFrag();
+                Bundle data = new Bundle();
+                data.putString("major", profileMajor.getText().toString());
+                data.putString("about", profileAbout.getText().toString());
+                frag.setArguments(data);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+            }
+        });
 
         //Use Volley Singleton to Update Page UI
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
@@ -108,17 +126,7 @@ public class ProfileFrag extends Fragment{
         profileAbout = view.findViewById(R.id.profileAbout);
         profileImage = view.findViewById(R.id.profileImage);
         profileClubs = view.findViewById(R.id.profileClubs);
-        editProfile = view.findViewById(R.id.editProfile);
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditProfileFrag frag = new EditProfileFrag();
-                Bundle data = new Bundle();
-                data.putString("userID", getArguments().getString("userID"));
-                frag.setArguments(data);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
-            }
-        });
+        profileEdit = view.findViewById(R.id.profileEdit);
     }
 
     /**
@@ -130,6 +138,18 @@ public class ProfileFrag extends Fragment{
     //Updates the layout so current information is visible
     private void updateUI(JSONObject res) throws JSONException{
         getActivity().findViewById(R.id.PageLoading).setVisibility(View.GONE);
+
+        if (UserSingleton.getInstance().getProfileUrl() != null) {
+            Glide.with(this)
+                    .load(UserSingleton.getInstance().getProfileUrl())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profileImage);
+        } else {
+            Glide.with(this)
+                    .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profileImage);
+        }
 
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
@@ -154,17 +174,7 @@ public class ProfileFrag extends Fragment{
             profileClubs.addView(club);
         }
 
-        if (UserSingleton.getInstance().getProfileUrl() != null) {
-            Glide.with(this)
-                    .load(UserSingleton.getInstance().getProfileUrl())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profileImage);
-        } else {
-            Glide.with(this)
-                    .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profileImage);
-        }
+
 
     }
 }
