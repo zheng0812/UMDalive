@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
@@ -34,6 +35,8 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     private EditText NewClubName;
     private EditText NewClubDescription;
     private Button SaveButton;
+
+    private JSONObject clubData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +73,39 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(NewClubName.getText().toString().trim().length()!=0){
+            try {
+                clubData.put("name",NewClubName.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if(NewClubDescription.getText().toString().trim().length()!=0){
+            try {
+                clubData.put("description",NewClubDescription.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editClub/", clubData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(jsonObjectRequest);
+        ClubFrag frag = new ClubFrag();
+        Bundle data = new Bundle();
+        data.putString("clubID", EditingClub.getTag().toString());
+        frag.setArguments(data);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
     }
 
     private void getLayoutComponents() {
@@ -81,9 +116,10 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
         SaveButton.setOnClickListener(this);
     }
 
-    private void updateUI(JSONObject res) throws JSONException{
-
+    private void updateUI(JSONObject res) throws JSONException {
         EditingClub.setText("Editing Club:\n" + res.getString("name"));
+        EditingClub.setTag(res.getString("_id"));
+        clubData = res;
 
     }
 }
