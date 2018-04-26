@@ -68,7 +68,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
+    @Override
     public void onClick(View view) {
         if(majorEditText.getText().toString().trim().length()!=0){
             try {

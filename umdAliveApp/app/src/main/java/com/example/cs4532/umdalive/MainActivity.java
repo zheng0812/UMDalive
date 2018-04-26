@@ -31,6 +31,13 @@ import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 
+/**
+ * @author Devin Cheek
+ * 4/26/2018
+ *
+ * Class that is the basic framework for all fragment. It includes
+ * the basic navigation, handles Google Sign-in, and loads all fragments.
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -46,6 +53,11 @@ public class MainActivity extends AppCompatActivity
     TextView userEmail;
     ImageView userImage;
 
+    /**
+     * Loads up the entire app on login
+     * @param savedInstanceState The Instance saved by the user from last login
+     * @return nothing
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +94,10 @@ public class MainActivity extends AppCompatActivity
         userImage = headerView.findViewById(R.id.user_image);
     }
 
+    /**
+     * Allows navigator to be closed in any fragment of the app
+     * @return nothing
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -92,6 +108,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Creates the navigation bar and menu
+     * @param menu The navigation menu
+     * @return true, allowing the bar to created
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -99,6 +120,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Allows the switching between fragments via the navigation bar
+     * @param item The menu item selected in the navigation bar
+     * @return true, or the option selected
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -112,7 +138,7 @@ public class MainActivity extends AppCompatActivity
             //Add Profile Fragment
             ProfileFrag frag = new ProfileFrag();
             Bundle data = new Bundle();
-            data.putString("userID", "5accd44fb22f6712f23cf18b");
+            data.putString("userID", "12345");
             frag.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
 
@@ -148,6 +174,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Used only when the sign-in button pressed, allowing it to be clicked.
+     * @param v, the view clicked
+     * @return nothing
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -158,12 +189,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Allows a user to sign-in to the app, utilizing the Google Response code of 9001
+     * to continue
+     * @return nothing
+     */
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
 
+    /**
+     * Allows a user to sign-out of the app when clicking on the sign-out option in the
+     * navigation bar.
+     * @return nothing
+     */
     private void signOut() {
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -179,6 +220,12 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
+    /**
+     * Whenever a user sign-ins, this will be called to sort information given
+     * @param requestCode Code requested from sign-in
+     * @param resultCode Code acquired from sign-in
+     * @param data Data of user that signed-in
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -192,6 +239,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Tests whether or not the sign-in was successful, and handles it on the basis of
+     * the result
+     * @param completedTask The task of the Google sign-in
+     */
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -210,6 +262,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Updates the UI depending on the user that has logged-in,
+     * and opens their profile page
+     * @param account The user's account
+     * @throws IOException
+     */
     private void updateUI(GoogleSignInAccount account) throws IOException {
         UserSingleton.getInstance().setAccount(account);
         UserSingleton us = UserSingleton.getInstance();
@@ -221,7 +279,7 @@ public class MainActivity extends AppCompatActivity
         //Add Profile Fragment
         ProfileFrag frag = new ProfileFrag();
         Bundle data = new Bundle();
-        data.putString("userID", "5accd44fb22f6712f23cf18b");
+        data.putString("userID", "12345");
         frag.setArguments(data);
         getSupportFragmentManager().beginTransaction().replace(fragContainer.getId(),frag).commit();
 
