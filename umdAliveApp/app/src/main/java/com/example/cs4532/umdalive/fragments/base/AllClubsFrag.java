@@ -41,7 +41,7 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return The view of All Clubs
+     * @return view The view of All Clubs
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

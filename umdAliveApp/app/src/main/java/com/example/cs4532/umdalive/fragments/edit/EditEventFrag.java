@@ -27,6 +27,14 @@ import org.json.JSONObject;
  * Created by Josh on 4/25/2018.
  */
 
+/**
+ * @author Josh Senst
+ *
+ * 4/26/2018
+ *
+ * Class that allows for the editing of events on the edit events page
+ */
+
 public class EditEventFrag  extends Fragment implements View.OnClickListener {
     //View
     View view;
@@ -35,10 +43,19 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     private TextView EditingEvent;
     private EditText NewEventName;
     private EditText NewEventDescription;
+    private EditText NewEventTime;
+    private EditText NewEventDate;
     private Button SaveButton;
 
     private JSONObject eventData;
 
+    /**
+     * Creates the page for Editing Events when the edit events button is pressed
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view The View of the edit events page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -72,6 +89,11 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    /**
+     * Allows for the clicked to edit on the text box
+     * @param v The textView clicked
+     * @return nothing
+     */
     @Override
     public void onClick(View v) {
         if(NewEventName.getText().toString().trim().length()!=0){
@@ -80,10 +102,21 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        if(NewEventDescription.getText().toString().trim().length()!=0){
+        }if(NewEventDescription.getText().toString().trim().length()!=0){
             try {
                 eventData.put("description",NewEventDescription.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }if(NewEventDate.getText().toString().trim().length()!=0){
+            try {
+                eventData.put("date",NewEventDate.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }if(NewEventTime.getText().toString().trim().length()!=0){
+            try {
+                eventData.put("time",NewEventTime.getText().toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -110,19 +143,33 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Gets the layout components from edit_event_layout.xml
+     * @return nothing
+     */
     private void getLayoutComponents() {
         EditingEvent = view.findViewById(R.id.EventEditing);
         NewEventName = view.findViewById(R.id.NewEventName);
         NewEventDescription = view.findViewById(R.id.NewEventDescription);
+        NewEventDate = view.findViewById(R.id.NewEventDate);
+        NewEventTime = view.findViewById(R.id.NewEventTime);
         SaveButton = view.findViewById(R.id.SaveEvent);
         SaveButton.setOnClickListener(this);
     }
 
+    /**
+     * Adds the textView boxes from the database into the page
+     * @param res The response from the database
+     * @throws JSONException Error in JSON processing
+     * @see JSONException
+     */
     private void updateUI(JSONObject res) throws JSONException{
         EditingEvent.setText("Editing Event:\n"+res.getString("name"));
         EditingEvent.setTag(res.getString("_id"));
         NewEventName.setText(res.getString("name"));
         NewEventDescription.setText(res.getString("description"));
+        NewEventTime.setText(res.getString("time"));
+        NewEventDate.setText(res.getString("date"));
         eventData = res;
     }
 }
