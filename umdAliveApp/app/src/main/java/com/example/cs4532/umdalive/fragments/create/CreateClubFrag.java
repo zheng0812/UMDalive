@@ -118,7 +118,7 @@ public class CreateClubFrag extends Fragment {
                         ClubFrag frag = new ClubFrag();
                         Bundle data = new Bundle();
                         try {
-                            data.putString("clubID", response.getString("_id"));
+                            data.putString("clubID", response.getString("clubID"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
