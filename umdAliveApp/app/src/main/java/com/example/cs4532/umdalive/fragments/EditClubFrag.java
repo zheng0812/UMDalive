@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -109,7 +108,7 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     }
 
     private void getLayoutComponents() {
-        EditingClub = view.findViewById(R.id.Editing);
+        EditingClub = view.findViewById(R.id.ClubEditing);
         NewClubName = view.findViewById(R.id.NewClubName);
         NewClubDescription = view.findViewById(R.id.NewClubDescription);
         SaveButton = view.findViewById(R.id.SaveClub);
@@ -119,6 +118,8 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     private void updateUI(JSONObject res) throws JSONException {
         EditingClub.setText("Editing Club:\n" + res.getString("name"));
         EditingClub.setTag(res.getString("_id"));
+        NewClubName.setText(res.getString("name"));
+        NewClubDescription.setText(res.getString("description"));
         clubData = res;
 
     }
