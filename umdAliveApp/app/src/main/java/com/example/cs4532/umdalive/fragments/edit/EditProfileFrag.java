@@ -68,7 +68,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
+    @Override
     public void onClick(View view) {
         if(majorEditText.getText().toString().trim().length()!=0){
             try {
@@ -117,7 +117,7 @@ public class EditProfileFrag extends Fragment implements View.OnClickListener{
     private void updateUI(JSONObject res) throws JSONException {
         EditingProfile.setText("Editing Profile:\n" + res.getString("name"));
         EditingProfile.setTag(res.getString("_id"));
-        majorEditText.setText(res.getString("name"));
+        majorEditText.setText(res.getString("major"));
         aboutEditText.setText(res.getString("about"));
         userData = res;
     }

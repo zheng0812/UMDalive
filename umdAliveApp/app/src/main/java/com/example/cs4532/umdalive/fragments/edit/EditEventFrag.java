@@ -43,7 +43,7 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //Create View
-        view = inflater.inflate(R.layout.edit_club_layou, container, false);
+        view = inflater.inflate(R.layout.edit_event_layout, container, false);
 
         //Get Layout Components
         getLayoutComponents();
@@ -72,20 +72,6 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    private void getLayoutComponents() {
-        NewEventName = view.findViewById(R.id.NewEventName);
-        NewEventDescription = view.findViewById(R.id.NewEventDescription);
-        EditingEvent= view.findViewById(R.id.EventEditing);
-        SaveButton = view.findViewById(R.id.SaveEditedEvent);
-        SaveButton.setOnClickListener(this);
-    }
-
-    private void updateUI(JSONObject res) throws JSONException{
-        NewEventName.setText(res.getString("name"));
-        NewEventDescription.setText(res.getString("description"));
-        eventData = res;
-    }
-
     @Override
     public void onClick(View v) {
         if(NewEventName.getText().toString().trim().length()!=0){
@@ -103,7 +89,7 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
             }
         }
         RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editClub/", eventData,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "editEvent/", eventData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -122,5 +108,21 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
         frag.setArguments(data);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
 
+    }
+
+    private void getLayoutComponents() {
+        EditingEvent = view.findViewById(R.id.EventEditing);
+        NewEventName = view.findViewById(R.id.NewEventName);
+        NewEventDescription = view.findViewById(R.id.NewEventDescription);
+        SaveButton = view.findViewById(R.id.SaveEvent);
+        SaveButton.setOnClickListener(this);
+    }
+
+    private void updateUI(JSONObject res) throws JSONException{
+        EditingEvent.setText("Editing Event:\n"+res.getString("name"));
+        EditingEvent.setTag(res.getString("_id"));
+        NewEventName.setText(res.getString("name"));
+        NewEventDescription.setText(res.getString("description"));
+        eventData = res;
     }
 }

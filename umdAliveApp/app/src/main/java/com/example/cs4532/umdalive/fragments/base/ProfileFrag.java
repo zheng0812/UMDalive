@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.fragments.create.CreateProfileFrag;
 import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
 
 import org.json.JSONArray;
@@ -29,7 +30,7 @@ import org.json.JSONObject;
  * Requires argument with key of userID to be passed into it before it is added to the frame layout
  */
 
-public class ProfileFrag extends Fragment implements View.OnClickListener {
+public class ProfileFrag extends Fragment{
 
     //View
     View view;
@@ -61,7 +62,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
                             //Show loading bar
                             view.findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
                             //Add All Clubs Fragment
-                            EditProfileFrag frag = new EditProfileFrag();
+                            CreateProfileFrag frag = new CreateProfileFrag();
                             Bundle data = new Bundle();
                             frag.setArguments(data);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
@@ -85,11 +86,6 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
                 .into(profileImage);
         //Return View
         return view;
-    }
-
-    @Override
-    public void onClick(View clickedView) {
-
     }
 
     //Sets the Text views of the profile layout
@@ -125,11 +121,19 @@ public class ProfileFrag extends Fragment implements View.OnClickListener {
         for(int i = 0; i<clubArray.length();i++){
             TextView club = new TextView(view.getContext());
             club.setText(clubArray.getString(i));
-            club.setOnClickListener(this);
+            club.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String TAG = (String) v.getTag();
+                    ClubFrag frag = new ClubFrag();
+                    Bundle data = new Bundle();
+                    data.putString("clubID", TAG);
+                    frag.setArguments(data);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                }
+            });
             profileClubs.addView(club);
         }
-
-
 
     }
 }
