@@ -79,6 +79,7 @@ public class AllClubsFrag extends Fragment implements View.OnClickListener {
     /**
      * Allows a user to click on a club name to go to that club's page
      * @param clickedView The club name clicked
+     * @return nothing
      */
     @Override
     public void onClick(View clickedView) {
