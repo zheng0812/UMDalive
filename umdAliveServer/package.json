@@ -7,6 +7,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "forever": "^0.15.3",
+    "google-auth-library": "^1.4.0",
     "mongodb": "^2.2.11",
     "mongojs": "^2.4.1"
   },
@@ -14,7 +15,7 @@
     "module-js": "^5.15.0"
   },
   "scripts": {
-    "bootServer":"mongod --config mongod.conf & nodejs index.js",
+    "bootServer": "mongod --config mongod.conf & nodejs index.js",
     "prestart": "mongod --config mongod.conf &",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "forever start -al forever.log -o forever_output.log -e forever_error.log index.js",

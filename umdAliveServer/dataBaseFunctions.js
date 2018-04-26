@@ -6,25 +6,6 @@ var url = 'mongodb://ukko.d.umn.edu:32893/umdAliveDatabase';
 //array of collections we will use
 var collections = ['clubs', 'users', 'events'];
 
-//clubs: name, pictures, description, events, members
-//users: name, picture, major
-
-/*
-funtions required :
-	clubs:
-    createClub
-		getAllClubs
-		getClub
-		deleteClub
-	users:
-    createUser
-		getUser
-	events:
-    createEvent
-    getEvent
-		allEvents (by date)
-*/
-
 var assert = require('assert');
 
 var DBRef = mongojs(url, collections);
@@ -32,34 +13,55 @@ var DBRef = mongojs(url, collections);
 //the following are anonymous functions that wil be used in index.js
 
 //Club Calls
-module.exports.createClub = function(clubData) {
-    DBRef.collection('clubs').save(clubData, function(err, result){
-        if(err || !result){
-					 console.log("Club failed to save in database.");
-				} else {
-					console.log("Club inserted into clubs collection on umdAliveDatabase.");
-				}
-    });
+module.exports.createClub = function(clubData, callback) {
+  DBRef.collection('clubs').save(clubData, function(err, result){
+    if(err){
+      console.log(err)
+    } else {
+      callback("hi");
+      //Completed
+    }
+  });
+};
+
+module.exports.editClub = function(clubID, clubData){
+  DBRef.collection('clubs').update({"_id":mongojs.ObjectId(clubID)},clubData,function(err, result){
+    if (err){
+      console.log(err);
+    } else {
+      //Completed
+    }
+  });
 };
 
 module.exports.getClub = function(clubID, callback) {
-	DBRef.collection('clubs').find({"_id": mongojs.ObjectId(clubName)}).toArray(function(err, docs) {
-		if(err){
-			console.log("Search failed.")
-		} else {
-			console.log("Found the following records");
-			console.log(docs);
-			callback(docs[0]);
-		}
-	});
+  DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(clubID)}, function (err, doc){
+    if (err){
+      console.log(err);
+    } else {
+      DBRef.collection('users').find({"clubs" : clubID}).toArray(function (err, userDocs){
+        doc.members.regular = [];
+        for (i = 0; i < userDocs.length; i++){
+          if (userDocs[i].userID == doc.members.admin){
+            doc.members.admin = userDocs[i];
+          } else {
+            doc.members.regular.push(userDocs[i]);
+          }
+        }
+        DBRef.collection('events').find({"club": clubID}).toArray(function (err, eventDocs){
+          doc.events = eventDocs;
+          callback(doc);
+        });
+      });
+    }
+  });
 };
 
 module.exports.getAllClubs = function(callback) {
 	DBRef.collection('clubs').find({}).toArray(function(err, docs) {
-		if(err){
-			console.log("allClubs failed.")
+		if (err){
+      console.log(err);
 		} else {
-      console.log("-getAllClubs function called. status : Successfuss")
       var allClubsObject = {
         "clubs" : docs
       };
@@ -68,58 +70,195 @@ module.exports.getAllClubs = function(callback) {
 	});
 };
 
+module.exports.joinClub = function(userID, clubID){
+  DBRef.collection('users').findOne({"userID": userID}, function (err, doc){
+    doc.clubs.push(clubID);
+    DBRef.collection('users').update({"userID": userID}, doc, function (err, result){
+      if (err){
+        console.log(err);
+      } else {
+        //Completed
+      }
+    });
+  });
+  DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(clubID)}, function (err, doc){
+    doc.members.regular.push(userID);
+    DBRef.collection('clubs').update({"_id": mongojs.ObjectId(clubID)}, doc, function (err, result){
+      if (err){
+        console.log(err);
+      } else {
+        //Completed
+      }
+    });
+  });
+};
+
+module.exports.leaveClub = function(userID, clubID){
+  DBRef.collection('users').findOne({"userID": userID}, function (err, doc){
+    var index = doc.clubs.indexOf(clubID);
+    if (index > -1){
+      doc.clubs.splice(index, 1);
+      console.log(doc);
+    }
+    DBRef.collection('users').update({"userID": userID}, doc, function (err, result){
+      if (err){
+        console.log(err);
+      } else {
+        //Completed
+      }
+    });
+  });
+  DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(clubID)}, function (err, doc){
+    var index = doc.members.regular.indexOf(userID);
+    if (index > -1){
+      doc.members.regular.splice(index, 1);
+      console.log(doc);
+    }
+    DBRef.collection('clubs').update({"_id": mongojs.ObjectId(clubID)}, doc, function (err, result){
+      if (err){
+        console.log(err);
+      } else {
+        //Completed
+      }
+    });
+  });
+};
+
+module.exports.deleteClub = function (clubID){
+  DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(clubID)}, function (err, doc){
+    if (err){
+      console.log(err);
+    } else {
+      DBRef.collection('users').find({"clubs": clubID}).toArray(function (err, userDocs){
+        for (i = 0; i < userDocs.length; i++){
+          var index = userDocs[i].clubs(clubID);
+          if (index > -1){
+            userDocs[i].clubs.splice(index, 1);
+          }
+          DBRef.collection('users').update({"_id": mongojs.ObjectId(userDocs[i])}, userDocs[i], function (err, result){
+            if (err){
+              console.log(err);
+            } else {
+              //Completed
+            }
+          });
+        }
+      });
+      DBRef.collection('events').remove({"club": clubID}, false, function (err, result){
+        if (err){
+          console.log(err);
+        } else {
+          //Completed
+        }
+      });
+    }
+  });
+};
+
 //User Calls
 module.exports.createUser = function(userData){
   DBRef.collection('users').save(userData, function(err, result){
-    if(err || !result){
-       console.log("User failed to save in database.");
+    if (err){
+      console.log(err)
     } else {
-      console.log("Club inserted into clubs collection on umdAliveDatabase.");
+      //Completed
+    }
+  });
+};
+
+module.exports.editUser = function(userID, userData){
+  DBRef.collection('users').update({"userID": userID},userData,function(err, result){
+    if (err){
+      console.log(err);
+    } else {
+      console.log(result);
+      //Completed
     }
   });
 };
 
 module.exports.getUser = function(userID, callback) {
-	DBRef.collection('users').find({"userID": userID}).toArray(function(err, docs) {
-		if(err){
-			console.log("Search failed.")
-		} else {
-			callback(docs[0]);
-		}
-	});
+  DBRef.collection('users').findOne({"userID": userID}, function (err, doc){
+    if (err){
+      console.log(err);
+    } else {
+      //Completed
+      DBRef.collection('clubs').find({"members.admin": userID}).toArray(function (err, adminDocs){
+        DBRef.collection('clubs').find({"members.regular": userID}).toArray(function (err, regularDocs){
+          doc.clubs = adminDocs.concat(regularDocs);
+          callback(doc);
+        });
+      });
+    }
+  });
 };
 
 //Event Calls
 module.exports.createEvent = function(eventData){
   DBRef.collection('events').save(eventData, function(err, result){
-    if(err || !result){
-      console.log("Event failed to save in database.");
+    if (err){
+      console.log(err);
     } else {
-      console.log("createEvent event called. Following event was added to the events collection:");
-      console.log(eventData);
+      //Completed
     }
   });
 };
 
-module.exports.getEvent = function (eventID, callback){
-  DBRef.collection('events').find({"_id": mongojs.ObjectId(eventID)}).toArray(function(err, docs){
+module.exports.editEvent = function(eventID, eventData){
+  DBRef.collection('events').update({"_id":mongojs.ObjectId(eventID)},eventData,function(err, result){
     if (err){
-      console.log("Search failed");
+      console.log(err);
     } else {
-      callback.log(docs[0]);
+      //Completed
+    }
+  });
+};
+
+module.exports.getEvent = function(eventID, callback) {
+	DBRef.collection('events').findOne({"_id": mongojs.ObjectId(eventID)}, function (err, doc){
+    if (err){
+      console.log(err);
+    } else {
+      //Completed
+      DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(doc.club)}, function (err, clubDoc){
+        doc.club = clubDoc;
+        callback(doc);
+      });
     }
   });
 };
 
 module.exports.getAllEvents = function(callback){
-  DBref.collection('events').find().toArray(function(err, docs){
-    if(err){
-      console.log("Search failed");
+  DBRef.collection('events').find().toArray(function(err, docs){
+    if (err){
+      console.log(err);
     } else {
         var allEventsObject = {
           "events" : docs
         }
       callback(allEventsObject);
+    }
+  });
+};
+
+module.exports.deleteEvent = function (eventID){
+  DBRef.collection('events').findOne({"_id": mongojs.ObjectId(eventID)}, function (err, doc){
+    if (err){
+      console.log(err);
+    } else {
+      DBRef.collection('clubs').findOne({"_id": mongojs.ObjectId(doc.club)}, function (err, clubDoc){
+        var index = clubDoc.events(eventID);
+        if (index > -1){
+          clubDoc.events.splice(index, 1);
+        }
+        DBRef.collection('clubs').update({"_id": mongojs.ObjectId(doc.club)}, clubDoc, function (err, result){
+          if (err){
+            console.log(err);
+          } else {
+            //Completed
+          }
+        });
+      });
     }
   });
 };
