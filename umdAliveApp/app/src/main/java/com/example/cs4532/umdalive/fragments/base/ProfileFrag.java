@@ -1,4 +1,4 @@
-package com.example.cs4532.umdalive.fragments;
+package com.example.cs4532.umdalive.fragments.base;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

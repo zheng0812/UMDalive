@@ -1,6 +1,5 @@
-package com.example.cs4532.umdalive.fragments;
+package com.example.cs4532.umdalive.fragments.base;
 
-import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;

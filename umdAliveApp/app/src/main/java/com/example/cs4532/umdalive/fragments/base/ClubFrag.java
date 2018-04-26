@@ -1,7 +1,5 @@
-package com.example.cs4532.umdalive.fragments;
+package com.example.cs4532.umdalive.fragments.base;
 
-import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -20,9 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
-import com.example.cs4532.umdalive.UserSingleton;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.example.cs4532.umdalive.fragments.edit.EditClubFrag;
 
 import org.json.JSONArray;
 import org.json.JSONException;

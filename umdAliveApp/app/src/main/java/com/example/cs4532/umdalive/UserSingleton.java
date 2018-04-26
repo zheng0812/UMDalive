@@ -21,13 +21,15 @@ public class UserSingleton {
         account = a;
     }
 
-    public String getUserID() {
+    public String getUserID () {
         return account.getId();
     }
 
-    public String getName() {
+    public String getName () {
         return account.getDisplayName();
     }
+
+    public String getEmail() { return account.getEmail(); }
 
     public String getProfileUrl() {
         return account.getPhotoUrl().toString();
