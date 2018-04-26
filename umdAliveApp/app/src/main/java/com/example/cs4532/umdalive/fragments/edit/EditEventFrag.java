@@ -43,6 +43,8 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
     private TextView EditingEvent;
     private EditText NewEventName;
     private EditText NewEventDescription;
+    private EditText NewEventTime;
+    private EditText NewEventDate;
     private Button SaveButton;
 
     private JSONObject eventData;
@@ -100,10 +102,21 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        if(NewEventDescription.getText().toString().trim().length()!=0){
+        }if(NewEventDescription.getText().toString().trim().length()!=0){
             try {
                 eventData.put("description",NewEventDescription.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }if(NewEventDate.getText().toString().trim().length()!=0){
+            try {
+                eventData.put("date",NewEventDate.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }if(NewEventTime.getText().toString().trim().length()!=0){
+            try {
+                eventData.put("time",NewEventTime.getText().toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -138,6 +151,8 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
         EditingEvent = view.findViewById(R.id.EventEditing);
         NewEventName = view.findViewById(R.id.NewEventName);
         NewEventDescription = view.findViewById(R.id.NewEventDescription);
+        NewEventDate = view.findViewById(R.id.NewEventDate);
+        NewEventTime = view.findViewById(R.id.NewEventTime);
         SaveButton = view.findViewById(R.id.SaveEvent);
         SaveButton.setOnClickListener(this);
     }
@@ -153,6 +168,8 @@ public class EditEventFrag  extends Fragment implements View.OnClickListener {
         EditingEvent.setTag(res.getString("_id"));
         NewEventName.setText(res.getString("name"));
         NewEventDescription.setText(res.getString("description"));
+        NewEventTime.setText(res.getString("time"));
+        NewEventDate.setText(res.getString("date"));
         eventData = res;
     }
 }

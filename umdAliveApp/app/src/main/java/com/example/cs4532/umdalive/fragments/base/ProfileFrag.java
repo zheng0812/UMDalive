@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.cs4532.umdalive.R;
 import com.example.cs4532.umdalive.RestSingleton;
+import com.example.cs4532.umdalive.UserSingleton;
 import com.example.cs4532.umdalive.fragments.create.CreateProfileFrag;
 import com.example.cs4532.umdalive.fragments.edit.EditProfileFrag;
 
@@ -58,7 +59,6 @@ public class ProfileFrag extends Fragment{
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         //Create View
         view = inflater.inflate(R.layout.profile_layout, container, false);
 
@@ -71,19 +71,18 @@ public class ProfileFrag extends Fragment{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response == "undefined"){
-                            //Show loading bar
-                            view.findViewById(R.id.PageLoading).setVisibility(View.VISIBLE);
+                        if(response.isEmpty()){
                             //Add All Clubs Fragment
                             CreateProfileFrag frag = new CreateProfileFrag();
                             Bundle data = new Bundle();
                             frag.setArguments(data);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
-                        }
-                        try {
-                            updateUI(new JSONObject(response));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        } else {
+                            try {
+                                updateUI(new JSONObject(response));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -93,10 +92,7 @@ public class ProfileFrag extends Fragment{
             }
         });
         restSingleton.addToRequestQueue(stringRequest);
-        Glide.with(getContext())
-                .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
-                .apply(RequestOptions.circleCropTransform())
-                .into(profileImage);
+
         //Return View
         return view;
     }
@@ -107,12 +103,12 @@ public class ProfileFrag extends Fragment{
      */
     //Sets the Text views of the profile layout
     private void getLayoutComponents() {
-        profileName = (TextView) view.findViewById(R.id.profileName);
-        profileMajor = (TextView) view.findViewById(R.id.profileMajor);
-        profileAbout = (TextView) view.findViewById(R.id.profileAbout);
-        profileImage = (ImageView) view.findViewById(R.id.profileImage);
-        profileClubs = (LinearLayout) view.findViewById(R.id.profileClubs);
-        editProfile = (FloatingActionButton) view.findViewById(R.id.editProfile);
+        profileName = view.findViewById(R.id.profileName);
+        profileMajor = view.findViewById(R.id.profileMajor);
+        profileAbout = view.findViewById(R.id.profileAbout);
+        profileImage = view.findViewById(R.id.profileImage);
+        profileClubs = view.findViewById(R.id.profileClubs);
+        editProfile = view.findViewById(R.id.editProfile);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +133,7 @@ public class ProfileFrag extends Fragment{
 
         profileName.setText(res.getString("name"));
         profileMajor.setText(res.getString("major"));
-        profileAbout.setText(res.getString("about"));
+        profileAbout.setText(res.getString("description"));
 
         JSONArray clubArray = res.getJSONArray("clubs");
 
@@ -156,6 +152,18 @@ public class ProfileFrag extends Fragment{
                 }
             });
             profileClubs.addView(club);
+        }
+
+        if (UserSingleton.getInstance().getProfileUrl() != null) {
+            Glide.with(this)
+                    .load(UserSingleton.getInstance().getProfileUrl())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profileImage);
+        } else {
+            Glide.with(this)
+                    .load("https://images.homedepot-static.com/productImages/42613c1a-7427-4557-ada8-ba2a17cca381/svn/gorilla-carts-yard-carts-gormp-12-64_1000.jpg")
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profileImage);
         }
 
     }
