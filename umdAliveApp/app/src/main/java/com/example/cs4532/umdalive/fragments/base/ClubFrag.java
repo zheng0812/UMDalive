@@ -68,6 +68,7 @@ public class ClubFrag extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         leaveJoinData = new JSONObject();
+        view.setVisibility(View.GONE);
 
         //Create View
         view = inflater.inflate(R.layout.club_layout, container, false);
@@ -198,6 +199,7 @@ public class ClubFrag extends Fragment{
      * @see JSONException
      */
     private void updateUI(JSONObject res) throws JSONException{
+        view.setVisibility(View.VISIBLE);
         clubData = res;
         Boolean found = false;
         String userID = UserSingleton.getInstance().getUserID();

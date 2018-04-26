@@ -95,7 +95,29 @@ public class EditClubFrag extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getTag().toString() == "DELETE") {
-
+            RestSingleton restSingleton = RestSingleton.getInstance(view.getContext());
+            StringRequest stringRequest = null;
+            try {
+                stringRequest = new StringRequest(Request.Method.DELETE, restSingleton.getUrl() + "deleteClub/" + clubData.getString("_id"),
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    updateUI(new JSONObject(response));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error connecting", String.valueOf(error));
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            restSingleton.addToRequestQueue(stringRequest);
         } else {
             if (NewClubName.getText().toString().trim().length() != 0) {
                 try {

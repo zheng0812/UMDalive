@@ -92,7 +92,6 @@ public class CreateEventFrag  extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
 
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, RestSingleton.getInstance(view.getContext()).getUrl() + "createEvent", newEventData,
                 new Response.Listener<JSONObject>() {
                     @Override
