@@ -131,6 +131,54 @@ app.get('/getUser/:userID', function (req, res){
     });
 });
 
+app.get('/users/:email', function (req, res) {
+    var user;
+        console.log("Looking for " + req.params.email);
+
+    mongodb.findUser(req.params.email, function(result){
+
+        if(result.length > 0){
+                        var user = result[0];
+                        console.log(user);
+                        console.log("Found user.");
+                        //console.log(res.body);
+            //            res.query = JSON.stringify(user.userData);//was user.userData
+            //                        console.log("-------------------")
+            //                                    res.send(res.query);
+            //
+        } else {
+                        res.send(404);
+
+        }
+
+    });
+    //    res.send(JSON.stringify(dummyUser1));
+    //
+});
+
+app.put('/userData', function (req, res) {
+        // If for some reason the JSON isn't parsed, return HTTP error 400
+    if (!req.body) return res.sendStatus(400);
+
+    var userData = {
+        name: req.body.name,
+        major: req.body.major,
+        email: req.body.email,
+        graduation_date: req.body.graduationDate,
+        userType: req.body.userType,
+        users_clubs: [],
+    };
+
+    mongodb.insertUser(userData);
+    console.log("Creating user" + req.body.name);
+
+    var jsonResponse = {
+        id: '123', status: 'updated'
+    };
+    res.json(jsonResponse);
+    //res.json(userData);
+});
+
 //Event server calls
 app.put('/createEvent', function (req, res){
   if (!req.body){
