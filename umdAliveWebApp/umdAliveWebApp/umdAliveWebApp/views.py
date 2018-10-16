@@ -22,14 +22,14 @@ import chardet                                                        #This is f
 ##I replaced all occurances of json.loads with variableName.json()
 ##.json() will automatically convert the data
 
-app.config['GOOGLE_ID'] = '1038190040839-t8lkgg9kdackr6gtvdk78sn3nj52g2uq.apps.googleusercontent.com'
-app.config['GOOGLE_SECRET'] = 'nelzkLR3M2mIUbt1K-WjztuE'
+app.config['GOOGLE_ID'] = '58270375330-3nsdpvdmse7f652f6i8j3lkt2kaqp87p.apps.googleusercontent.com'
+app.config['GOOGLE_SECRET'] = 'YF2HOss763aq2lAAbHarDe7i'
 app.debug = True
 app.secret_key = 'development'
 oauth = OAuth(app)
 
 # URL for the REST API
-url = "http://akka.d.umn.edu:45645"
+url = "http://ukko.d.umn.edu:32892"
 
 # Initializes all of the Google authentication
 # and profile information

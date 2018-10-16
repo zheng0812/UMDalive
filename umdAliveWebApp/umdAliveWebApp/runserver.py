@@ -13,12 +13,13 @@ serverUse = True
 
 if serverUse:
     hostName = 'ukko.d.umn.edu'
-    portNumber = 45444
+    portNumber =32895 
 else:     
     hostName = 'localhost'
     portNumber = 5555
 if __name__ == '__main__':
-    app.run(threadable=True)
+    #app.run(threadable=True)
+    app.run()
     HOST = environ.get('SERVER_HOST', hostName)
     try:
         PORT = int(environ.get('SERVER_PORT', portNumber))
