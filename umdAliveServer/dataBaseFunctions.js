@@ -218,8 +218,9 @@ module.exports.getUser = function(userID, callback) {
 };
 
 //Event Calls
-module.exports.createEvent = function(eventData){
+module.exports.createEvent = function(eventData, callback){
   DBRef.collection('events').save(eventData, function(err, result){
+	console.log(result);
     if (err){
       console.log(err);
     } else {
@@ -229,7 +230,7 @@ module.exports.createEvent = function(eventData){
         } else {
           //Completed
         }
-        doc.events.push(eventData._id + "");
+        doc.events.push(result._id + "");
         DBRef.collection('clubs').update({"_id": mongojs.ObjectId(result.club)}, doc, function (err, result){
           if (err){
             console.log(err);
@@ -239,6 +240,7 @@ module.exports.createEvent = function(eventData){
         });
       });
       //Completed
+	  callback({"eventID" : result._id});
     }
   });
 };
