@@ -191,8 +191,10 @@ app.put('/createEvent', function (req, res){
     "time" : req.body.time,
     "club" : req.body.club
   };
-  dataBase.createEvent(eventData);
-  res.send({});
+  dataBase.createEvent(eventData, function(doc){
+		console.log(doc);
+		res.send(doc);
+  });
 });
 
 app.put('/editEvent', function (req, res){
@@ -212,8 +214,10 @@ app.put('/editEvent', function (req, res){
   res.send({});
 });
 
-app.get('/getEvent/:eventID', function (req, res) {
+app.get('/getEvent/:eventID', function (req, res) { 
+  console.log("getEvent");
   dataBase.getEvent(req.params.eventID, function (docs) {
+	console.log(docs);
     res.send(docs);
   });
 });
