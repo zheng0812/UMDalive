@@ -62,7 +62,8 @@ public class CreateEventFrag  extends Fragment implements View.OnClickListener {
 
         //Set Event Data
         try {
-            clubData = new JSONObject(getArguments().getString("clubID"));
+            clubData = new JSONObject();
+            clubData.put("clubID", getArguments().getString("clubID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -87,7 +88,7 @@ public class CreateEventFrag  extends Fragment implements View.OnClickListener {
             newEventData.put("description", EventDescription.getText());
             newEventData.put("time",EventTime.getText());
             newEventData.put("date", EventDate.getText());
-            newEventData.put("clubID",clubData.getString("clubID"));
+            newEventData.put("club",clubData.getString("clubID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -96,11 +97,16 @@ public class CreateEventFrag  extends Fragment implements View.OnClickListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        EventFrag frag = new EventFrag();
-                        Bundle data = new Bundle();
-                        //data.putString("clubID", );
-                        frag.setArguments(data);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,frag).commit();
+                        try {
+                            EventFrag frag = new EventFrag();
+                            Bundle data = new Bundle();
+                            data.putString("eventID", response.getString("eventID"));
+                            data.putString("clubID", clubData.getString("clubID"));
+                            frag.setArguments(data);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+                        } catch (JSONException e){
+                            Log.d("Error getting eventID", String.valueOf(e));
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

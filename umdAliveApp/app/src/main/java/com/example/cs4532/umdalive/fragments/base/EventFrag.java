@@ -137,7 +137,7 @@ public class EventFrag extends Fragment{
         eventDate.setText(res.getString("date"));
         eventDescription.setText(res.getString("description"));
         eventTime.setText(res.getString("time"));
-        goTo.setTag(res.getString("club").toString());
+        goTo.setTag(res.getJSONObject("club").getString("_id").toString());
         if(UserSingleton.getInstance().getUserID()!=res.getJSONObject("club").getJSONObject("members").getString("admin")){
             editEventFAB.setVisibility(View.GONE);
         }
