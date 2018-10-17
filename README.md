@@ -16,27 +16,12 @@ Paul Sipper handled the page that displays all of the clubs as well the majority
 
 # Install
 
-1. Navigate to https://console.developers.google.com/ and login using your UMD credentials.
+1. Create Firebase App
 
-   1. Generate Google Services 
+   1. See https://github.umn.edu/CS4531/TechPrep/blob/master/README.md for generating google-services.json file.
 
-      ![Dev Console Select Create](images/credential1.png)
-
-      ![select](images/select_oauth.png)
-
-      Select **Oauth client ID** then **Android**
-
-      ![Information](images/google_service_generation.png)
-
-      Provide the information requested.
-
-      **Name** unique identification for your reference
-
-      **SHA 1** you can use the command they give you to generate the SHA1 hash.
-
-      **Package Name** You can find this in your AndroidManifest.xml
-
-2. Make Web Application Oauth
+      
+2. Navigate to https://console.developers.google.com and select your project/create your project
 
    ![select](images/select_oauth.png)	
 
