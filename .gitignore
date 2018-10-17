@@ -1,2 +1,11 @@
+# User-specific stuff
+/umdAliveApp/.idea/**/workspace.xml
+/umdAliveApp/.idea/**/tasks.xml
+/umdAliveApp/.idea/**/usage.statistics.xml
+/umdAliveApp/.idea/**/dictionaries
+/umdAliveApp/.idea/**/shelf
 
+# Gradle
+/umdAliveApp/.idea/**/gradle.xml
+/umdAliveApp/.idea/**/libraries
 umdAliveApp/app/credentials.json
