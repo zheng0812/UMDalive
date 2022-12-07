@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "forever": "^0.15.3",
     "google-auth-library": "^1.4.0",
     "mongodb": "^2.2.11",
